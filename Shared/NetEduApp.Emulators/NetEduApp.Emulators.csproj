@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B9D2B18F-1A38-42F8-8608-42AC6C0FA3F6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NetEduApp.Emulators</RootNamespace>
+    <AssemblyName>NetEduApp.Emulators</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- A reference to the entire .NET Framework is automatically included -->
+    <None Include="project.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="EmulatorLogger.cs" />
+    <Compile Include="Network\Abstract\IComputer.cs" />
+    <Compile Include="Network\Abstract\IHub.cs" />
+    <Compile Include="Network\Abstract\INetAddress.cs" />
+    <Compile Include="Network\Abstract\INetDevice.cs" />
+    <Compile Include="Network\Abstract\INetEmulator.cs" />
+    <Compile Include="Network\Abstract\INetHwInterface.cs" />
+    <Compile Include="Network\Abstract\INetLgInterface.cs" />
+    <Compile Include="Network\Abstract\INetPacket.cs" />
+    <Compile Include="Network\Abstract\INetRoute.cs" />
+    <Compile Include="Network\Abstract\IRouter.cs" />
+    <Compile Include="Network\Abstract\ISwitch.cs" />
+    <Compile Include="Network\Devices\Computer.cs" />
+    <Compile Include="Network\Devices\Hub.cs" />
+    <Compile Include="Network\Devices\Router.cs" />
+    <Compile Include="Network\Devices\Switch.cs" />
+    <Compile Include="Network\NetAddress.cs" />
+    <Compile Include="Network\NetHwInterface.cs" />
+    <Compile Include="Network\NetLgInterface.cs" />
+    <Compile Include="Network\NetPacket.cs" />
+    <Compile Include="Network\NetRoute.cs" />
+    <Compile Include="Network\NetworkEmulator.cs" />
+    <Compile Include="Network\NetworkFactory.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
