@@ -25,7 +25,7 @@
         Executable="$targetnametoken$.exe"
         EntryPoint="NetEduApp.App">
         <m2:VisualElements
-            DisplayName="NetEduApp"
+            DisplayName="Computer Network Lab"
             Square150x150Logo="Assets\Logo.png"
             Square30x30Logo="Assets\SmallLogo.png"
             Description="NetEduApp"

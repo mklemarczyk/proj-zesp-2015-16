@@ -8,7 +8,7 @@
     <Application.Resources>
         <!-- Application-specific resources -->
 
-        <x:String x:Key="AppName">NetEduApp</x:String>
+        <x:String x:Key="AppName">Computer Network Lab</x:String>
 
     </Application.Resources>
 </Application>
