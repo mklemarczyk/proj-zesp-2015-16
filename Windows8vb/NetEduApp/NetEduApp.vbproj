@@ -140,6 +140,10 @@
     <PRIResource Include="Strings\en-US\Resources.resw">
       <SubType>Designer</SubType>
     </PRIResource>
+    <Content Include="Assets\Images\Computer.png" />
+    <Content Include="Assets\Images\Hub.png" />
+    <Content Include="Assets\Images\Router.png" />
+    <Content Include="Assets\Images\Switch.png" />
     <Content Include="DataModel\SampleData.json" />
   </ItemGroup>
   <ItemGroup>
