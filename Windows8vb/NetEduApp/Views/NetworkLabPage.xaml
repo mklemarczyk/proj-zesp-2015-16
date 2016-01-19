@@ -12,12 +12,9 @@
 
     <Page.Resources>
         <DataTemplate x:Key="ItemsControlItemDataTemplate">
-            <Border x:Name="itemBorder" BorderBrush="Black" BorderThickness="1" Tag="{Binding}">
+            <Border x:Name="itemBorder" BorderBrush="Black" BorderThickness="1" Tag="{Binding}" Visibility="Collapsed">
                 <Interactivity:Interaction.Behaviors>
-                    <Core:DataTriggerBehavior Binding="{Binding Name}" ComparisonCondition="Equal" Value="">
-                        <Core:ChangePropertyAction PropertyName="Visibility" Value="Collapsed"/>
-                    </Core:DataTriggerBehavior>
-                    <Core:DataTriggerBehavior Binding="{Binding Name}" ComparisonCondition="NotEqual" Value="">
+                    <Core:DataTriggerBehavior Binding="{Binding Name}" ComparisonCondition="NotEqual" Value="{x:Null}">
                         <Core:ChangePropertyAction PropertyName="Visibility" Value="Visible"/>
                     </Core:DataTriggerBehavior>
                     <Core:DataTriggerBehavior Binding="{Binding IsSelected}" ComparisonCondition="Equal" Value="True">
@@ -32,7 +29,7 @@
                 </Border.Projection>
                 <StackPanel Background="White">
                     <Image Source="{Binding ImagePath}" Height="70" Width="70" PointerPressed="Image_PointerPressed" DoubleTapped="Image_DoubleTapped" />
-                    <TextBlock Text="{Binding Name}" HorizontalAlignment="Center" DoubleTapped="TextBlock_DoubleTapped" />
+                    <TextBlock Text="{Binding Name}" Foreground="Black" HorizontalAlignment="Center" DoubleTapped="TextBlock_DoubleTapped" />
                 </StackPanel>
             </Border>
         </DataTemplate>
@@ -102,4 +99,24 @@
                              ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
         </Grid>
     </Grid>
+    <Page.BottomAppBar>
+        <CommandBar IsOpen="True" IsSticky="True" Closed="CommandBar_Closed">
+            <AppBarButton Icon="Add" Content="Dodaj">
+                <AppBarButton.Flyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Text="Link" Click="MenuFlyoutItem_Click" />
+                        <MenuFlyoutItem Text="Hub" Command="{Binding CreateHubCommand}"/>
+                        <MenuFlyoutItem Text="Switch" Command="{Binding CreateSwitchCommand}"/>
+                        <MenuFlyoutItem Text="Router" Command="{Binding CreateRouterCommand}"/>
+                        <MenuFlyoutItem Text="Computer" Command="{Binding CreateComputerCommand}"/>
+                    </MenuFlyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
+            <AppBarButton Icon="Edit" Content="Edytuj" Command="{Binding EditCommand}" CommandParameter="{Binding SelectedDevice}" />
+            <AppBarButton Icon="Remove" Content="Usuń" Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedDevice}" />
+            <AppBarButton Icon="Send" Content="Wyślij" />
+            <AppBarButton Icon="ImportAll" Content="Wczytaj" />
+            <AppBarButton Icon="SaveLocal" Content="Zapisz" />
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

@@ -1,6 +1,8 @@
-﻿' The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234237
+﻿Imports NetEduApp.Models
+Imports NetEduApp.ViewModels
+Imports Windows.UI.Input
+' The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234237
 
-Imports NetEduApp.Models
 ''' <summary>
 ''' A basic page that provides characteristics common to most applications.
 ''' </summary>
@@ -21,12 +23,12 @@ Public NotInheritable Class NetworkLabPage
     ''' <summary>
     ''' This can be changed to a strongly typed view model.
     ''' </summary>
-    Public ReadOnly Property DefaultViewModel As Common.ObservableDictionary
+    Public ReadOnly Property DefaultViewModel As NetworkViewModel
         Get
             Return Me._defaultViewModel
         End Get
     End Property
-    Private _defaultViewModel As New Common.ObservableDictionary()
+    Private _defaultViewModel As New NetworkViewModel()
 
     Public Sub New()
         InitializeComponent()
@@ -34,10 +36,7 @@ Public NotInheritable Class NetworkLabPage
         AddHandler Me._navigationHelper.LoadState, AddressOf NavigationHelper_LoadState
         AddHandler Me._navigationHelper.SaveState, AddressOf NavigationHelper_SaveState
 
-        'Me.InitializeComponent()
-        'Me.ViewModel = New ViewModels.NetworkViewModel()
-        'Me.DataContext = ViewModel
-        'Me.prop.Visibility = Visibility.Collapsed
+        Me.prop.Visibility = Visibility.Collapsed
     End Sub
 
     ''' <summary>
@@ -96,14 +95,13 @@ Public NotInheritable Class NetworkLabPage
     Private pickedData As VisualLabElement
     Private activeLink As VisualLabLink
     Private lastPosition As Point?
-    Private ViewModel As ViewModels.NetworkViewModel
 
     Private Sub Grid_PointerReleased(sender As Object, e As PointerRoutedEventArgs)
         e.Handled = True
         If pickedData IsNot Nothing And pickedData IsNot FakeVisualLabElement.Fake Then
-            ViewModel.SelectedDevice = pickedData
+            _defaultViewModel.SelectedDevice = pickedData
         Else
-            ViewModel.SelectedDevice = Nothing
+            _defaultViewModel.SelectedDevice = Nothing
         End If
         If inAction = True And pickedContol IsNot Nothing Then
             AddHandler pickedContol.PointerPressed, AddressOf Image_PointerPressed
@@ -115,29 +113,29 @@ Public NotInheritable Class NetworkLabPage
     End Sub
 
     Private Sub Grid_PointerMoved(sender As Object, e As PointerRoutedEventArgs)
-        'e.Handled = True
-        'If inAction = True And pickedData IsNot Nothing Then
-        '    Dim position As PointerPoint = e.GetCurrentPoint(Me.netItemsControl)
-        '    Me.pickedData.Position = New Point(position.Position.X - 35, position.Position.Y - 35)
-        'End If
+        e.Handled = True
+        If inAction = True And pickedData IsNot Nothing Then
+            Dim position As PointerPoint = e.GetCurrentPoint(Me.netItemsControl)
+            Me.pickedData.Position = New Point(position.Position.X - 35, position.Position.Y - 35)
+        End If
     End Sub
 
     Private Sub Grid_PointerExited(sender As Object, e As PointerRoutedEventArgs)
-        'e.Handled = True
-        'If inAction = True And pickedData IsNot Nothing Then
-        '    If lastPosition IsNot Nothing Then
-        '        Me.pickedData.Position = lastPosition
-        '        AddHandler pickedContol.PointerPressed, AddressOf Image_PointerPressed
-        '    Else
-        '        If pickedData IsNot FakeVisualLabElement.Fake Then
-        '            netItemsControl.Items.Remove(pickedData)
-        '        End If
-        '    End If
-        'End If
-        'Me.inAction = False
-        'Me.pickedContol = Nothing
-        'Me.pickedData = Nothing
-        'Me.lastPosition = Nothing
+        e.Handled = True
+        If inAction = True And pickedData IsNot Nothing Then
+            If lastPosition IsNot Nothing Then
+                Me.pickedData.Position = lastPosition
+                AddHandler pickedContol.PointerPressed, AddressOf Image_PointerPressed
+            Else
+                If pickedData IsNot FakeVisualLabElement.Fake Then
+                    netItemsControl.Items.Remove(pickedData)
+                End If
+            End If
+        End If
+        Me.inAction = False
+        Me.pickedContol = Nothing
+        Me.pickedData = Nothing
+        Me.lastPosition = Nothing
     End Sub
 
     Private Sub Image_PointerPressed(sender As Object, e As PointerRoutedEventArgs)
@@ -167,7 +165,7 @@ Public NotInheritable Class NetworkLabPage
                             inAction = False
                             activeLink = Nothing
                             pickedData = Nothing
-                            ViewModel.Lab.Devices.Remove(FakeVisualLabElement.Fake)
+                            _defaultViewModel.Lab.Devices.Remove(FakeVisualLabElement.Fake)
                         End If
                     End If
                 End If
@@ -220,8 +218,8 @@ Public NotInheritable Class NetworkLabPage
 
     Private Sub MenuFlyoutItem_Click(sender As Object, e As RoutedEventArgs)
         If activeLink IsNot Nothing Then
-            ViewModel.Lab.Devices.Remove(FakeVisualLabElement.Fake)
-            ViewModel.Lab.Links.Remove(activeLink)
+            _defaultViewModel.Lab.Devices.Remove(FakeVisualLabElement.Fake)
+            _defaultViewModel.Lab.Links.Remove(activeLink)
             activeLink.ItemA = Nothing
             activeLink.ItemB = Nothing
             activeLink = Nothing
@@ -233,8 +231,8 @@ Public NotInheritable Class NetworkLabPage
             activeLink.ItemA = FakeVisualLabElement.Fake
             activeLink.ItemB = FakeVisualLabElement.Fake
             pickedData = FakeVisualLabElement.Fake
-            ViewModel.Lab.Devices.Add(FakeVisualLabElement.Fake)
-            ViewModel.Lab.Links.Add(activeLink)
+            _defaultViewModel.Lab.Devices.Add(FakeVisualLabElement.Fake)
+            _defaultViewModel.Lab.Links.Add(activeLink)
         End If
     End Sub
 
@@ -256,4 +254,7 @@ Public NotInheritable Class NetworkLabPage
         'End If
     End Sub
 
+    Private Sub CommandBar_Closed(sender As Object, e As Object)
+        DirectCast(sender, CommandBar).IsOpen = True
+    End Sub
 End Class

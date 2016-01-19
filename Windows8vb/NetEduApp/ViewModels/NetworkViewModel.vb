@@ -1,4 +1,5 @@
-﻿Imports NetEduApp.Emulators.Network
+﻿Imports NetEduApp.Common
+Imports NetEduApp.Emulators.Network
 Imports NetEduApp.Models
 
 Namespace ViewModels
@@ -8,15 +9,15 @@ Namespace ViewModels
 
         Public Sub New()
             'NavigationService = CType(App.Current, App).NavigationService
-            'Lab = New Laboratory
-            'CreateHubCommand = New DelegateCommand(AddressOf CreateHubAction)
-            'CreateSwitchCommand = New DelegateCommand(AddressOf CreateSwitchAction)
-            'CreateRouterCommand = New DelegateCommand(AddressOf CreateRouterAction)
-            'CreateComputerCommand = New DelegateCommand(AddressOf CreateComputerAction)
-            'CreateLinkCommand = New DelegateCommand(AddressOf CreateLinkAction)
+            Lab = New Laboratory
+            CreateHubCommand = New RelayCommand(AddressOf CreateHubAction)
+            CreateSwitchCommand = New RelayCommand(AddressOf CreateSwitchAction)
+            CreateRouterCommand = New RelayCommand(AddressOf CreateRouterAction)
+            CreateComputerCommand = New RelayCommand(AddressOf CreateComputerAction)
+            CreateLinkCommand = New RelayCommand(AddressOf CreateLinkAction)
 
-            'EditCommand = New DelegateCommand(AddressOf EditAction, AddressOf CanEditPredicate)
-            'DeleteCommand = New DelegateCommand(AddressOf DeleteAction, AddressOf CanDeletePredicate)
+            EditCommand = New RelayCommand(AddressOf EditAction, AddressOf CanEditPredicate)
+            DeleteCommand = New RelayCommand(AddressOf DeleteAction, AddressOf CanDeletePredicate)
         End Sub
 
         Private Sub CreateHubAction()
@@ -56,8 +57,8 @@ Namespace ViewModels
         Public Property CreateComputerCommand As ICommand
 
         Public Property CreateLinkCommand As ICommand
-        Public Property EditCommand As ICommand
-        Public Property DeleteCommand As ICommand
+        Public Property EditCommand As RelayCommand
+        Public Property DeleteCommand As RelayCommand
 
         Private _SelectedDevice As VisualLabElement
         Public Property SelectedDevice As VisualLabElement
@@ -73,8 +74,8 @@ Namespace ViewModels
                     If _SelectedDevice IsNot Nothing Then
                         _SelectedDevice.IsSelected = True
                     End If
-                    'EditCommand.RaiseCanExecuteChanged()
-                    'DeleteCommand.RaiseCanExecuteChanged()
+                    EditCommand.RaiseCanExecuteChanged()
+                    DeleteCommand.RaiseCanExecuteChanged()
                 End If
             End Set
         End Property
