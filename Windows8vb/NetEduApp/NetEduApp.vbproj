@@ -120,17 +120,38 @@
     <Compile Include="App.xaml.vb">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="HubPage.xaml.vb">
+    <Compile Include="Views\HubPage.xaml.vb">
       <DependentUpon>HubPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SectionPage.xaml.vb">
+    <Compile Include="Models\Computer.vb" />
+    <Compile Include="Models\EthernetLink.vb" />
+    <Compile Include="Models\FakeVisualLabElement.vb" />
+    <Compile Include="Models\Hub.vb" />
+    <Compile Include="Models\Laboratory.vb" />
+    <Compile Include="Models\Router.vb" />
+    <Compile Include="Models\Switch.vb" />
+    <Compile Include="Models\VisualLabElement.vb" />
+    <Compile Include="Models\VisualLabLink.vb" />
+    <Compile Include="Mvvm\OffsetConverter.vb" />
+    <Compile Include="Views\NetworkLabPage.xaml.vb">
+      <DependentUpon>NetworkLabPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SectionPage.xaml.vb">
       <DependentUpon>SectionPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ItemPage.xaml.vb">
+    <Compile Include="Views\ItemPage.xaml.vb">
       <DependentUpon>ItemPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="DataModel\SampleDataSource.vb" />
+    <Compile Include="ViewModels\ComputerConfigurationViewModel.vb" />
+    <Compile Include="ViewModels\NetworkViewModel.vb" />
+    <Compile Include="Views\Config\ComputerConfig.xaml.vb">
+      <DependentUpon>ComputerConfig.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Config\RouterConfig.xaml.vb">
+      <DependentUpon>RouterConfig.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -140,10 +161,11 @@
     <PRIResource Include="Strings\en-US\Resources.resw">
       <SubType>Designer</SubType>
     </PRIResource>
-    <Content Include="Assets\Images\Computer.png" />
-    <Content Include="Assets\Images\Hub.png" />
-    <Content Include="Assets\Images\Router.png" />
-    <Content Include="Assets\Images\Switch.png" />
+    <Content Include="Assets\Images\InternetMap.jpg" />
+    <Content Include="Assets\Lab\Computer.png" />
+    <Content Include="Assets\Lab\Hub.png" />
+    <Content Include="Assets\Lab\Router.png" />
+    <Content Include="Assets\Lab\Switch.png" />
     <Content Include="DataModel\SampleData.json" />
   </ItemGroup>
   <ItemGroup>
@@ -160,15 +182,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="HubPage.xaml">
+    <Page Include="Views\HubPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="SectionPage.xaml">
+    <Page Include="Views\NetworkLabPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SectionPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ItemPage.xaml">
+    <Page Include="Views\ItemPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Config\ComputerConfig.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Config\RouterConfig.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -210,6 +244,14 @@
       <Project>{b9d2b18f-1a38-42f8-8608-42ac6c0fa3f6}</Project>
       <Name>NetEduApp.Emulators</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="BehaviorsXamlSDKManaged, Version=12.0">
+      <Name>BehaviorsXamlSDKManaged</Name>
+    </SDKReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ViewModels\Config\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
