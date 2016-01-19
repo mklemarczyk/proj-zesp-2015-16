@@ -3,12 +3,14 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:NetEduApp"
-    xmlns:localData="using:NetEduApp.Data">
+    xmlns:localData="using:NetEduApp.Data"
+    xmlns:mvvm="using:NetEduApp.Mvvm">
 
     <Application.Resources>
         <!-- Application-specific resources -->
 
         <x:String x:Key="AppName">Computer Network Lab</x:String>
+        <mvvm:OffsetConverter x:Key="OffsetConverter" />
 
     </Application.Resources>
 </Application>
