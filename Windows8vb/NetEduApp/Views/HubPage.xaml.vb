@@ -1,4 +1,5 @@
-﻿' The Hub Page template is documented at http://go.microsoft.com/fwlink/?LinkID=321224
+﻿Imports NetEduApp.Common
+' The Hub Page template is documented at http://go.microsoft.com/fwlink/?LinkID=321224
 
 ''' <summary>
 ''' A page that displays a grouped collection of items.
@@ -50,6 +51,12 @@ Public NotInheritable Class HubPage
         ' TODO: Assign a collection of bindable groups to Me.DefaultViewModel("Groups")
         Dim sampleDataGroup As Data.SampleDataGroup = Await Data.SampleDataSource.GetGroupAsync("Group-4")
         Me.DefaultViewModel("Section3Items") = sampleDataGroup
+        Dim groups As IEnumerable(Of Data.SampleDataGroup) = Await Data.SampleDataSource.GetGroupsAsync()
+        Me.DefaultViewModel("Groups") = groups
+
+        Me.DefaultViewModel("GoToSimulator") = New RelayCommand(Sub()
+                                                                    Me.Frame.Navigate(GetType(NetworkLabPage))
+                                                                End Sub)
     End Sub
 
     ''' <summary>
