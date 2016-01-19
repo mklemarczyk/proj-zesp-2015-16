@@ -158,6 +158,9 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="NetEduApp_TemporaryKey.pfx" />
+    <PRIResource Include="Strings\pl-PL\Resources.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
     <PRIResource Include="Strings\en-US\Resources.resw">
       <SubType>Designer</SubType>
     </PRIResource>
