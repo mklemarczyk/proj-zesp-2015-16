@@ -120,6 +120,20 @@
     <Compile Include="App.xaml.vb">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Mvvm\ViewModelBase.vb" />
+    <Compile Include="Mvvm\DelegateCommand.vb" />
+    <Compile Include="Views\Config\ConfigMenu.xaml.vb">
+      <DependentUpon>ConfigMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Config\GeneralConfig.xaml.vb">
+      <DependentUpon>GeneralConfig.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Config\InterfacesConfig.xaml.vb">
+      <DependentUpon>InterfacesConfig.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Config\RoutingConfig.xaml.vb">
+      <DependentUpon>RoutingConfig.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\HubPage.xaml.vb">
       <DependentUpon>HubPage.xaml</DependentUpon>
     </Compile>
@@ -185,6 +199,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Views\Config\ConfigMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Config\GeneralConfig.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Config\InterfacesConfig.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Config\RoutingConfig.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\HubPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
