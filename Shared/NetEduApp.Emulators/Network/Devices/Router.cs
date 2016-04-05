@@ -35,8 +35,10 @@ namespace NetEduApp.Emulators.Network.Devices {
         public void ReciveData(INetPacket data) {
             foreach (var ipInterface in interfaces) {
                 if (ipInterface.Address != null && ipInterface.Address.ToString() == data.DestinationAddress.Address.ToString()) {
-                    System.Diagnostics.Debug.WriteLine("{0} recived {1}", this.Name, data);
-                    return;
+#if DEBUG
+					System.Diagnostics.Debug.WriteLine("{0} recived {1}", this.Name, data);
+#endif
+					return;
                 }
             }
             if (data.TTL > 0) {
@@ -65,8 +67,8 @@ namespace NetEduApp.Emulators.Network.Devices {
                 foreach (var ipInterface in interfaces) {
                     if (ipInterface.Address != null && ipInterface.Address.GetNetwork().Contains(target) == true) {
                         ipInterface.SendData(data);
-                    }
-                }
+					}
+				}
             }
         }
     }

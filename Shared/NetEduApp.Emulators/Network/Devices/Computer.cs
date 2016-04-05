@@ -31,8 +31,10 @@ namespace NetEduApp.Emulators.Network.Devices {
         public string Name { get; set; }
 
         public void ReciveData(INetPacket data) {
-            System.Diagnostics.Debug.WriteLine("{0} recived {1}", this.Name, data);
-        }
+#if DEBUG
+			System.Diagnostics.Debug.WriteLine("{0} recived {1}", this.Name, data);
+#endif
+		}
         public void SendData(INetPacket data) {
             INetAddress target = null;
             foreach (var ipInterface in interfaces) {
