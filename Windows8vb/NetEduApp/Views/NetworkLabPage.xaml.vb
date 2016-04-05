@@ -9,11 +9,11 @@ Imports Windows.UI.Input
 Public NotInheritable Class NetworkLabPage
     Inherits Page
 
-    ''' <summary>
-    ''' NavigationHelper is used on each page to aid in navigation and 
-    ''' process lifetime management
-    ''' </summary>
-    Public ReadOnly Property NavigationHelper As Common.NavigationHelper
+	''' <summary>
+	''' NavigationHelper is used on each page to aid in navigation and 
+	''' process lifetime management
+	''' </summary>
+	Public ReadOnly Property NavigationHelper As Common.NavigationHelper
         Get
             Return Me._navigationHelper
         End Get
@@ -90,11 +90,11 @@ Public NotInheritable Class NetworkLabPage
 #End Region
 
 
-    Private inAction As Boolean
-    Private pickedContol As FrameworkElement
-    Private pickedData As VisualLabElement
-    Private activeLink As VisualLabLink
-    Private lastPosition As Point?
+	Private inAction As Boolean
+	Private pickedContol As FrameworkElement
+	Private pickedData As VisualLabElement
+	Private activeLink As VisualLabLink
+	Private lastPosition As Point?
 
     Private Sub Grid_PointerReleased(sender As Object, e As PointerRoutedEventArgs)
         e.Handled = True
@@ -108,37 +108,43 @@ Public NotInheritable Class NetworkLabPage
             Me.inAction = False
             Me.pickedContol = Nothing
             Me.pickedData = Nothing
-            Me.lastPosition = Nothing
-        End If
+			Me.lastPosition = Nothing
+
+			Window.Current.CoreWindow.PointerCursor = New Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 1)
+
+		End If
     End Sub
 
     Private Sub Grid_PointerMoved(sender As Object, e As PointerRoutedEventArgs)
         e.Handled = True
-        If inAction = True And pickedData IsNot Nothing Then
-            Dim position As PointerPoint = e.GetCurrentPoint(Me.netItemsControl)
-            Me.pickedData.Position = New Point(position.Position.X - 35, position.Position.Y - 35)
-        End If
-    End Sub
+		If inAction = True And pickedData IsNot Nothing Then
+			Dim position As PointerPoint = e.GetCurrentPoint(Me.netItemsControl)
+			Me.pickedData.Position = New Point(position.Position.X - 35, position.Position.Y - 35)
+		End If
+	End Sub
 
-    Private Sub Grid_PointerExited(sender As Object, e As PointerRoutedEventArgs)
-        e.Handled = True
-        If inAction = True And pickedData IsNot Nothing Then
-            If lastPosition IsNot Nothing Then
-                Me.pickedData.Position = lastPosition
-                AddHandler pickedContol.PointerPressed, AddressOf Image_PointerPressed
-            Else
-                If pickedData IsNot FakeVisualLabElement.Fake Then
-                    netItemsControl.Items.Remove(pickedData)
-                End If
-            End If
-        End If
-        Me.inAction = False
-        Me.pickedContol = Nothing
-        Me.pickedData = Nothing
-        Me.lastPosition = Nothing
-    End Sub
+	Private Sub Grid_PointerExited(sender As Object, e As PointerRoutedEventArgs)
+		e.Handled = True
+		If inAction = True And pickedData IsNot Nothing Then
+			If lastPosition IsNot Nothing Then
+				Me.pickedData.Position = lastPosition
+				AddHandler pickedContol.PointerPressed, AddressOf Image_PointerPressed
+			Else
+				If pickedData IsNot FakeVisualLabElement.Fake Then
+					netItemsControl.Items.Remove(pickedData)
+				End If
+			End If
+		End If
+		Me.inAction = False
+		Me.pickedContol = Nothing
+		Me.pickedData = Nothing
+		Me.lastPosition = Nothing
 
-    Private Sub Image_PointerPressed(sender As Object, e As PointerRoutedEventArgs)
+		Window.Current.CoreWindow.PointerCursor = New Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 1)
+
+	End Sub
+
+	Private Sub Image_PointerPressed(sender As Object, e As PointerRoutedEventArgs)
         If inAction = False Then
             If TypeOf sender Is FrameworkElement Then
                 Dim control = CType(sender, FrameworkElement)
@@ -147,8 +153,11 @@ Public NotInheritable Class NetworkLabPage
                     Me.pickedContol = control
                     Me.pickedData = CType(control.DataContext, VisualLabElement)
                     Me.lastPosition = Me.pickedData.Position
-                    RemoveHandler control.PointerPressed, AddressOf Image_PointerPressed
-                End If
+					RemoveHandler control.PointerPressed, AddressOf Image_PointerPressed
+
+					Window.Current.CoreWindow.PointerCursor = New Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Hand, 1)
+
+				End If
             End If
         Else
             If activeLink IsNot Nothing Then
@@ -165,15 +174,18 @@ Public NotInheritable Class NetworkLabPage
                             inAction = False
                             activeLink = Nothing
                             pickedData = Nothing
-                            _defaultViewModel.Lab.Devices.Remove(FakeVisualLabElement.Fake)
-                        End If
+							_defaultViewModel.Lab.Devices.Remove(FakeVisualLabElement.Fake)
+
+							Window.Current.CoreWindow.PointerCursor = New Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 1)
+
+						End If
                     End If
                 End If
             End If
         End If
     End Sub
 
-    Private Sub Image_DoubleTapped(sender As Object, e As DoubleTappedRoutedEventArgs)
+	Private Sub Image_DoubleTapped(sender As Object, e As DoubleTappedRoutedEventArgs)
         'If TypeOf sender Is FrameworkElement Then
         '    Dim control = CType(sender, FrameworkElement)
         '    If TypeOf control.DataContext Is Computer Then
@@ -195,7 +207,7 @@ Public NotInheritable Class NetworkLabPage
         'End If
     End Sub
 
-    Private Sub Conf_IsEnabledChanged(sender As Object, e As DependencyPropertyChangedEventArgs)
+	Private Sub Conf_IsEnabledChanged(sender As Object, e As DependencyPropertyChangedEventArgs)
         'If TypeOf sender Is ComputerConfig Then
         '    Dim conf = CType(sender, ComputerConfig)
         '    RemoveHandler conf.IsEnabledChanged, AddressOf Conf_IsEnabledChanged
@@ -212,7 +224,7 @@ Public NotInheritable Class NetworkLabPage
         'End If
     End Sub
 
-    Private Sub TextBlock_DoubleTapped(sender As Object, e As DoubleTappedRoutedEventArgs)
+	Private Sub TextBlock_DoubleTapped(sender As Object, e As DoubleTappedRoutedEventArgs)
 
     End Sub
 
@@ -232,8 +244,11 @@ Public NotInheritable Class NetworkLabPage
             activeLink.ItemB = FakeVisualLabElement.Fake
             pickedData = FakeVisualLabElement.Fake
             _defaultViewModel.Lab.Devices.Add(FakeVisualLabElement.Fake)
-            _defaultViewModel.Lab.Links.Add(activeLink)
-        End If
+			_defaultViewModel.Lab.Links.Add(activeLink)
+
+			Window.Current.CoreWindow.PointerCursor = New Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Cross, 1)
+
+		End If
     End Sub
 
     Private Sub Page_Drop(sender As Object, e As DragEventArgs)
