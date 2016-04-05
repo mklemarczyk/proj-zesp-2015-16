@@ -7,37 +7,38 @@ Imports Windows.UI.Input
 ''' A basic page that provides characteristics common to most applications.
 ''' </summary>
 Public NotInheritable Class NetworkLabPage
-    Inherits Page
+	Inherits Page
 
+#Region "Navigation"
 	''' <summary>
 	''' NavigationHelper is used on each page to aid in navigation and 
 	''' process lifetime management
 	''' </summary>
 	Public ReadOnly Property NavigationHelper As Common.NavigationHelper
-        Get
-            Return Me._navigationHelper
-        End Get
-    End Property
-    Private _navigationHelper As Common.NavigationHelper
+		Get
+			Return Me._navigationHelper
+		End Get
+	End Property
+	Private _navigationHelper As Common.NavigationHelper
 
     ''' <summary>
     ''' This can be changed to a strongly typed view model.
     ''' </summary>
     Public ReadOnly Property DefaultViewModel As NetworkViewModel
-        Get
-            Return Me._defaultViewModel
-        End Get
-    End Property
-    Private _defaultViewModel As New NetworkViewModel()
+		Get
+			Return Me._defaultViewModel
+		End Get
+	End Property
+	Private _defaultViewModel As New NetworkViewModel()
 
-    Public Sub New()
-        InitializeComponent()
-        Me._navigationHelper = New Common.NavigationHelper(Me)
-        AddHandler Me._navigationHelper.LoadState, AddressOf NavigationHelper_LoadState
-        AddHandler Me._navigationHelper.SaveState, AddressOf NavigationHelper_SaveState
+	Public Sub New()
+		InitializeComponent()
+		Me._navigationHelper = New Common.NavigationHelper(Me)
+		AddHandler Me._navigationHelper.LoadState, AddressOf NavigationHelper_LoadState
+		AddHandler Me._navigationHelper.SaveState, AddressOf NavigationHelper_SaveState
 
-        Me.prop.Visibility = Visibility.Collapsed
-    End Sub
+		Me.prop.Visibility = Visibility.Collapsed
+	End Sub
 
     ''' <summary>
     ''' Populates the page with content passed during navigation.  Any saved state is also
@@ -52,7 +53,7 @@ Public NotInheritable Class NetworkLabPage
     ''' session.  The state will be null the first time a page is visited.</param>
     Private Sub NavigationHelper_LoadState(sender As Object, e As Common.LoadStateEventArgs)
 
-    End Sub
+	End Sub
 
     ''' <summary>
     ''' Preserves state associated with this page in case the application is suspended or the
@@ -66,60 +67,78 @@ Public NotInheritable Class NetworkLabPage
     ''' serializable state.</param>
     Private Sub NavigationHelper_SaveState(sender As Object, e As Common.SaveStateEventArgs)
 
-    End Sub
+	End Sub
 
 #Region "NavigationHelper registration"
 
-    ''' The methods provided in this section are simply used to allow
-    ''' NavigationHelper to respond to the page's navigation methods.
-    ''' 
-    ''' Page specific logic should be placed in event handlers for the  
-    ''' <see cref="Common.NavigationHelper.LoadState"/>
-    ''' and <see cref="Common.NavigationHelper.SaveState"/>.
-    ''' The navigation parameter is available in the LoadState method 
-    ''' in addition to page state preserved during an earlier session.
+	''' The methods provided in this section are simply used to allow
+	''' NavigationHelper to respond to the page's navigation methods.
+	''' 
+	''' Page specific logic should be placed in event handlers for the  
+	''' <see cref="Common.NavigationHelper.LoadState"/>
+	''' and <see cref="Common.NavigationHelper.SaveState"/>.
+	''' The navigation parameter is available in the LoadState method 
+	''' in addition to page state preserved during an earlier session.
 
-    Protected Overrides Sub OnNavigatedTo(e As NavigationEventArgs)
-        _navigationHelper.OnNavigatedTo(e)
-    End Sub
+	Protected Overrides Sub OnNavigatedTo(e As NavigationEventArgs)
+		_navigationHelper.OnNavigatedTo(e)
+	End Sub
 
-    Protected Overrides Sub OnNavigatedFrom(e As NavigationEventArgs)
-        _navigationHelper.OnNavigatedFrom(e)
-    End Sub
+	Protected Overrides Sub OnNavigatedFrom(e As NavigationEventArgs)
+		_navigationHelper.OnNavigatedFrom(e)
+	End Sub
 
 #End Region
+#End Region
 
-
+	''' <summary>
+	''' Is in action
+	''' </summary>
 	Private inAction As Boolean
+	''' <summary>
+	''' Picked control
+	''' </summary>
 	Private pickedContol As FrameworkElement
+	''' <summary>
+	''' Picked data
+	''' </summary>
 	Private pickedData As VisualLabElement
+	''' <summary>
+	''' New active link
+	''' </summary>
 	Private activeLink As VisualLabLink
+	''' <summary>
+	''' Last valid position of picked control
+	''' </summary>
 	Private lastPosition As Point?
 
-    Private Sub Grid_PointerReleased(sender As Object, e As PointerRoutedEventArgs)
-        e.Handled = True
-        If pickedData IsNot Nothing And pickedData IsNot FakeVisualLabElement.Fake Then
-            _defaultViewModel.SelectedDevice = pickedData
-        Else
-            _defaultViewModel.SelectedDevice = Nothing
-        End If
-        If inAction = True And pickedContol IsNot Nothing Then
-            AddHandler pickedContol.PointerPressed, AddressOf Image_PointerPressed
-            Me.inAction = False
-            Me.pickedContol = Nothing
-            Me.pickedData = Nothing
+	Private Sub Grid_PointerReleased(sender As Object, e As PointerRoutedEventArgs)
+		e.Handled = True
+		If pickedData IsNot Nothing And pickedData IsNot FakeVisualLabElement.Fake Then
+			_defaultViewModel.SelectedDevice = pickedData
+		Else
+			_defaultViewModel.SelectedDevice = Nothing
+		End If
+		If inAction = True And pickedContol IsNot Nothing Then
+			AddHandler pickedContol.PointerPressed, AddressOf Image_PointerPressed
+			Me.inAction = False
+			Me.pickedContol = Nothing
+			Me.pickedData = Nothing
 			Me.lastPosition = Nothing
 
 			Window.Current.CoreWindow.PointerCursor = New Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 1)
 
 		End If
-    End Sub
+	End Sub
 
-    Private Sub Grid_PointerMoved(sender As Object, e As PointerRoutedEventArgs)
-        e.Handled = True
+	Private Sub Grid_PointerMoved(sender As Object, e As PointerRoutedEventArgs)
+		e.Handled = True
 		If inAction = True And pickedData IsNot Nothing Then
-			Dim position As PointerPoint = e.GetCurrentPoint(Me.netItemsControl)
-			Me.pickedData.Position = New Point(position.Position.X - 35, position.Position.Y - 35)
+			Dim cursorPosition = e.GetCurrentPoint(Me.netItemsControl).Position
+			If cursorPosition.X >= 0 AndAlso cursorPosition.Y >= 0 Then
+				Dim position As PointerPoint = e.GetCurrentPoint(Me.netItemsControl)
+				Me.pickedData.Position = New Point(position.Position.X - 35, position.Position.Y - 35)
+			End If
 		End If
 	End Sub
 
@@ -149,45 +168,45 @@ Public NotInheritable Class NetworkLabPage
 	End Sub
 
 	Private Sub Image_PointerPressed(sender As Object, e As PointerRoutedEventArgs)
-        If inAction = False Then
-            If TypeOf sender Is FrameworkElement Then
-                Dim control = CType(sender, FrameworkElement)
-                If TypeOf control.DataContext Is VisualLabElement Then
-                    Me.inAction = True
-                    Me.pickedContol = control
-                    Me.pickedData = CType(control.DataContext, VisualLabElement)
-                    Me.lastPosition = Me.pickedData.Position
+		If inAction = False Then
+			If TypeOf sender Is FrameworkElement Then
+				Dim control = CType(sender, FrameworkElement)
+				If TypeOf control.DataContext Is VisualLabElement Then
+					Me.inAction = True
+					Me.pickedContol = control
+					Me.pickedData = CType(control.DataContext, VisualLabElement)
+					Me.lastPosition = Me.pickedData.Position
 					RemoveHandler control.PointerPressed, AddressOf Image_PointerPressed
 
 					Window.Current.CoreWindow.PointerCursor = New Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Hand, 1)
 
 				End If
-            End If
-        Else
-            If activeLink IsNot Nothing Then
-                If TypeOf sender Is FrameworkElement Then
-                    Dim control = CType(sender, FrameworkElement)
-                    If TypeOf control.DataContext Is VisualLabElement Then
-                        Dim pickedData = CType(control.DataContext, VisualLabElement)
-                        If activeLink.ItemA Is FakeVisualLabElement.Fake Then
-                            activeLink.ItemA = pickedData
-                        Else
-                            If activeLink.ItemB Is FakeVisualLabElement.Fake Then
-                                activeLink.ItemB = pickedData
-                            End If
-                            inAction = False
-                            activeLink = Nothing
-                            pickedData = Nothing
+			End If
+		Else
+			If activeLink IsNot Nothing Then
+				If TypeOf sender Is FrameworkElement Then
+					Dim control = CType(sender, FrameworkElement)
+					If TypeOf control.DataContext Is VisualLabElement Then
+						Dim pickedData = CType(control.DataContext, VisualLabElement)
+						If activeLink.ItemA Is FakeVisualLabElement.Fake Then
+							activeLink.ItemA = pickedData
+						Else
+							If activeLink.ItemB Is FakeVisualLabElement.Fake Then
+								activeLink.ItemB = pickedData
+							End If
+							inAction = False
+							activeLink = Nothing
+							pickedData = Nothing
 							_defaultViewModel.Lab.Devices.Remove(FakeVisualLabElement.Fake)
 
 							Window.Current.CoreWindow.PointerCursor = New Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 1)
 
 						End If
-                    End If
-                End If
-            End If
-        End If
-    End Sub
+					End If
+				End If
+			End If
+		End If
+	End Sub
 
 	Private Sub Image_DoubleTapped(sender As Object, e As DoubleTappedRoutedEventArgs)
         'If TypeOf sender Is FrameworkElement Then
@@ -230,32 +249,32 @@ Public NotInheritable Class NetworkLabPage
 
 	Private Sub TextBlock_DoubleTapped(sender As Object, e As DoubleTappedRoutedEventArgs)
 
-    End Sub
+	End Sub
 
-    Private Sub MenuFlyoutItem_Click(sender As Object, e As RoutedEventArgs)
-        If activeLink IsNot Nothing Then
-            _defaultViewModel.Lab.Devices.Remove(FakeVisualLabElement.Fake)
-            _defaultViewModel.Lab.Links.Remove(activeLink)
-            activeLink.ItemA = Nothing
-            activeLink.ItemB = Nothing
-            activeLink = Nothing
-            pickedData = Nothing
-        End If
-        If inAction = False And activeLink Is Nothing Then
-            inAction = True
-            activeLink = New EthernetLink
-            activeLink.ItemA = FakeVisualLabElement.Fake
-            activeLink.ItemB = FakeVisualLabElement.Fake
-            pickedData = FakeVisualLabElement.Fake
-            _defaultViewModel.Lab.Devices.Add(FakeVisualLabElement.Fake)
+	Private Sub MenuFlyoutItem_Click(sender As Object, e As RoutedEventArgs)
+		If activeLink IsNot Nothing Then
+			_defaultViewModel.Lab.Devices.Remove(FakeVisualLabElement.Fake)
+			_defaultViewModel.Lab.Links.Remove(activeLink)
+			activeLink.ItemA = Nothing
+			activeLink.ItemB = Nothing
+			activeLink = Nothing
+			pickedData = Nothing
+		End If
+		If inAction = False And activeLink Is Nothing Then
+			inAction = True
+			activeLink = New EthernetLink
+			activeLink.ItemA = FakeVisualLabElement.Fake
+			activeLink.ItemB = FakeVisualLabElement.Fake
+			pickedData = FakeVisualLabElement.Fake
+			_defaultViewModel.Lab.Devices.Add(FakeVisualLabElement.Fake)
 			_defaultViewModel.Lab.Links.Add(activeLink)
 
 			Window.Current.CoreWindow.PointerCursor = New Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Cross, 1)
 
 		End If
-    End Sub
+	End Sub
 
-    Private Sub Page_Drop(sender As Object, e As DragEventArgs)
+	Private Sub Page_Drop(sender As Object, e As DragEventArgs)
         'Dim items = Await e.DataView.GetStorageItemsAsync()
         'If items.Count > 0 Then
         '    Dim storageFile = CType(items(0), StorageFile)
@@ -264,7 +283,7 @@ Public NotInheritable Class NetworkLabPage
         'e.Handled = True
     End Sub
 
-    Private Sub Page_DragOver(sender As Object, e As DragEventArgs)
+	Private Sub Page_DragOver(sender As Object, e As DragEventArgs)
         'AndAlso (Await e.DataView.GetStorageItemsAsync()).Count = 1
         'If e.AcceptedOperation = DataTransfer.DataPackageOperation.None Then
         '    e.AcceptedOperation = DataTransfer.DataPackageOperation.Link
@@ -273,7 +292,7 @@ Public NotInheritable Class NetworkLabPage
         'End If
     End Sub
 
-    Private Sub CommandBar_Closed(sender As Object, e As Object)
-        DirectCast(sender, CommandBar).IsOpen = True
-    End Sub
+	Private Sub CommandBar_Closed(sender As Object, e As Object)
+		DirectCast(sender, CommandBar).IsOpen = True
+	End Sub
 End Class
