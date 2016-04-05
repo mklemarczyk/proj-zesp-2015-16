@@ -180,9 +180,5 @@ namespace NetEduApp.Emulators.Network {
 		public static bool operator !=(NetIpAddress a, NetIpAddress b) {
 			return !a.Equals(b);
 		}
-
-		//public static implicit operator NetIpAddress(IPAddress ipAddress) {
-		//	return new NetIpAddress(ipAddress?.GetAddressBytes( ));
-		//}
 	}
 }

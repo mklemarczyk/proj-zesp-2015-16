@@ -63,9 +63,4 @@ namespace NetEduApp.Emulators.Network {
 		}
 		#endregion
 	}
-
-	internal struct Link {
-		internal INetHwInterface a;
-		internal INetHwInterface b;
-	}
 }
