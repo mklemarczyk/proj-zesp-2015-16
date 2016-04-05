@@ -13,7 +13,7 @@
 
     <Page.Resources>
         <DataTemplate x:Key="ItemsControlItemDataTemplate">
-            <Border x:Name="itemBorder" BorderBrush="Black" BorderThickness="1" Tag="{Binding}" Visibility="Collapsed">
+			<Border x:Name="itemBorder" BorderBrush="Black" BorderThickness="1" Tag="{Binding}" Visibility="Collapsed">
 				<Interactivity:Interaction.Behaviors>
 					<Core:DataTriggerBehavior Binding="{Binding Name}" ComparisonCondition="NotEqual" Value="{x:Null}">
                         <Core:ChangePropertyAction PropertyName="Visibility" Value="Visible"/>
@@ -21,10 +21,10 @@
                     <Core:DataTriggerBehavior Binding="{Binding IsSelected}" ComparisonCondition="Equal" Value="True">
                         <Core:ChangePropertyAction PropertyName="BorderBrush" Value="Red"/>
                     </Core:DataTriggerBehavior>
-                    <Core:DataTriggerBehavior Binding="{Binding IsSelected}" ComparisonCondition="Equal" Value="False">
-                        <Core:ChangePropertyAction PropertyName="BorderBrush" Value="Black"/>
-                    </Core:DataTriggerBehavior>
-                </Interactivity:Interaction.Behaviors>
+					<Core:DataTriggerBehavior Binding="{Binding IsSelected}" ComparisonCondition="Equal" Value="False">
+						<Core:ChangePropertyAction PropertyName="BorderBrush" Value="Black"/>
+					</Core:DataTriggerBehavior>
+				</Interactivity:Interaction.Behaviors>
                 <Border.Projection>
                     <PlaneProjection GlobalOffsetX="{Binding Position.X}" GlobalOffsetY="{Binding Position.Y}" />
                 </Border.Projection>
@@ -89,35 +89,46 @@
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
             <ItemsControl x:Name="netItemsControl" ItemsSource="{Binding Lab.Devices}" ItemTemplate="{StaticResource ItemsControlItemDataTemplate}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <Canvas />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<Canvas />
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+			</ItemsControl>
 			<FlyoutPresenter x:Name="prop" Visibility="Collapsed" 
                              ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                              ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
 		</Grid>
     </Grid>
     <Page.BottomAppBar>
-        <CommandBar IsOpen="True" IsSticky="True" Closed="CommandBar_Closed">
-            <AppBarButton Icon="Add" Content="Dodaj">
-                <AppBarButton.Flyout>
-                    <MenuFlyout>
-                        <MenuFlyoutItem Text="Link" Click="MenuFlyoutItem_Click" />
-                        <MenuFlyoutItem Text="Hub" Command="{Binding CreateHubCommand}"/>
-                        <MenuFlyoutItem Text="Switch" Command="{Binding CreateSwitchCommand}"/>
-                        <MenuFlyoutItem Text="Router" Command="{Binding CreateRouterCommand}"/>
-                        <MenuFlyoutItem Text="Computer" Command="{Binding CreateComputerCommand}"/>
-                    </MenuFlyout>
-                </AppBarButton.Flyout>
-            </AppBarButton>
-            <AppBarButton Icon="Edit" Content="Edytuj" Command="{Binding EditCommand}" CommandParameter="{Binding SelectedDevice}" />
-            <AppBarButton Icon="Remove" Content="Usuń" Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedDevice}" />
-            <AppBarButton Icon="Send" Content="Wyślij" />
-            <AppBarButton Icon="ImportAll" Content="Wczytaj" />
-            <AppBarButton Icon="SaveLocal" Content="Zapisz" />
-        </CommandBar>
+		<CommandBar IsOpen="True" IsSticky="True" Closed="CommandBar_Closed">
+			<CommandBar.SecondaryCommands>
+				<AppBarButton Icon="OpenFile" Label="Wczytaj" />
+				<AppBarButton Icon="Save" Label="Zapisz" />
+			</CommandBar.SecondaryCommands>
+			<AppBarButton Icon="Add" Label="Dodaj">
+				<AppBarButton.Flyout>
+					<MenuFlyout>
+						<MenuFlyoutItem Text="Hub" Command="{Binding CreateHubCommand}"/>
+						<MenuFlyoutItem Text="Switch" Command="{Binding CreateSwitchCommand}"/>
+						<MenuFlyoutItem Text="Router" Command="{Binding CreateRouterCommand}"/>
+						<MenuFlyoutItem Text="Computer" Command="{Binding CreateComputerCommand}"/>
+					</MenuFlyout>
+				</AppBarButton.Flyout>
+			</AppBarButton>
+			<AppBarButton Icon="Link" Label="Połącz">
+				<AppBarButton.Flyout>
+					<MenuFlyout>
+						<MenuFlyoutItem Text="Światłowód" Click="MenuFlyoutItem_Click"/>
+						<MenuFlyoutItem Text="Ethernet" Click="MenuFlyoutItem_Click"/>
+						<MenuFlyoutItem Text="Cross Ethernet" Click="MenuFlyoutItem_Click"/>
+						<MenuFlyoutItem Text="Serial" Click="MenuFlyoutItem_Click"/>
+					</MenuFlyout>
+				</AppBarButton.Flyout>
+			</AppBarButton>
+			<AppBarButton Icon="Edit" Label="Edytuj" Command="{Binding EditCommand}" CommandParameter="{Binding SelectedDevice}" />
+			<AppBarButton Icon="Remove" Label="Usuń" Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedDevice}" />
+			<AppBarButton Icon="Send" Label="Wyślij" />
+		</CommandBar>
     </Page.BottomAppBar>
 </Page>
