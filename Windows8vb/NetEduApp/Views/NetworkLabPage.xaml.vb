@@ -139,6 +139,10 @@ Public NotInheritable Class NetworkLabPage
 		Me.pickedContol = Nothing
 		Me.pickedData = Nothing
 		Me.lastPosition = Nothing
+		If activeLink IsNot Nothing Then
+			Me.DefaultViewModel.Lab.Links.Remove(Me.activeLink)
+			Me.activeLink = Nothing
+		End If
 
 		Window.Current.CoreWindow.PointerCursor = New Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 1)
 
