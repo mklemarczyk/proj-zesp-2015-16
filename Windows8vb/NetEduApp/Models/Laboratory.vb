@@ -19,8 +19,6 @@
 				.ItemB = r2
 			}
 
-			Devices.Add(r1)
-			Devices.Add(r2)
 			Links.Add(l1)
 		End Sub
 
@@ -68,6 +66,10 @@
 				If oldName IsNot Nothing AndAlso Names.Contains(oldName) Then
 					Names.Remove(oldName)
 				End If
+			Else
+				Devices.Add(visualLabElement)
+			End If
+			If Not Names.Contains(visualLabElement.Name) Then
 				Names.Add(visualLabElement.Name)
 			End If
 		End Sub

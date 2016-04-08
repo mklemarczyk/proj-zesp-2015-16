@@ -35,6 +35,7 @@
 		End Sub
 
 		Public Sub Dispose() Implements IDisposable.Dispose
+			ParentLab = Nothing
 		End Sub
 
 		Public Property Position As Point
