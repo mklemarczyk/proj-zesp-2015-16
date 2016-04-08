@@ -160,12 +160,6 @@
     <Compile Include="DataModel\SampleDataSource.vb" />
     <Compile Include="ViewModels\ComputerConfigurationViewModel.vb" />
     <Compile Include="ViewModels\NetworkViewModel.vb" />
-    <Compile Include="Views\Config\ComputerConfig.xaml.vb">
-      <DependentUpon>ComputerConfig.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Config\RouterConfig.xaml.vb">
-      <DependentUpon>RouterConfig.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -228,14 +222,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ItemPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Config\ComputerConfig.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Config\RouterConfig.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
