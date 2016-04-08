@@ -213,6 +213,7 @@ Public NotInheritable Class NetworkLabPage
 		If TypeOf sender Is FrameworkElement Then
 			e.Handled = True
 			Me.prop.Navigate(GetType(ConfigMenu))
+			Me.prop.BackStack.Clear()
 			Me.prop.Visibility = Visibility.Visible
 			AddHandler prop.IsEnabledChanged, AddressOf Conf_IsEnabledChanged
 		End If
