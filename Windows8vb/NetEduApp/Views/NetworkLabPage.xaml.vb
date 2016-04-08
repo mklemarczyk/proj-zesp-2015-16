@@ -1,5 +1,6 @@
 ﻿Imports NetEduApp.Models
 Imports NetEduApp.ViewModels
+Imports NetEduApp.Views.Config
 Imports Windows.UI.Input
 ' The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234237
 
@@ -209,43 +210,22 @@ Public NotInheritable Class NetworkLabPage
 	End Sub
 
 	Private Sub Image_DoubleTapped(sender As Object, e As DoubleTappedRoutedEventArgs)
-        'If TypeOf sender Is FrameworkElement Then
-        '    Dim control = CType(sender, FrameworkElement)
-        '    If TypeOf control.DataContext Is Computer Then
-        '        e.Handled = True
-        '        Dim conf = New ComputerConfig
-        '        prop.DataContext = New ViewModels.ComputerConfigurationViewModel(CType(control.DataContext, VisualLabElement))
-        '        prop.Content = conf
-        '        prop.Visibility = Visibility.Visible
-        '        AddHandler conf.IsEnabledChanged, AddressOf Conf_IsEnabledChanged
-        '    End If
-        '    If TypeOf control.DataContext Is Router Then
-        '        e.Handled = True
-        '        Dim conf = New RouterConfig
-        '        prop.DataContext = New ViewModels.ComputerConfigurationViewModel(CType(control.DataContext, VisualLabElement))
-        '        prop.Content = conf
-        '        prop.Visibility = Visibility.Visible
-        '        AddHandler conf.IsEnabledChanged, AddressOf Conf_IsEnabledChanged
-        '    End If
-        'End If
-    End Sub
+		If TypeOf sender Is FrameworkElement Then
+			e.Handled = True
+			Me.prop.Navigate(GetType(ConfigMenu))
+			Me.prop.Visibility = Visibility.Visible
+			AddHandler prop.IsEnabledChanged, AddressOf Conf_IsEnabledChanged
+		End If
+	End Sub
 
 	Private Sub Conf_IsEnabledChanged(sender As Object, e As DependencyPropertyChangedEventArgs)
-        'If TypeOf sender Is ComputerConfig Then
-        '    Dim conf = CType(sender, ComputerConfig)
-        '    RemoveHandler conf.IsEnabledChanged, AddressOf Conf_IsEnabledChanged
-        '    prop.Content = Nothing
-        '    prop.DataContext = Nothing
-        '    prop.Visibility = Visibility.Collapsed
-        'End If
-        'If TypeOf sender Is RouterConfig Then
-        '    Dim conf = CType(sender, RouterConfig)
-        '    RemoveHandler conf.IsEnabledChanged, AddressOf Conf_IsEnabledChanged
-        '    prop.Content = Nothing
-        '    prop.DataContext = Nothing
-        '    prop.Visibility = Visibility.Collapsed
-        'End If
-    End Sub
+		Dim conf = CType(sender, Page)
+		RemoveHandler conf.IsEnabledChanged, AddressOf Conf_IsEnabledChanged
+		Me.prop.Content = Nothing
+		Me.prop.DataContext = Nothing
+		Me.prop.IsEnabled = True
+		Me.prop.Visibility = Visibility.Collapsed
+	End Sub
 
 	Private Sub TextBlock_DoubleTapped(sender As Object, e As DoubleTappedRoutedEventArgs)
 

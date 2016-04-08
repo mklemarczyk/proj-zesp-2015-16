@@ -47,6 +47,10 @@
                 <EntranceThemeTransition/>
             </TransitionCollection>
         </Grid.ChildrenTransitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*" />
+			<ColumnDefinition Width="Auto" />
+		</Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="140"/>
             <RowDefinition Height="*"/>
@@ -88,18 +92,17 @@
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
-            <ItemsControl x:Name="netItemsControl" ItemsSource="{Binding Lab.Devices}" ItemTemplate="{StaticResource ItemsControlItemDataTemplate}">
+			<ItemsControl x:Name="netItemsControl" ItemsSource="{Binding Lab.Devices}" ItemTemplate="{StaticResource ItemsControlItemDataTemplate}">
 				<ItemsControl.ItemsPanel>
 					<ItemsPanelTemplate>
 						<Canvas />
 					</ItemsPanelTemplate>
 				</ItemsControl.ItemsPanel>
 			</ItemsControl>
-			<FlyoutPresenter x:Name="prop" Visibility="Collapsed" 
-                             ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                             ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
 		</Grid>
-    </Grid>
+		<Frame x:Name="prop" Grid.Column="1" Grid.Row="1" Background="#283674" Margin="0,0,0,90" Width="350"/>
+	</Grid>
+	
     <Page.BottomAppBar>
 		<CommandBar IsOpen="True" IsSticky="True" Closed="CommandBar_Closed">
 			<CommandBar.SecondaryCommands>
