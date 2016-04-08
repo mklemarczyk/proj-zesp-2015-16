@@ -63,7 +63,7 @@
                     <ImageBrush ImageSource="/Assets/MediumGray.png" Stretch="UniformToFill" />
                 </HubSection.Background>
                 <DataTemplate>
-                    <Button Content="Otwórz symulator" Command="{Binding GoToSimulator}" />
+                    <Button Content="Open simulator" Command="{Binding GoToSimulator}" />
                 </DataTemplate>
             </HubSection>
             <HubSection Width="500" x:Uid="Section1Header" Header="{Binding Title}"
