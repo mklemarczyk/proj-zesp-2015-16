@@ -78,8 +78,9 @@
             <ItemsControl x:Name="netLinksControl" ItemsSource="{Binding Lab.Links}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Line StrokeThickness="2"
-							Stroke="{Binding Color}"
+                        <Line StrokeThickness="2.5"
+                            Stroke="{Binding Color}"
+							StrokeDashArray="{Binding LineStyle}"
 							X1="{Binding ItemA.Position.X, Converter={StaticResource OffsetConverter}, ConverterParameter=35}"
 							Y1="{Binding ItemA.Position.Y, Converter={StaticResource OffsetConverter}, ConverterParameter=35}"
 							X2="{Binding ItemB.Position.X, Converter={StaticResource OffsetConverter}, ConverterParameter=35}"
@@ -100,7 +101,7 @@
 				</ItemsControl.ItemsPanel>
 			</ItemsControl>
 		</Grid>
-		<Frame x:Name="prop" Grid.Column="1" Grid.Row="1" Background="#283674" Margin="0,0,0,90" Width="350"/>
+		<Frame x:Name="prop" Grid.Column="1" Grid.Row="1" Background="Black" Margin="0,0,0,90" Width="350"/>
 	</Grid>
 	
     <Page.BottomAppBar>
@@ -117,6 +118,7 @@
                         <MenuFlyoutItem Text="Computer" Command="{Binding CreateComputerCommand}"/>
 						<MenuFlyoutItem Text="Hub" Command="{Binding CreateHubCommand}"/>
                         <MenuFlyoutItem Text="Notebook" Command="{Binding CreateComputerCommand}"/>
+                        <MenuFlyoutItem Text="Repeater" Command="{Binding CreateComputerCommand}"/>
                         <MenuFlyoutItem Text="Router" Command="{Binding CreateRouterCommand}"/>
                         <MenuFlyoutItem Text="Switch" Command="{Binding CreateSwitchCommand}"/>
                     </MenuFlyout>
@@ -125,10 +127,11 @@
 			<AppBarButton Icon="Link" Label="Connet">
 				<AppBarButton.Flyout>
                     <MenuFlyout>
-                        <MenuFlyoutItem Text="Ethernet cable" Click="MenuFlyoutItem_Click"/>
-                        <MenuFlyoutItem Text="Ethernet crossover cable" Click="MenuFlyoutItem_Click"/>
-                        <MenuFlyoutItem Text="Optical fiber cable" Click="MenuFlyoutItem_Click"/>
-                        <MenuFlyoutItem Text="Serial cable" Click="MenuFlyoutItem_Click"/>
+                        <MenuFlyoutItem Text="Coaxial cable" Click="MenuFlyoutItem1_Click"/>
+                        <MenuFlyoutItem Text="Ethernet cable" Click="MenuFlyoutItem2_Click"/>
+                        <MenuFlyoutItem Text="Ethernet crossover cable" Click="MenuFlyoutItem3_Click"/>
+                        <MenuFlyoutItem Text="Optical fiber cable" Click="MenuFlyoutItem4_Click"/>
+                        <MenuFlyoutItem Text="Serial cable" Click="MenuFlyoutItem5_Click"/>
 					</MenuFlyout>
 				</AppBarButton.Flyout>
 			</AppBarButton>

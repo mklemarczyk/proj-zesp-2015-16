@@ -14,7 +14,7 @@ Namespace ViewModels
             CreateSwitchCommand = New RelayCommand(AddressOf CreateSwitchAction)
             CreateRouterCommand = New RelayCommand(AddressOf CreateRouterAction)
             CreateComputerCommand = New RelayCommand(AddressOf CreateComputerAction)
-            CreateLinkCommand = New RelayCommand(AddressOf CreateLinkAction)
+            CreateLinkCommand = New RelayCommand(AddressOf CreateEthernetLinkAction)
 
             EditCommand = New RelayCommand(AddressOf EditAction, AddressOf CanEditPredicate)
             DeleteCommand = New RelayCommand(AddressOf DeleteAction, AddressOf CanDeletePredicate)
@@ -32,8 +32,23 @@ Namespace ViewModels
         Private Sub CreateComputerAction()
             Lab.NewComputer()
         End Sub
-        Private Sub CreateLinkAction()
+        Private Sub CreateEthernetLinkAction()
             Lab.NewEthernetLink()
+        End Sub
+
+        Private Sub CreateCoaxialLinkAction()
+            Lab.NewCoaxialLink()
+        End Sub
+        Private Sub CreateEthernetCrossoverLinkAction()
+            Lab.NewEthernetCrossoverLink()
+        End Sub
+
+        Private Sub CreateOpticalFiberLinkAction()
+            Lab.NewOpticalFiberLink()
+        End Sub
+
+        Private Sub CreateSerialLinkAction()
+            Lab.NewSerialLink()
         End Sub
 
         Private Sub EditAction()

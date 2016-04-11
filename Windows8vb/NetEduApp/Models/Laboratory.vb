@@ -38,11 +38,27 @@
 			Devices.Add(New Computer(Me))
 		End Sub
 
-		Public Sub NewEthernetLink()
-			Links.Add(New EthernetLink)
-		End Sub
+        Public Sub NewEthernetLink()
+            Links.Add(New EthernetLink)
+        End Sub
 
-		Public Sub RemoveDevice(Device As VisualLabElement)
+        Public Sub NewEthernetCrossoverLink()
+            Links.Add(New EthernetCrossoverLink)
+        End Sub
+
+        Public Sub NewCoaxialLink()
+            Links.Add(New CoaxialLink)
+        End Sub
+
+        Public Sub NewOpticalFiberLink()
+            Links.Add(New OpticalFiberLink)
+        End Sub
+
+        Public Sub NewSerialLink()
+            Links.Add(New SerialLink)
+        End Sub
+
+        Public Sub RemoveDevice(Device As VisualLabElement)
 			Dim RelatedLinks = Links.Where(
 				Function(x)
 					Return x.ItemA Is Device Or x.ItemB Is Device

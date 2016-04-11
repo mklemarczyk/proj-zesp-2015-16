@@ -232,30 +232,50 @@ Public NotInheritable Class NetworkLabPage
 
 	End Sub
 
-	Private Sub MenuFlyoutItem_Click(sender As Object, e As RoutedEventArgs)
-		If activeLink IsNot Nothing Then
-			_defaultViewModel.Lab.Devices.Remove(FakeVisualLabElement.Fake)
-			_defaultViewModel.Lab.Links.Remove(activeLink)
-			activeLink.ItemA = Nothing
-			activeLink.ItemB = Nothing
-			activeLink = Nothing
-			pickedData = Nothing
-		End If
-		If inAction = False And activeLink Is Nothing Then
-			inAction = True
-			activeLink = New EthernetLink
-			activeLink.ItemA = FakeVisualLabElement.Fake
-			activeLink.ItemB = FakeVisualLabElement.Fake
-			pickedData = FakeVisualLabElement.Fake
-			_defaultViewModel.Lab.Devices.Add(FakeVisualLabElement.Fake)
-			_defaultViewModel.Lab.Links.Add(activeLink)
+    Private Sub MenuFlyoutItem1_Click(sender As Object, e As RoutedEventArgs)
+        MenuFlyoutItem_Click(GetType(CoaxialLink))
+    End Sub
 
-			Window.Current.CoreWindow.PointerCursor = New Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Cross, 1)
+    Private Sub MenuFlyoutItem2_Click(sender As Object, e As RoutedEventArgs)
+        MenuFlyoutItem_Click(GetType(EthernetLink))
+    End Sub
 
-		End If
-	End Sub
+    Private Sub MenuFlyoutItem3_Click(sender As Object, e As RoutedEventArgs)
+        MenuFlyoutItem_Click(GetType(EthernetCrossoverLink))
+    End Sub
 
-	Private Sub Page_Drop(sender As Object, e As DragEventArgs)
+    Private Sub MenuFlyoutItem4_Click(sender As Object, e As RoutedEventArgs)
+        MenuFlyoutItem_Click(GetType(OpticalFiberLink))
+    End Sub
+
+    Private Sub MenuFlyoutItem5_Click(sender As Object, e As RoutedEventArgs)
+        MenuFlyoutItem_Click(GetType(SerialLink))
+    End Sub
+
+    Private Sub MenuFlyoutItem_Click(linkType As Type)
+        If activeLink IsNot Nothing Then
+            _defaultViewModel.Lab.Devices.Remove(FakeVisualLabElement.Fake)
+            _defaultViewModel.Lab.Links.Remove(activeLink)
+            activeLink.ItemA = Nothing
+            activeLink.ItemB = Nothing
+            activeLink = Nothing
+            pickedData = Nothing
+        End If
+        If inAction = False And activeLink Is Nothing Then
+            inAction = True
+            activeLink = Activator.CreateInstance(linkType)
+            activeLink.ItemA = FakeVisualLabElement.Fake
+            activeLink.ItemB = FakeVisualLabElement.Fake
+            pickedData = FakeVisualLabElement.Fake
+            _defaultViewModel.Lab.Devices.Add(FakeVisualLabElement.Fake)
+            _defaultViewModel.Lab.Links.Add(activeLink)
+
+            Window.Current.CoreWindow.PointerCursor = New Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Cross, 1)
+
+        End If
+    End Sub
+
+    Private Sub Page_Drop(sender As Object, e As DragEventArgs)
         'Dim items = Await e.DataView.GetStorageItemsAsync()
         'If items.Count > 0 Then
         '    Dim storageFile = CType(items(0), StorageFile)

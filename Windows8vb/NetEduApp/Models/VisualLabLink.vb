@@ -5,7 +5,8 @@
         Private _ItemA As VisualLabElement
         Private _ItemB As VisualLabElement
 
-        Public Property Color As SolidColorBrush
+        Public Property Color As Brush
+        Public Property LineStyle As DoubleCollection
 
 
         Protected Sub RaisePropertyChanged(PropertyName As String)
