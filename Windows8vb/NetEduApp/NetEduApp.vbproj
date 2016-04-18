@@ -124,6 +124,7 @@
     <Compile Include="Models\EthernetCrossoverLink.vb" />
     <Compile Include="Models\SerialLink.vb" />
     <Compile Include="Models\OpticalFiberLink.vb" />
+    <Compile Include="Mvvm\PointerRoutedArgsConverter.vb" />
     <Compile Include="Mvvm\ViewModelBase.vb" />
     <Compile Include="Mvvm\DelegateCommand.vb" />
     <Compile Include="Views\Config\ConfigMenu.xaml.vb">

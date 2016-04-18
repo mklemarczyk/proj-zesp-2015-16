@@ -12,7 +12,16 @@
       mc:Ignorable="d">
 
     <Page.Resources>
-        <DataTemplate x:Key="ItemsControlItemDataTemplate">
+        <DataTemplate x:Key="LinkDataTemplate">
+            <Line StrokeThickness="2.5"
+                            Stroke="{Binding Color}"
+							StrokeDashArray="{Binding LineStyle}"
+							X1="{Binding ItemA.Position.X, Converter={StaticResource OffsetConverter}, ConverterParameter=35}"
+							Y1="{Binding ItemA.Position.Y, Converter={StaticResource OffsetConverter}, ConverterParameter=35}"
+							X2="{Binding ItemB.Position.X, Converter={StaticResource OffsetConverter}, ConverterParameter=35}"
+							Y2="{Binding ItemB.Position.Y, Converter={StaticResource OffsetConverter}, ConverterParameter=35}"/>
+        </DataTemplate>
+        <DataTemplate x:Key="DevideDataTemplate">
 			<Border x:Name="itemBorder" BorderBrush="Black" BorderThickness="1" Tag="{Binding}" Visibility="Collapsed">
 				<Interactivity:Interaction.Behaviors>
 					<Core:DataTriggerBehavior Binding="{Binding Name}" ComparisonCondition="NotEqual" Value="{x:Null}">
@@ -29,7 +38,16 @@
                     <PlaneProjection GlobalOffsetX="{Binding Position.X}" GlobalOffsetY="{Binding Position.Y}" />
                 </Border.Projection>
                 <StackPanel Background="White">
-                    <Image Source="{Binding ImagePath}" Height="70" Width="70" PointerPressed="Image_PointerPressed" DoubleTapped="Image_DoubleTapped" />
+                    <Image Source="{Binding ImagePath}" Height="70" Width="70">
+                        <Interactivity:Interaction.Behaviors>
+                            <Core:EventTriggerBehavior EventName="PointerPressed">
+                                <Core:InvokeCommandAction Command="{Binding DataContext.StartMoveCommand, ElementName=pageRoot}" />
+                            </Core:EventTriggerBehavior>
+                            <Core:EventTriggerBehavior EventName="DoubleTapped">
+                                <Core:InvokeCommandAction Command="{Binding DataContext.EditCommand, ElementName=pageRoot}" />
+                            </Core:EventTriggerBehavior>
+                        </Interactivity:Interaction.Behaviors>
+                    </Image>
                     <TextBlock Text="{Binding Name}" Foreground="Black" HorizontalAlignment="Center" DoubleTapped="TextBlock_DoubleTapped" />
                 </StackPanel>
             </Border>
@@ -71,29 +89,27 @@
             <TextBlock x:Name="pageTitle" Text="{StaticResource AppName}" Style="{StaticResource HeaderTextBlockStyle}" Grid.Column="1" 
                         IsHitTestVisible="false" TextWrapping="NoWrap" VerticalAlignment="Bottom" Margin="0,0,30,40"/>
         </Grid>
-        <Grid Grid.Row="1" Background="#FFCBE5F3"
-			PointerReleased="Grid_PointerReleased"
-			PointerMoved="Grid_PointerMoved"
-			PointerExited="Grid_PointerExited" AllowDrop="True" Drop="Page_Drop" DragOver="Page_DragOver">
-            <ItemsControl x:Name="netLinksControl" ItemsSource="{Binding Lab.Links}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Line StrokeThickness="2.5"
-                            Stroke="{Binding Color}"
-							StrokeDashArray="{Binding LineStyle}"
-							X1="{Binding ItemA.Position.X, Converter={StaticResource OffsetConverter}, ConverterParameter=35}"
-							Y1="{Binding ItemA.Position.Y, Converter={StaticResource OffsetConverter}, ConverterParameter=35}"
-							X2="{Binding ItemB.Position.X, Converter={StaticResource OffsetConverter}, ConverterParameter=35}"
-							Y2="{Binding ItemB.Position.Y, Converter={StaticResource OffsetConverter}, ConverterParameter=35}"/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
+        <Grid Grid.Row="1" Background="#FFCBE5F3" AllowDrop="True"
+              Drop="Page_Drop" DragOver="Page_DragOver">
+            <Interactivity:Interaction.Behaviors>
+                <Core:EventTriggerBehavior EventName="PointerReleased">
+                    <Core:InvokeCommandAction Command="{Binding DataContext.ApplyActionCommand, ElementName=pageRoot}" />
+                </Core:EventTriggerBehavior>
+                <Core:EventTriggerBehavior EventName="PointerMoved">
+                    <Core:InvokeCommandAction Command="{Binding DataContext.MoveCommand, ElementName=pageRoot}" InputConverter="{StaticResource PointerRoutedArgsConverter}" InputConverterParameter="{Binding ElementName=netLinksControl}" />
+                </Core:EventTriggerBehavior>
+                <Core:EventTriggerBehavior EventName="PointerExited">
+                    <Core:InvokeCommandAction Command="{Binding DataContext.CancelActionCommand, ElementName=pageRoot}" />
+                </Core:EventTriggerBehavior>
+            </Interactivity:Interaction.Behaviors>
+            <ItemsControl x:Name="netLinksControl" ItemsSource="{Binding Lab.Links}" ItemTemplate="{StaticResource LinkDataTemplate}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <Canvas />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
-			<ItemsControl x:Name="netItemsControl" ItemsSource="{Binding Lab.Devices}" ItemTemplate="{StaticResource ItemsControlItemDataTemplate}">
+            <ItemsControl x:Name="netItemsControl" ItemsSource="{Binding Lab.Devices}" ItemTemplate="{StaticResource DevideDataTemplate}">
 				<ItemsControl.ItemsPanel>
 					<ItemsPanelTemplate>
 						<Canvas />
@@ -127,11 +143,11 @@
 			<AppBarButton Icon="Link" Label="Connet">
 				<AppBarButton.Flyout>
                     <MenuFlyout>
-                        <MenuFlyoutItem Text="Coaxial cable" Click="MenuFlyoutItem1_Click"/>
-                        <MenuFlyoutItem Text="Ethernet cable" Click="MenuFlyoutItem2_Click"/>
-                        <MenuFlyoutItem Text="Ethernet crossover cable" Click="MenuFlyoutItem3_Click"/>
-                        <MenuFlyoutItem Text="Optical fiber cable" Click="MenuFlyoutItem4_Click"/>
-                        <MenuFlyoutItem Text="Serial cable" Click="MenuFlyoutItem5_Click"/>
+                        <MenuFlyoutItem Text="Coaxial cable" Command="{Binding CreateCoaxialLinkCommand}"/>
+                        <MenuFlyoutItem Text="Ethernet cable" Command="{Binding CreateEthernetLinkCommand}"/>
+                        <MenuFlyoutItem Text="Ethernet crossover cable" Command="{Binding CreateEthernetCrossoverLinkCommand}"/>
+                        <MenuFlyoutItem Text="Optical fiber cable" Command="{Binding CreateOpticalFiberLinkCommand}"/>
+                        <MenuFlyoutItem Text="Serial cable" Command="{Binding CreateSerialLinkCommand}"/>
 					</MenuFlyout>
 				</AppBarButton.Flyout>
 			</AppBarButton>

@@ -11,6 +11,7 @@
 
         <x:String x:Key="AppName">Computer Network Lab</x:String>
         <mvvm:OffsetConverter x:Key="OffsetConverter" />
+        <mvvm:PointerRoutedArgsConverter x:Key="PointerRoutedArgsConverter" />
 
     </Application.Resources>
 </Application>

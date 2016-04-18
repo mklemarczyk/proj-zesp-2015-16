@@ -1,6 +1,7 @@
 ﻿Imports NetEduApp.Common
 Imports NetEduApp.Emulators.Network
 Imports NetEduApp.Models
+Imports Windows.UI.Input
 
 Namespace ViewModels
     Public Class NetworkViewModel
@@ -12,14 +13,25 @@ Namespace ViewModels
         Public Sub New()
             'NavigationService = CType(App.Current, App).NavigationService
             Lab = New Laboratory
+
             CreateHubCommand = New RelayCommand(AddressOf CreateHubAction)
             CreateSwitchCommand = New RelayCommand(AddressOf CreateSwitchAction)
             CreateRouterCommand = New RelayCommand(AddressOf CreateRouterAction)
             CreateComputerCommand = New RelayCommand(AddressOf CreateComputerAction)
-            CreateLinkCommand = New RelayCommand(AddressOf CreateEthernetLinkAction)
+
+            CreateCoaxialLinkCommand = New RelayCommand(AddressOf CreateCoaxialLinkAction)
+            CreateEthernetCrossoverLinkCommand = New RelayCommand(AddressOf CreateEthernetCrossoverLinkAction)
+            CreateEthernetLinkCommand = New RelayCommand(AddressOf CreateEthernetLinkAction)
+            CreateOpticalFiberLinkCommand = New RelayCommand(AddressOf CreateOpticalFiberLinkAction)
+            CreateSerialLinkCommand = New RelayCommand(AddressOf CreateSerialLinkAction)
 
             EditCommand = New RelayCommand(AddressOf EditAction, AddressOf CanEditPredicate)
             DeleteCommand = New RelayCommand(AddressOf DeleteAction, AddressOf CanDeletePredicate)
+
+            ApplyActionCommand = New RelayCommand(AddressOf Grid_PointerReleased)
+            CancelActionCommand = New RelayCommand(AddressOf Grid_PointerExited)
+            MoveCommand = New RelayCommand(Of Point)(AddressOf Grid_PointerMoved)
+            StartMoveCommand = New RelayCommand(Of Object)(AddressOf Image_PointerPressed)
         End Sub
 #End Region
 
@@ -52,7 +64,12 @@ Namespace ViewModels
         Public Property CreateRouterCommand As ICommand
         Public Property CreateComputerCommand As ICommand
 
-        Public Property CreateLinkCommand As ICommand
+        Public Property CreateCoaxialLinkCommand As ICommand
+        Public Property CreateEthernetCrossoverLinkCommand As ICommand
+        Public Property CreateEthernetLinkCommand As ICommand
+        Public Property CreateOpticalFiberLinkCommand As ICommand
+        Public Property CreateSerialLinkCommand As ICommand
+
         Public Property EditCommand As RelayCommand
         Public Property DeleteCommand As RelayCommand
 #End Region
@@ -73,23 +90,20 @@ Namespace ViewModels
 #End Region
 
 #Region "Create link commands"
-        Private Sub CreateEthernetLinkAction()
-            Lab.NewEthernetLink()
-        End Sub
-
         Private Sub CreateCoaxialLinkAction()
-            Lab.NewCoaxialLink()
+            MenuFlyoutItem_Click(GetType(CoaxialLink))
         End Sub
         Private Sub CreateEthernetCrossoverLinkAction()
-            Lab.NewEthernetCrossoverLink()
+            MenuFlyoutItem_Click(GetType(EthernetCrossoverLink))
         End Sub
-
+        Private Sub CreateEthernetLinkAction()
+            MenuFlyoutItem_Click(GetType(EthernetLink))
+        End Sub
         Private Sub CreateOpticalFiberLinkAction()
-            Lab.NewOpticalFiberLink()
+            MenuFlyoutItem_Click(GetType(OpticalFiberLink))
         End Sub
-
         Private Sub CreateSerialLinkAction()
-            Lab.NewSerialLink()
+            MenuFlyoutItem_Click(GetType(SerialLink))
         End Sub
 #End Region
 
@@ -111,6 +125,144 @@ Namespace ViewModels
             Return SelectedDevice IsNot Nothing
         End Function
 #End Region
+
+        ''' <summary>
+        ''' Is in action
+        ''' </summary>
+        Private inAction As Boolean
+        ''' <summary>
+        ''' Picked control
+        ''' </summary>
+        Private pickedContol As FrameworkElement
+        ''' <summary>
+        ''' Picked data
+        ''' </summary>
+        Private pickedData As VisualLabElement = SelectedDevice
+        ''' <summary>
+        ''' New active link
+        ''' </summary>
+        Private activeLink As VisualLabLink
+        ''' <summary>
+        ''' Last valid position of picked control
+        ''' </summary>
+        Private lastPosition As Point?
+
+#Region "Commands"
+        Public Property CancelActionCommand As ICommand
+        Public Property ApplyActionCommand As ICommand
+        Public Property MoveCommand As ICommand
+        Public Property StartMoveCommand As ICommand
+#End Region
+
+        Private Sub Grid_PointerReleased()
+            If pickedData IsNot Nothing And pickedData IsNot FakeVisualLabElement.Fake Then
+                SelectedDevice = pickedData
+            Else
+                SelectedDevice = Nothing
+            End If
+            If inAction = True And pickedContol IsNot Nothing Then
+                Me.inAction = False
+                Me.pickedContol = Nothing
+                Me.pickedData = Nothing
+                Me.lastPosition = Nothing
+
+                Window.Current.CoreWindow.PointerCursor = New Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 1)
+
+            End If
+        End Sub
+
+        Private Sub Grid_PointerMoved(cursorPosition As Point)
+            If inAction = True And pickedData IsNot Nothing Then
+                If cursorPosition.X >= 0 AndAlso cursorPosition.Y >= 0 Then
+                    Me.pickedData.Position = New Point(cursorPosition.X - 35, cursorPosition.Y - 35)
+                End If
+            End If
+        End Sub
+
+        Private Sub Grid_PointerExited()
+            If inAction = True And pickedData IsNot Nothing Then
+                If lastPosition IsNot Nothing Then
+                    Me.pickedData.Position = lastPosition
+                    '''AddHandler pickedContol.PointerPressed, AddressOf Image_PointerPressed
+                Else
+                    If pickedData IsNot FakeVisualLabElement.Fake Then
+                        Lab.Devices.Remove(pickedData)
+                    End If
+                End If
+            End If
+            Me.inAction = False
+            Me.pickedContol = Nothing
+            Me.pickedData = Nothing
+            Me.lastPosition = Nothing
+            If activeLink IsNot Nothing Then
+                Me.Lab.Links.Remove(Me.activeLink)
+                Me.activeLink = Nothing
+            End If
+
+            Window.Current.CoreWindow.PointerCursor = New Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 1)
+
+        End Sub
+
+        Private Sub Image_PointerPressed(sender As Object)
+            If inAction = False Then
+                Dim kk = CType(sender, PointerRoutedEventArgs)
+                Dim control = CType(kk.OriginalSource, FrameworkElement)
+                If TypeOf control.DataContext Is VisualLabElement Then
+                    Me.inAction = True
+                    Me.pickedContol = control
+                    Me.pickedData = CType(control.DataContext, VisualLabElement)
+                    Me.lastPosition = Me.pickedData.Position
+
+                    Window.Current.CoreWindow.PointerCursor = New Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Hand, 1)
+
+                End If
+            Else
+                If activeLink IsNot Nothing Then
+                    Dim kk = CType(sender, PointerRoutedEventArgs)
+                    Dim control = CType(kk.OriginalSource, FrameworkElement)
+                    If TypeOf control.DataContext Is VisualLabElement Then
+                            Dim pickedData = CType(control.DataContext, VisualLabElement)
+                        If activeLink.ItemA Is FakeVisualLabElement.Fake Then
+                            activeLink.ItemA = pickedData
+                        Else
+                            If activeLink.ItemB Is FakeVisualLabElement.Fake Then
+                                activeLink.ItemB = pickedData
+                            End If
+                            inAction = False
+                            activeLink = Nothing
+                            pickedData = Nothing
+                            Lab.Devices.Remove(FakeVisualLabElement.Fake)
+
+                            Window.Current.CoreWindow.PointerCursor = New Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 1)
+
+                        End If
+                    End If
+                End If
+            End If
+        End Sub
+
+        Private Sub MenuFlyoutItem_Click(linkType As Type)
+            If activeLink IsNot Nothing Then
+                Lab.Devices.Remove(FakeVisualLabElement.Fake)
+                Lab.Links.Remove(activeLink)
+                activeLink.ItemA = Nothing
+                activeLink.ItemB = Nothing
+                activeLink = Nothing
+                pickedData = Nothing
+            End If
+            If inAction = False And activeLink Is Nothing Then
+                inAction = True
+                activeLink = Activator.CreateInstance(linkType)
+                activeLink.ItemA = FakeVisualLabElement.Fake
+                activeLink.ItemB = FakeVisualLabElement.Fake
+                pickedData = FakeVisualLabElement.Fake
+                Lab.Devices.Add(FakeVisualLabElement.Fake)
+                Lab.Links.Add(activeLink)
+
+                Window.Current.CoreWindow.PointerCursor = New Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Cross, 1)
+
+            End If
+        End Sub
 
     End Class
 End Namespace
