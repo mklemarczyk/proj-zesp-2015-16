@@ -1,8 +1,8 @@
 ﻿Imports Windows.UI
 
 Namespace Models
-    Public Class EthernetLink
-        Inherits VisualLabLink
+    Public Class EthernetLinkViewModel
+        Inherits LinkViewModel
         Public Sub New()
             Color = New SolidColorBrush(Colors.Black)
         End Sub

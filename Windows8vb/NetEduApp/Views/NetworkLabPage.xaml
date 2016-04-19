@@ -129,12 +129,12 @@
 			<AppBarButton Icon="Add" Label="Create">
 				<AppBarButton.Flyout>
 					<MenuFlyout>
-                        <MenuFlyoutItem Text="Access point" Command="{Binding CreateComputerCommand}"/>
-                        <MenuFlyoutItem Text="Bridge" Command="{Binding CreateComputerCommand}"/>
+                        <MenuFlyoutItem Text="Access point" Command="{Binding CreateAccessPointCommand}"/>
+                        <MenuFlyoutItem Text="Bridge" Command="{Binding CreateBridgeCommand}"/>
                         <MenuFlyoutItem Text="Computer" Command="{Binding CreateComputerCommand}"/>
 						<MenuFlyoutItem Text="Hub" Command="{Binding CreateHubCommand}"/>
-                        <MenuFlyoutItem Text="Notebook" Command="{Binding CreateComputerCommand}"/>
-                        <MenuFlyoutItem Text="Repeater" Command="{Binding CreateComputerCommand}"/>
+                        <MenuFlyoutItem Text="Notebook" Command="{Binding CreateNotebookCommand}"/>
+                        <MenuFlyoutItem Text="Repeater" Command="{Binding CreateRepeaterCommand}"/>
                         <MenuFlyoutItem Text="Router" Command="{Binding CreateRouterCommand}"/>
                         <MenuFlyoutItem Text="Switch" Command="{Binding CreateSwitchCommand}"/>
                     </MenuFlyout>

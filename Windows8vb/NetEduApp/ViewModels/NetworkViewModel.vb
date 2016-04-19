@@ -7,17 +7,21 @@ Namespace ViewModels
     Public Class NetworkViewModel
 
         Private names As HashSet(Of String)
-        Private _SelectedDevice As VisualLabElement
+        Private _SelectedDevice As DeviceViewModel
 
 #Region "New()"
         Public Sub New()
             'NavigationService = CType(App.Current, App).NavigationService
             Lab = New Laboratory
 
-            CreateHubCommand = New RelayCommand(AddressOf CreateHubAction)
-            CreateSwitchCommand = New RelayCommand(AddressOf CreateSwitchAction)
-            CreateRouterCommand = New RelayCommand(AddressOf CreateRouterAction)
+            CreateAccessPointCommand = New RelayCommand(AddressOf CreateAccessPointAction)
+            CreateBridgeCommand = New RelayCommand(AddressOf CreateBridgeAction)
             CreateComputerCommand = New RelayCommand(AddressOf CreateComputerAction)
+            CreateHubCommand = New RelayCommand(AddressOf CreateHubAction)
+            CreateNotebookCommand = New RelayCommand(AddressOf CreateNotebookAction)
+            CreateRepeaterCommand = New RelayCommand(AddressOf CreateRepeaterAction)
+            CreateRouterCommand = New RelayCommand(AddressOf CreateRouterAction)
+            CreateSwitchCommand = New RelayCommand(AddressOf CreateSwitchAction)
 
             CreateCoaxialLinkCommand = New RelayCommand(AddressOf CreateCoaxialLinkAction)
             CreateEthernetCrossoverLinkCommand = New RelayCommand(AddressOf CreateEthernetCrossoverLinkAction)
@@ -36,11 +40,11 @@ Namespace ViewModels
 #End Region
 
 #Region "Properties"
-        Public Property SelectedDevice As VisualLabElement
+        Public Property SelectedDevice As DeviceViewModel
             Get
                 Return _SelectedDevice
             End Get
-            Set(value As VisualLabElement)
+            Set(value As DeviceViewModel)
                 If _SelectedDevice IsNot value Then
                     If _SelectedDevice IsNot Nothing Then
                         _SelectedDevice.IsSelected = False
@@ -59,10 +63,14 @@ Namespace ViewModels
 #End Region
 
 #Region "Commands"
-        Public Property CreateHubCommand As ICommand
-        Public Property CreateSwitchCommand As ICommand
-        Public Property CreateRouterCommand As ICommand
+        Public Property CreateAccessPointCommand As ICommand
+        Public Property CreateBridgeCommand As ICommand
         Public Property CreateComputerCommand As ICommand
+        Public Property CreateHubCommand As ICommand
+        Public Property CreateNotebookCommand As ICommand
+        Public Property CreateRepeaterCommand As ICommand
+        Public Property CreateRouterCommand As ICommand
+        Public Property CreateSwitchCommand As ICommand
 
         Public Property CreateCoaxialLinkCommand As ICommand
         Public Property CreateEthernetCrossoverLinkCommand As ICommand
@@ -75,35 +83,47 @@ Namespace ViewModels
 #End Region
 
 #Region "Create device commands"
+        Private Sub CreateAccessPointAction()
+            Lab.NewAccessPoint()
+        End Sub
+        Private Sub CreateBridgeAction()
+            Lab.NewBridge()
+        End Sub
+        Private Sub CreateComputerAction()
+            Lab.NewComputer()
+        End Sub
         Private Sub CreateHubAction()
             Lab.NewHub()
         End Sub
-        Private Sub CreateSwitchAction()
-            Lab.NewSwitch()
+        Private Sub CreateNotebookAction()
+            Lab.NewNotebook()
+        End Sub
+        Private Sub CreateRepeaterAction()
+            Lab.NewRepeater()
         End Sub
         Private Sub CreateRouterAction()
             Lab.NewRouter()
         End Sub
-        Private Sub CreateComputerAction()
-            Lab.NewComputer()
+        Private Sub CreateSwitchAction()
+            Lab.NewSwitch()
         End Sub
 #End Region
 
 #Region "Create link commands"
         Private Sub CreateCoaxialLinkAction()
-            MenuFlyoutItem_Click(GetType(CoaxialLink))
+            MenuFlyoutItem_Click(GetType(CoaxialLinkViewModel))
         End Sub
         Private Sub CreateEthernetCrossoverLinkAction()
-            MenuFlyoutItem_Click(GetType(EthernetCrossoverLink))
+            MenuFlyoutItem_Click(GetType(EthernetCrossoverLinkViewModel))
         End Sub
         Private Sub CreateEthernetLinkAction()
-            MenuFlyoutItem_Click(GetType(EthernetLink))
+            MenuFlyoutItem_Click(GetType(EthernetLinkViewModel))
         End Sub
         Private Sub CreateOpticalFiberLinkAction()
-            MenuFlyoutItem_Click(GetType(OpticalFiberLink))
+            MenuFlyoutItem_Click(GetType(OpticalFiberLinkViewModel))
         End Sub
         Private Sub CreateSerialLinkAction()
-            MenuFlyoutItem_Click(GetType(SerialLink))
+            MenuFlyoutItem_Click(GetType(SerialLinkViewModel))
         End Sub
 #End Region
 
@@ -137,11 +157,11 @@ Namespace ViewModels
         ''' <summary>
         ''' Picked data
         ''' </summary>
-        Private pickedData As VisualLabElement = SelectedDevice
+        Private pickedData As DeviceViewModel = SelectedDevice
         ''' <summary>
         ''' New active link
         ''' </summary>
-        Private activeLink As VisualLabLink
+        Private activeLink As LinkViewModel
         ''' <summary>
         ''' Last valid position of picked control
         ''' </summary>
@@ -155,7 +175,7 @@ Namespace ViewModels
 #End Region
 
         Private Sub Grid_PointerReleased()
-            If pickedData IsNot Nothing And pickedData IsNot FakeVisualLabElement.Fake Then
+            If pickedData IsNot Nothing And pickedData IsNot FakeDeviceViewModel.Fake Then
                 SelectedDevice = pickedData
             Else
                 SelectedDevice = Nothing
@@ -185,7 +205,7 @@ Namespace ViewModels
                     Me.pickedData.Position = lastPosition
                     '''AddHandler pickedContol.PointerPressed, AddressOf Image_PointerPressed
                 Else
-                    If pickedData IsNot FakeVisualLabElement.Fake Then
+                    If pickedData IsNot FakeDeviceViewModel.Fake Then
                         Lab.Devices.Remove(pickedData)
                     End If
                 End If
@@ -207,10 +227,10 @@ Namespace ViewModels
             If inAction = False Then
                 Dim kk = CType(sender, PointerRoutedEventArgs)
                 Dim control = CType(kk.OriginalSource, FrameworkElement)
-                If TypeOf control.DataContext Is VisualLabElement Then
+                If TypeOf control.DataContext Is DeviceViewModel Then
                     Me.inAction = True
                     Me.pickedContol = control
-                    Me.pickedData = CType(control.DataContext, VisualLabElement)
+                    Me.pickedData = CType(control.DataContext, DeviceViewModel)
                     Me.lastPosition = Me.pickedData.Position
 
                     Window.Current.CoreWindow.PointerCursor = New Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Hand, 1)
@@ -220,18 +240,18 @@ Namespace ViewModels
                 If activeLink IsNot Nothing Then
                     Dim kk = CType(sender, PointerRoutedEventArgs)
                     Dim control = CType(kk.OriginalSource, FrameworkElement)
-                    If TypeOf control.DataContext Is VisualLabElement Then
-                            Dim pickedData = CType(control.DataContext, VisualLabElement)
-                        If activeLink.ItemA Is FakeVisualLabElement.Fake Then
+                    If TypeOf control.DataContext Is DeviceViewModel Then
+                        Dim pickedData = CType(control.DataContext, DeviceViewModel)
+                        If activeLink.ItemA Is FakeDeviceViewModel.Fake Then
                             activeLink.ItemA = pickedData
                         Else
-                            If activeLink.ItemB Is FakeVisualLabElement.Fake Then
+                            If activeLink.ItemB Is FakeDeviceViewModel.Fake Then
                                 activeLink.ItemB = pickedData
                             End If
                             inAction = False
                             activeLink = Nothing
                             pickedData = Nothing
-                            Lab.Devices.Remove(FakeVisualLabElement.Fake)
+                            Lab.Devices.Remove(FakeDeviceViewModel.Fake)
 
                             Window.Current.CoreWindow.PointerCursor = New Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 1)
 
@@ -243,7 +263,7 @@ Namespace ViewModels
 
         Private Sub MenuFlyoutItem_Click(linkType As Type)
             If activeLink IsNot Nothing Then
-                Lab.Devices.Remove(FakeVisualLabElement.Fake)
+                Lab.Devices.Remove(FakeDeviceViewModel.Fake)
                 Lab.Links.Remove(activeLink)
                 activeLink.ItemA = Nothing
                 activeLink.ItemB = Nothing
@@ -253,10 +273,10 @@ Namespace ViewModels
             If inAction = False And activeLink Is Nothing Then
                 inAction = True
                 activeLink = Activator.CreateInstance(linkType)
-                activeLink.ItemA = FakeVisualLabElement.Fake
-                activeLink.ItemB = FakeVisualLabElement.Fake
-                pickedData = FakeVisualLabElement.Fake
-                Lab.Devices.Add(FakeVisualLabElement.Fake)
+                activeLink.ItemA = FakeDeviceViewModel.Fake
+                activeLink.ItemB = FakeDeviceViewModel.Fake
+                pickedData = FakeDeviceViewModel.Fake
+                Lab.Devices.Add(FakeDeviceViewModel.Fake)
                 Lab.Links.Add(activeLink)
 
                 Window.Current.CoreWindow.PointerCursor = New Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Cross, 1)

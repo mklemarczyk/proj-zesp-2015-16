@@ -120,10 +120,14 @@
     <Compile Include="App.xaml.vb">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\CoaxialLink.vb" />
-    <Compile Include="Models\EthernetCrossoverLink.vb" />
-    <Compile Include="Models\SerialLink.vb" />
-    <Compile Include="Models\OpticalFiberLink.vb" />
+    <Compile Include="Models\NotebookViewModel.vb" />
+    <Compile Include="Models\CoaxialLinkViewModel.vb" />
+    <Compile Include="Models\EthernetCrossoverLinkViewModel.vb" />
+    <Compile Include="Models\SerialLinkViewModel.vb" />
+    <Compile Include="Models\OpticalFiberLinkViewModel.vb" />
+    <Compile Include="Models\RepeaterViewModel.vb" />
+    <Compile Include="Models\BridgeViewModel.vb" />
+    <Compile Include="Models\AccessPointViewModel.vb" />
     <Compile Include="Mvvm\PointerRoutedArgsConverter.vb" />
     <Compile Include="Mvvm\ViewModelBase.vb" />
     <Compile Include="Mvvm\DelegateCommand.vb" />
@@ -142,15 +146,15 @@
     <Compile Include="Views\HubPage.xaml.vb">
       <DependentUpon>HubPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\Computer.vb" />
-    <Compile Include="Models\EthernetLink.vb" />
-    <Compile Include="Models\FakeVisualLabElement.vb" />
-    <Compile Include="Models\Hub.vb" />
+    <Compile Include="Models\ComputerViewModel.vb" />
+    <Compile Include="Models\EthernetLinkViewModel.vb" />
+    <Compile Include="Models\FakeDeviceViewModel.vb" />
+    <Compile Include="Models\HubViewModel.vb" />
     <Compile Include="Models\Laboratory.vb" />
-    <Compile Include="Models\Router.vb" />
-    <Compile Include="Models\Switch.vb" />
-    <Compile Include="Models\VisualLabElement.vb" />
-    <Compile Include="Models\VisualLabLink.vb" />
+    <Compile Include="Models\RouterViewModel.vb" />
+    <Compile Include="Models\SwitchViewModel.vb" />
+    <Compile Include="Models\DeviceViewModel.vb" />
+    <Compile Include="Models\LinkViewModel.vb" />
     <Compile Include="Mvvm\OffsetConverter.vb" />
     <Compile Include="Views\NetworkLabPage.xaml.vb">
       <DependentUpon>NetworkLabPage.xaml</DependentUpon>
