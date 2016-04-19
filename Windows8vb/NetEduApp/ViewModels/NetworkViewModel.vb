@@ -1,13 +1,14 @@
 ﻿Imports NetEduApp.Common
-Imports NetEduApp.Emulators.Network
 Imports NetEduApp.Models
-Imports Windows.UI.Input
+Imports NetEduApp.Mvvm
 
 Namespace ViewModels
     Public Class NetworkViewModel
+        Inherits ViewModelBase
 
         Private names As HashSet(Of String)
         Private _SelectedDevice As DeviceViewModel
+        Private _EditDevice As DeviceViewModel
 
 #Region "New()"
         Public Sub New()
@@ -55,6 +56,21 @@ Namespace ViewModels
                     End If
                     EditCommand.RaiseCanExecuteChanged()
                     DeleteCommand.RaiseCanExecuteChanged()
+                    RaisePropertyChanged("SelectedDevice")
+                End If
+            End Set
+        End Property
+
+        Public Property EditDevice As DeviceViewModel
+            Get
+                Return _EditDevice
+            End Get
+            Set(value As DeviceViewModel)
+                If _EditDevice IsNot value Then
+                    _EditDevice = value
+                    EditCommand.RaiseCanExecuteChanged()
+                    DeleteCommand.RaiseCanExecuteChanged()
+                    RaisePropertyChanged("EditDevice")
                 End If
             End Set
         End Property
@@ -129,7 +145,7 @@ Namespace ViewModels
 
 #Region "Edit action"
         Private Sub EditAction()
-
+            EditDevice = SelectedDevice
         End Sub
         Private Function CanEditPredicate() As Boolean
             Return SelectedDevice IsNot Nothing
@@ -149,15 +165,11 @@ Namespace ViewModels
         ''' <summary>
         ''' Is in action
         ''' </summary>
-        Private inAction As Boolean
-        ''' <summary>
-        ''' Picked control
-        ''' </summary>
-        Private pickedContol As FrameworkElement
+        Private currentAction As LabAction
         ''' <summary>
         ''' Picked data
         ''' </summary>
-        Private pickedData As DeviceViewModel = SelectedDevice
+        Private pickedData As DeviceViewModel
         ''' <summary>
         ''' New active link
         ''' </summary>
@@ -174,15 +186,30 @@ Namespace ViewModels
         Public Property StartMoveCommand As ICommand
 #End Region
 
-        Private Sub Grid_PointerReleased()
-            If pickedData IsNot Nothing And pickedData IsNot FakeDeviceViewModel.Fake Then
-                SelectedDevice = pickedData
-            Else
-                SelectedDevice = Nothing
+        Private Sub ResetState()
+            If Me.currentAction <> LabAction.Idle Then
+                If Me.currentAction = LabAction.CreateLink Then
+                    Me.Lab.Devices.Remove(FakeDeviceViewModel.Fake)
+                    Me.Lab.Links.Remove(activeLink)
+                    Me.activeLink.ItemA = Nothing
+                    Me.activeLink.ItemB = Nothing
+                    Me.activeLink = Nothing
+                ElseIf Me.currentAction = LabAction.MoveDevice Then
+                    Me.pickedData.Position = Me.lastPosition
+                    Me.lastPosition = Nothing
+                End If
+
+                Me.pickedData = Nothing
+                Me.currentAction = LabAction.Idle
+
+                Window.Current.CoreWindow.PointerCursor = New Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 1)
             End If
-            If inAction = True And pickedContol IsNot Nothing Then
-                Me.inAction = False
-                Me.pickedContol = Nothing
+        End Sub
+
+        Private Sub Grid_PointerReleased()
+            If Me.currentAction = LabAction.MoveDevice Then
+                Me.currentAction = LabAction.Idle
+
                 Me.pickedData = Nothing
                 Me.lastPosition = Nothing
 
@@ -192,86 +219,59 @@ Namespace ViewModels
         End Sub
 
         Private Sub Grid_PointerMoved(cursorPosition As Point)
-            If inAction = True And pickedData IsNot Nothing Then
+            If Me.currentAction = LabAction.MoveDevice Then
                 If cursorPosition.X >= 0 AndAlso cursorPosition.Y >= 0 Then
                     Me.pickedData.Position = New Point(cursorPosition.X - 35, cursorPosition.Y - 35)
+                End If
+            ElseIf Me.currentAction = LabAction.CreateLink Then
+                If cursorPosition.X >= 0 AndAlso cursorPosition.Y >= 0 Then
+                    FakeDeviceViewModel.Fake.Position = New Point(cursorPosition.X - 35, cursorPosition.Y - 35)
                 End If
             End If
         End Sub
 
         Private Sub Grid_PointerExited()
-            If inAction = True And pickedData IsNot Nothing Then
-                If lastPosition IsNot Nothing Then
-                    Me.pickedData.Position = lastPosition
-                    '''AddHandler pickedContol.PointerPressed, AddressOf Image_PointerPressed
-                Else
-                    If pickedData IsNot FakeDeviceViewModel.Fake Then
-                        Lab.Devices.Remove(pickedData)
-                    End If
-                End If
-            End If
-            Me.inAction = False
-            Me.pickedContol = Nothing
-            Me.pickedData = Nothing
-            Me.lastPosition = Nothing
-            If activeLink IsNot Nothing Then
-                Me.Lab.Links.Remove(Me.activeLink)
-                Me.activeLink = Nothing
-            End If
-
-            Window.Current.CoreWindow.PointerCursor = New Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 1)
-
+            ResetState()
         End Sub
 
         Private Sub Image_PointerPressed(sender As Object)
-            If inAction = False Then
-                Dim kk = CType(sender, PointerRoutedEventArgs)
-                Dim control = CType(kk.OriginalSource, FrameworkElement)
-                If TypeOf control.DataContext Is DeviceViewModel Then
-                    Me.inAction = True
-                    Me.pickedContol = control
-                    Me.pickedData = CType(control.DataContext, DeviceViewModel)
-                    Me.lastPosition = Me.pickedData.Position
+            If Me.currentAction = LabAction.Idle Then
 
-                    Window.Current.CoreWindow.PointerCursor = New Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Hand, 1)
+                Me.currentAction = LabAction.MoveDevice
+                Dim args = CType(sender, PointerRoutedEventArgs)
+                Dim control = CType(args.OriginalSource, FrameworkElement)
+                Me.pickedData = CType(control.DataContext, DeviceViewModel)
+                Me.lastPosition = Me.pickedData.Position
+                Me.SelectedDevice = Me.pickedData
 
-                End If
-            Else
-                If activeLink IsNot Nothing Then
-                    Dim kk = CType(sender, PointerRoutedEventArgs)
-                    Dim control = CType(kk.OriginalSource, FrameworkElement)
-                    If TypeOf control.DataContext Is DeviceViewModel Then
-                        Dim pickedData = CType(control.DataContext, DeviceViewModel)
-                        If activeLink.ItemA Is FakeDeviceViewModel.Fake Then
-                            activeLink.ItemA = pickedData
-                        Else
-                            If activeLink.ItemB Is FakeDeviceViewModel.Fake Then
-                                activeLink.ItemB = pickedData
-                            End If
-                            inAction = False
-                            activeLink = Nothing
-                            pickedData = Nothing
-                            Lab.Devices.Remove(FakeDeviceViewModel.Fake)
+                Window.Current.CoreWindow.PointerCursor = New Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Hand, 1)
 
-                            Window.Current.CoreWindow.PointerCursor = New Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 1)
-
-                        End If
+            ElseIf Me.currentAction = LabAction.CreateLink Then
+                Dim args = CType(sender, PointerRoutedEventArgs)
+                Dim control = CType(args.OriginalSource, FrameworkElement)
+                Dim pickedData = CType(control.DataContext, DeviceViewModel)
+                If activeLink.ItemA Is FakeDeviceViewModel.Fake Then
+                    activeLink.ItemA = pickedData
+                Else
+                    If activeLink.ItemB Is FakeDeviceViewModel.Fake Then
+                        activeLink.ItemB = pickedData
                     End If
+
+                    Me.currentAction = LabAction.Idle
+                    activeLink = Nothing
+                    Lab.Devices.Remove(FakeDeviceViewModel.Fake)
+
+                    Window.Current.CoreWindow.PointerCursor = New Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 1)
+
                 End If
             End If
         End Sub
 
         Private Sub MenuFlyoutItem_Click(linkType As Type)
-            If activeLink IsNot Nothing Then
-                Lab.Devices.Remove(FakeDeviceViewModel.Fake)
-                Lab.Links.Remove(activeLink)
-                activeLink.ItemA = Nothing
-                activeLink.ItemB = Nothing
-                activeLink = Nothing
-                pickedData = Nothing
-            End If
-            If inAction = False And activeLink Is Nothing Then
-                inAction = True
+            ResetState()
+            If Me.currentAction = LabAction.Idle Then
+
+                Me.currentAction = LabAction.CreateLink
                 activeLink = Activator.CreateInstance(linkType)
                 activeLink.ItemA = FakeDeviceViewModel.Fake
                 activeLink.ItemB = FakeDeviceViewModel.Fake
@@ -284,5 +284,10 @@ Namespace ViewModels
             End If
         End Sub
 
+        Private Enum LabAction
+            Idle
+            MoveDevice
+            CreateLink
+        End Enum
     End Class
 End Namespace

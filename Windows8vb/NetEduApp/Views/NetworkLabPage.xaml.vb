@@ -36,10 +36,8 @@ Public NotInheritable Class NetworkLabPage
 		InitializeComponent()
 		Me._navigationHelper = New Common.NavigationHelper(Me)
 		AddHandler Me._navigationHelper.LoadState, AddressOf NavigationHelper_LoadState
-		AddHandler Me._navigationHelper.SaveState, AddressOf NavigationHelper_SaveState
-
-		Me.prop.Visibility = Visibility.Collapsed
-	End Sub
+        AddHandler Me._navigationHelper.SaveState, AddressOf NavigationHelper_SaveState
+    End Sub
 
     ''' <summary>
     ''' Populates the page with content passed during navigation.  Any saved state is also
@@ -117,4 +115,16 @@ Public NotInheritable Class NetworkLabPage
 	Private Sub CommandBar_Closed(sender As Object, e As Object)
 		DirectCast(sender, CommandBar).IsOpen = True
 	End Sub
+
+    Private Sub prop_DataContextChanged(sender As FrameworkElement, args As DataContextChangedEventArgs)
+        If prop IsNot Nothing Then
+            If args.NewValue IsNot Nothing Then
+                prop.Visibility = Visibility.Visible
+                prop.Navigate(GetType(ConfigMenu))
+                prop.BackStack.Clear()
+            Else
+                prop.Visibility = Visibility.Collapsed
+            End If
+        End If
+    End Sub
 End Class

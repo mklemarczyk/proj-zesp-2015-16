@@ -50,7 +50,7 @@
 				<ColumnDefinition/>
 				<ColumnDefinition Width="Auto"/>
 			</Grid.ColumnDefinitions>
-			<TextBox Text="{Binding Name}" Grid.Column="1" HorizontalAlignment="Left" Margin="10" TextWrapping="Wrap" VerticalAlignment="Top" Width="130"/>
+			<TextBox Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" HorizontalAlignment="Left" Margin="10" TextWrapping="Wrap" VerticalAlignment="Top" Width="130"/>
 			<TextBlock HorizontalAlignment="Left" Margin="10" TextWrapping="Wrap" Text="Nazwa" VerticalAlignment="Center"/>
 		</Grid>
 	</Grid>
