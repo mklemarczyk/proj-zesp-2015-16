@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetEduApp.Console", "..\Sha
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetEduApp.Emulators", "..\Shared\NetEduApp.Emulators\NetEduApp.Emulators.csproj", "{B9D2B18F-1A38-42F8-8608-42AC6C0FA3F6}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "NetEduApp.Model", "NetEduApp.Model\NetEduApp.Model.vbproj", "{F697072B-4AA2-4BC2-ACF6-C339FAC22091}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +81,22 @@ Global
 		{B9D2B18F-1A38-42F8-8608-42AC6C0FA3F6}.Release|x64.Build.0 = Release|Any CPU
 		{B9D2B18F-1A38-42F8-8608-42AC6C0FA3F6}.Release|x86.ActiveCfg = Release|Any CPU
 		{B9D2B18F-1A38-42F8-8608-42AC6C0FA3F6}.Release|x86.Build.0 = Release|Any CPU
+		{F697072B-4AA2-4BC2-ACF6-C339FAC22091}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F697072B-4AA2-4BC2-ACF6-C339FAC22091}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F697072B-4AA2-4BC2-ACF6-C339FAC22091}.Debug|ARM.ActiveCfg = Debug|ARM
+		{F697072B-4AA2-4BC2-ACF6-C339FAC22091}.Debug|ARM.Build.0 = Debug|ARM
+		{F697072B-4AA2-4BC2-ACF6-C339FAC22091}.Debug|x64.ActiveCfg = Debug|x64
+		{F697072B-4AA2-4BC2-ACF6-C339FAC22091}.Debug|x64.Build.0 = Debug|x64
+		{F697072B-4AA2-4BC2-ACF6-C339FAC22091}.Debug|x86.ActiveCfg = Debug|x86
+		{F697072B-4AA2-4BC2-ACF6-C339FAC22091}.Debug|x86.Build.0 = Debug|x86
+		{F697072B-4AA2-4BC2-ACF6-C339FAC22091}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F697072B-4AA2-4BC2-ACF6-C339FAC22091}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F697072B-4AA2-4BC2-ACF6-C339FAC22091}.Release|ARM.ActiveCfg = Release|ARM
+		{F697072B-4AA2-4BC2-ACF6-C339FAC22091}.Release|ARM.Build.0 = Release|ARM
+		{F697072B-4AA2-4BC2-ACF6-C339FAC22091}.Release|x64.ActiveCfg = Release|x64
+		{F697072B-4AA2-4BC2-ACF6-C339FAC22091}.Release|x64.Build.0 = Release|x64
+		{F697072B-4AA2-4BC2-ACF6-C339FAC22091}.Release|x86.ActiveCfg = Release|x86
+		{F697072B-4AA2-4BC2-ACF6-C339FAC22091}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

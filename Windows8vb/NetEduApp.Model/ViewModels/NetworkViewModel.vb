@@ -1,6 +1,4 @@
-﻿Imports NetEduApp.Common
-Imports NetEduApp.Models
-Imports NetEduApp.Mvvm
+﻿Imports NetEduApp.Model.Common
 
 Namespace ViewModels
     Public Class NetworkViewModel

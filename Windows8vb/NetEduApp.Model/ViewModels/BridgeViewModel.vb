@@ -1,4 +1,4 @@
-﻿Namespace Models
+﻿Namespace ViewModels
     Public Class BridgeViewModel
         Inherits DeviceViewModel
 

@@ -4,14 +4,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:NetEduApp"
     xmlns:localData="using:NetEduApp.Data"
-    xmlns:mvvm="using:NetEduApp.Mvvm">
+    xmlns:common="using:NetEduApp.Common">
 
     <Application.Resources>
         <!-- Application-specific resources -->
 
         <x:String x:Key="AppName">Computer Network Lab</x:String>
-        <mvvm:OffsetConverter x:Key="OffsetConverter" />
-        <mvvm:PointerRoutedArgsConverter x:Key="PointerRoutedArgsConverter" />
+        <common:OffsetConverter x:Key="OffsetConverter" />
+        <common:PointerRoutedArgsConverter x:Key="PointerRoutedArgsConverter" />
 
     </Application.Resources>
 </Application>

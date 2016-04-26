@@ -1,4 +1,7 @@
-﻿Namespace Data
+﻿Imports Windows.Data.Json
+Imports Windows.Storage
+
+Namespace Data
     ' The data model defined by this file serves as a representative example of a strongly-typed
     ' model.  The property names chosen coincide with data bindings in the standard item templates.
     '
@@ -234,11 +237,11 @@
                 Return
             End If
 
-            Dim dataUri As New Uri("ms-appx:///DataModel/SampleData.json")
+            Dim dataUri As New Uri("ms-appx:///Assets/SampleData.json")
 
             Dim file As StorageFile = Await StorageFile.GetFileFromApplicationUriAsync(dataUri)
             Dim jsonText As String = Await FileIO.ReadTextAsync(file)
-            Dim jsonObject As JsonObject = jsonObject.Parse(jsonText)
+            Dim jsonObject As JsonObject = JsonObject.Parse(jsonText)
             Dim jsonArray As JsonArray = jsonObject("Groups").GetArray()
 
             For Each groupValue As JsonValue In jsonArray

@@ -11,27 +11,27 @@ Public NotInheritable Class SectionPage
     ''' NavigationHelper is used on each page to aid in navigation and 
     ''' process lifetime management
     ''' </summary>
-    Public ReadOnly Property NavigationHelper As Common.NavigationHelper
+    Public ReadOnly Property NavigationHelper As Model.Common.NavigationHelper
         Get
             Return Me._navigationHelper
         End Get
     End Property
-    Private _navigationHelper As Common.NavigationHelper
+    Private _navigationHelper As Model.Common.NavigationHelper
 
     ''' <summary>
     ''' This can be changed to a strongly typed view model.
     ''' </summary>
-    Public ReadOnly Property DefaultViewModel As Common.ObservableDictionary
+    Public ReadOnly Property DefaultViewModel As Model.Common.ObservableDictionary
         Get
             Return Me._defaultViewModel
         End Get
     End Property
-    Private _defaultViewModel As New Common.ObservableDictionary()
+    Private _defaultViewModel As New Model.Common.ObservableDictionary()
 
 
     Public Sub New()
         InitializeComponent()
-        Me._navigationHelper = New Common.NavigationHelper(Me)
+        Me._navigationHelper = New Model.Common.NavigationHelper(Me)
         AddHandler Me._navigationHelper.LoadState,
             AddressOf NavigationHelper_LoadState
     End Sub
@@ -47,9 +47,9 @@ Public NotInheritable Class SectionPage
     ''' <see cref="Frame.Navigate"/> when this page was initially requested and
     ''' a dictionary of state preserved by this page during an earlier
     ''' session.  The state will be null the first time a page is visited.</param>
-    Private Async Sub NavigationHelper_LoadState(sender As Object, e As Common.LoadStateEventArgs)
+    Private Async Sub NavigationHelper_LoadState(sender As Object, e As Model.Common.LoadStateEventArgs)
         ' TODO: Create an appropriate data model for your problem domain to replace the sample data
-        Dim group As Data.SampleDataGroup = Await Data.SampleDataSource.GetGroupAsync(DirectCast(e.NavigationParameter, String))
+        Dim group As Model.Data.SampleDataGroup = Await Model.Data.SampleDataSource.GetGroupAsync(DirectCast(e.NavigationParameter, String))
         Me.DefaultViewModel("Group") = group
         Me.DefaultViewModel("Items") = group.Items
     End Sub
@@ -64,7 +64,7 @@ Public NotInheritable Class SectionPage
 
         ' Navigate to the appropriate destination page, configuring the new page
         ' by passing required information as a navigation parameter
-        Dim itemId As String = DirectCast(e.ClickedItem, Data.SampleDataItem).UniqueId
+        Dim itemId As String = DirectCast(e.ClickedItem, Model.Data.SampleDataItem).UniqueId
         Me.Frame.Navigate(GetType(ItemPage), itemId)
     End Sub
 

@@ -1,4 +1,4 @@
-﻿Namespace Mvvm
+﻿Namespace Common
     Public Class OffsetConverter
         Implements IValueConverter
 

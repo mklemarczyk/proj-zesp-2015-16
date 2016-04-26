@@ -7,7 +7,7 @@
     ''' carry across sessions, but that should be discarded when an application crashes or is
     ''' upgraded.
     ''' </summary>
-    Friend NotInheritable Class SuspensionManager
+    Public NotInheritable Class SuspensionManager
 
         Private Shared _sessionState As New Dictionary(Of String, Object)()
         Private Shared _knownTypes As New List(Of Type)()

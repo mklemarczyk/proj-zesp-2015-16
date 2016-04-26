@@ -1,5 +1,4 @@
-﻿
-Namespace Mvvm
+﻿Namespace Common
 
     Public Class PointerRoutedArgsConverter
         Implements IValueConverter

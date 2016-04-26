@@ -1,10 +1,10 @@
 ﻿Imports Windows.UI
 
-Namespace Models
-    Public Class OpticalFiberLinkViewModel
+Namespace ViewModels
+    Public Class SerialLinkViewModel
         Inherits LinkViewModel
         Public Sub New()
-            Color = New SolidColorBrush(Colors.Orange)
+            Color = New SolidColorBrush(Colors.Red)
         End Sub
     End Class
 End Namespace

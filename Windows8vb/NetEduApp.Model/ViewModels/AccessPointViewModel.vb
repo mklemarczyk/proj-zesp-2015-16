@@ -1,5 +1,5 @@
-﻿Namespace Models
-    Public Class SwitchViewModel
+﻿Namespace ViewModels
+    Public Class AccessPointViewModel
         Inherits DeviceViewModel
 
         Public Overrides ReadOnly Property ImagePath As String = "ms-appx:///Assets/Lab/Switch.png"
@@ -9,7 +9,7 @@
         End Sub
 
         Protected Overrides Function GetNamePattern() As String
-            Return "Switch{0}"
+            Return "AccessPoint{0}"
         End Function
     End Class
 End Namespace

@@ -1,4 +1,4 @@
-﻿Namespace Models
+﻿Namespace ViewModels
     Public MustInherit Class DeviceViewModel
         Implements INotifyPropertyChanged
         Implements IDisposable

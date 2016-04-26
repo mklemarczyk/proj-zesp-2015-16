@@ -11,31 +11,31 @@ Public NotInheritable Class NetworkLabPage
 	Inherits Page
 
 #Region "Navigation"
-	''' <summary>
-	''' NavigationHelper is used on each page to aid in navigation and 
-	''' process lifetime management
-	''' </summary>
-	Public ReadOnly Property NavigationHelper As Common.NavigationHelper
-		Get
-			Return Me._navigationHelper
-		End Get
-	End Property
-	Private _navigationHelper As Common.NavigationHelper
+    ''' <summary>
+    ''' NavigationHelper is used on each page to aid in navigation and 
+    ''' process lifetime management
+    ''' </summary>
+    Public ReadOnly Property NavigationHelper As Model.Common.NavigationHelper
+        Get
+            Return Me._navigationHelper
+        End Get
+    End Property
+    Private _navigationHelper As Model.Common.NavigationHelper
 
     ''' <summary>
     ''' This can be changed to a strongly typed view model.
     ''' </summary>
-    Public ReadOnly Property DefaultViewModel As NetworkViewModel
-		Get
-			Return Me._defaultViewModel
-		End Get
-	End Property
-	Private _defaultViewModel As New NetworkViewModel()
+    Public ReadOnly Property DefaultViewModel As Model.ViewModels.NetworkViewModel
+        Get
+            Return Me._defaultViewModel
+        End Get
+    End Property
+    Private _defaultViewModel As New Model.ViewModels.NetworkViewModel()
 
-	Public Sub New()
+    Public Sub New()
 		InitializeComponent()
-		Me._navigationHelper = New Common.NavigationHelper(Me)
-		AddHandler Me._navigationHelper.LoadState, AddressOf NavigationHelper_LoadState
+        Me._navigationHelper = New Model.Common.NavigationHelper(Me)
+        AddHandler Me._navigationHelper.LoadState, AddressOf NavigationHelper_LoadState
         AddHandler Me._navigationHelper.SaveState, AddressOf NavigationHelper_SaveState
     End Sub
 
@@ -50,9 +50,9 @@ Public NotInheritable Class NetworkLabPage
     ''' <see cref="Frame.Navigate"/> when this page was initially requested and
     ''' a dictionary of state preserved by this page during an earlier
     ''' session.  The state will be null the first time a page is visited.</param>
-    Private Sub NavigationHelper_LoadState(sender As Object, e As Common.LoadStateEventArgs)
+    Private Sub NavigationHelper_LoadState(sender As Object, e As Model.Common.LoadStateEventArgs)
 
-	End Sub
+    End Sub
 
     ''' <summary>
     ''' Preserves state associated with this page in case the application is suspended or the
@@ -64,22 +64,22 @@ Public NotInheritable Class NetworkLabPage
     ''' </param>
     ''' <param name="e">Event data that provides an empty dictionary to be populated with 
     ''' serializable state.</param>
-    Private Sub NavigationHelper_SaveState(sender As Object, e As Common.SaveStateEventArgs)
+    Private Sub NavigationHelper_SaveState(sender As Object, e As Model.Common.SaveStateEventArgs)
 
-	End Sub
+    End Sub
 
 #Region "NavigationHelper registration"
 
-	''' The methods provided in this section are simply used to allow
-	''' NavigationHelper to respond to the page's navigation methods.
-	''' 
-	''' Page specific logic should be placed in event handlers for the  
-	''' <see cref="Common.NavigationHelper.LoadState"/>
-	''' and <see cref="Common.NavigationHelper.SaveState"/>.
-	''' The navigation parameter is available in the LoadState method 
-	''' in addition to page state preserved during an earlier session.
+    ''' The methods provided in this section are simply used to allow
+    ''' NavigationHelper to respond to the page's navigation methods.
+    ''' 
+    ''' Page specific logic should be placed in event handlers for the  
+    ''' <see cref="Common.NavigationHelper.LoadState"/>
+    ''' and <see cref="Common.NavigationHelper.SaveState"/>.
+    ''' The navigation parameter is available in the LoadState method 
+    ''' in addition to page state preserved during an earlier session.
 
-	Protected Overrides Sub OnNavigatedTo(e As NavigationEventArgs)
+    Protected Overrides Sub OnNavigatedTo(e As NavigationEventArgs)
 		_navigationHelper.OnNavigatedTo(e)
 	End Sub
 

@@ -29,7 +29,7 @@ NotInheritable Class App
             ' Create a Frame to act as the navigation context and associate it with
             ' a SuspensionManager key
             rootFrame = New Frame()
-            Common.SuspensionManager.RegisterFrame(rootFrame, "AppFrame")
+            Model.Common.SuspensionManager.RegisterFrame(rootFrame, "AppFrame")
             ' Set the default language
             rootFrame.Language = Windows.Globalization.ApplicationLanguages.Languages(0)
 
@@ -38,8 +38,8 @@ NotInheritable Class App
             If e.PreviousExecutionState = ApplicationExecutionState.Terminated Then
                 ' Restore the saved session state only when appropriate
                 Try
-                    Await Common.SuspensionManager.RestoreAsync()
-                Catch ex As Common.SuspensionManagerException
+                    Await Model.Common.SuspensionManager.RestoreAsync()
+                Catch ex As Model.Common.SuspensionManagerException
                     ' Something went wrong restoring state.
                     ' Assume there is no state and continue
                 End Try
@@ -75,7 +75,7 @@ NotInheritable Class App
     ''' <param name="e">Details about the suspend request.</param>
     Private Async Sub OnSuspending(sender As Object, e As SuspendingEventArgs) Handles Me.Suspending
         Dim deferral As SuspendingDeferral = e.SuspendingOperation.GetDeferral()
-        Await Common.SuspensionManager.SaveAsync()
+        Await Model.Common.SuspensionManager.SaveAsync()
         deferral.Complete()
     End Sub
 

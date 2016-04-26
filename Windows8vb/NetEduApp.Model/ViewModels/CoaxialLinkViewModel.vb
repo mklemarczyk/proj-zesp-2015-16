@@ -1,6 +1,6 @@
 ﻿Imports Windows.UI
 
-Namespace Models
+Namespace ViewModels
     Public Class CoaxialLinkViewModel
         Inherits LinkViewModel
         Public Sub New()

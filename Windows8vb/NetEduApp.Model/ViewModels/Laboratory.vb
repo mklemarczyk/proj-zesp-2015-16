@@ -1,4 +1,4 @@
-﻿Namespace Models
+﻿Namespace ViewModels
     Public Class Laboratory
         Protected Names As HashSet(Of String) = New HashSet(Of String)
         Public Property Devices As ObservableCollection(Of DeviceViewModel)

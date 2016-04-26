@@ -1,4 +1,4 @@
-﻿Namespace Models
+﻿Namespace ViewModels
     Public MustInherit Class LinkViewModel
         Implements INotifyPropertyChanged
 
