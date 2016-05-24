@@ -35,10 +35,11 @@ namespace NetEduApp.Emulators.Network {
 		public NetIpAddress Broadcast { get { return broadcast; } }
 
 		public bool IsValid( ) { return NetmaskIsValid(netmask) && broadcast == ComputeBroadcast(this.Address, this.Netmask); }
-		public bool IsNetwork( ) { return address == ComputeNetworkAddress(this.Address, this.Address); }
-		public bool IsHost( ) { return address != ComputeNetworkAddress(this.Address, this.Address); }
+		public bool IsNetwork( ) { return address == ComputeNetworkAddress(this.Address, this.Netmask); }
+		public bool IsHost( ) { return address != ComputeNetworkAddress(this.Address, this.Netmask); }
 		public bool Contains(INetAddress hostAddress) {
-			return this.Address == ComputeNetworkAddress(hostAddress.Address, this.Netmask);
+			return (this.IsNetwork() && this.Address == ComputeNetworkAddress(hostAddress.Address, this.Netmask))
+				|| this.Address == hostAddress.Address;
 		}
 		public INetAddress GetNetwork( ) {
 			if (this.Netmask != NetIpAddress.MaxAddress) {
