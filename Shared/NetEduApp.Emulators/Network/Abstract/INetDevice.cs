@@ -10,7 +10,7 @@ namespace NetEduApp.Emulators.Network.Abstract {
 		string Name { get; set; }
 		string Type { get; }
 
-		void ReceiveData(INetPacket data);
+		void ReceiveData(INetPacket data, INetHwInterface iface);
 		void SendData(INetPacket data);
 	}
 }

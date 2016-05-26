@@ -15,7 +15,7 @@ namespace NetEduApp.Emulators.Network.Devices {
 			}
 		}
 
-		public IReadOnlyCollection<INetHwInterface> Interfaces
+		public IReadOnlyList<INetHwInterface> Interfaces
 		{
 			get
 			{
@@ -52,7 +52,7 @@ namespace NetEduApp.Emulators.Network.Devices {
 			}
 		}
 
-		public void ReceiveData(INetPacket data) {
+		public void ReceiveData(INetPacket data, INetHwInterface iface) {
 			throw new NotImplementedException( );
 		}
 

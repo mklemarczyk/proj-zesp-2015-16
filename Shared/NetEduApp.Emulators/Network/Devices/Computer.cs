@@ -31,11 +31,12 @@ namespace NetEduApp.Emulators.Network.Devices {
 
         public string Name { get; set; }
 
-        public void ReceiveData(INetPacket data) {
+		public void ReceiveData(INetPacket data, INetHwInterface iface) {
 #if DEBUG
             System.Diagnostics.Debug.WriteLine("{0} recived {1}", this.Name, data);
 #endif
         }
+
         public void SendData(INetPacket data) {
             if (data.DestinationAddress != null) {
                 NetAddress? target = null;
