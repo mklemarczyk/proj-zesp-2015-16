@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace NetEduApp.Emulators.Network.Abstract {
 	public interface INetAddress : IEquatable<INetAddress> {
-		NetIpAddress Address { get; }
-		NetIpAddress Netmask { get; }
-		NetIpAddress Broadcast { get; }
+		INetIpAddress Address { get; }
+		INetIpAddress Netmask { get; }
+		INetIpAddress Broadcast { get; }
 
 		bool IsValid( );
 		bool IsNetwork( );

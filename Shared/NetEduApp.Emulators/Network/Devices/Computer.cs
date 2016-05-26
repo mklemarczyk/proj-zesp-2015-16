@@ -61,7 +61,7 @@ namespace NetEduApp.Emulators.Network.Devices {
             }
         }
 
-        public void SendPing(NetIpAddress ipAddress) {
+        public void SendPing(INetIpAddress ipAddress) {
             SendData(new NetPacket(null, null, null, new NetAddress(ipAddress)));
         }
     }
