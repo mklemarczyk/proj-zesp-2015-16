@@ -12,7 +12,7 @@ namespace NetEduApp.Emulators.Network {
 
         internal NetLgInterface(INetDevice parent, string name) : base(parent, name) { }
 
-        public NetAddress Address { get; set; }
+        public NetAddress? Address { get; set; }
 
         public override void Connect(INetHwInterface other) {
             if (other is NetLgInterface) {
@@ -26,9 +26,9 @@ namespace NetEduApp.Emulators.Network {
             var other = otherInterface;
             if (other != null) {
                 otherInterface = null;
+                EmulatorLogger.Log(LogLevel.Info, EventType.Disconnected, this.Name);
                 other.Disconnect( );
             }
-            EmulatorLogger.Log(LogLevel.Info, EventType.Disconnected, string.Empty);
         }
 
         private void Connect(NetLgInterface other) {
@@ -40,7 +40,7 @@ namespace NetEduApp.Emulators.Network {
                 other.otherInterface = this;
             }
             otherInterface = other;
-            EmulatorLogger.Log(LogLevel.Info, EventType.Connected, string.Empty);
+            EmulatorLogger.Log(LogLevel.Info, EventType.Connected, this.Name);
         }
 
         public override void ReceiveData(INetPacket data) {
@@ -48,9 +48,12 @@ namespace NetEduApp.Emulators.Network {
         }
 
         public override void SendData(INetPacket data) {
-            if (otherInterface != null)
+            if (otherInterface != null) {
+                EmulatorLogger.Log(LogLevel.Info, EventType.PacketSend, this.Name);
                 otherInterface.ReceiveData(new NetPacket(this, otherInterface, data.SourceAddress ?? this.Address, data.DestinationAddress));
-            EmulatorLogger.Log(LogLevel.Error, EventType.NotConnected, "There are no connected devie");
+            }else {
+                EmulatorLogger.Log(LogLevel.Error, EventType.NotConnected, "There are no connected devie: " + this.Name);
+            }
         }
     }
 }

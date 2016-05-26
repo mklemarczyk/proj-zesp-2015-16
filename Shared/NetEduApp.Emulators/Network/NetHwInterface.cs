@@ -28,7 +28,7 @@ namespace NetEduApp.Emulators.Network {
             if(other is NetHwInterface) {
                 this.Connect((NetHwInterface)other);
             } else {
-                throw new ArgumentException("Invalid other type, it require NetHwInterface object");
+                throw new ArgumentException("Invalid other type, it require [NetHwInterface] object");
             }
         }
 
@@ -38,7 +38,7 @@ namespace NetEduApp.Emulators.Network {
             if (other != null) {
                 other.Disconnect( );
             }
-            EmulatorLogger.Log(LogLevel.Info, EventType.Disconnected, string.Empty);
+            EmulatorLogger.Log(LogLevel.Info, EventType.Disconnected, this.Name);
         }
 
         private void Connect(NetHwInterface other) {
@@ -50,10 +50,11 @@ namespace NetEduApp.Emulators.Network {
                 other.otherInterface = this;
             }
             otherInterface = other;
-            EmulatorLogger.Log(LogLevel.Info, EventType.Connected, string.Empty);
+            EmulatorLogger.Log(LogLevel.Info, EventType.Connected, this.Name);
         }
 
         public virtual void ReceiveData(INetPacket data) {
+            EmulatorLogger.Log(LogLevel.Info, EventType.PacketRecived, this.Name);
             if (data == null)
                 throw new ArgumentNullException("data");
             if (data.DestinationInterface == this)
@@ -61,6 +62,7 @@ namespace NetEduApp.Emulators.Network {
         }
 
         public virtual void SendData(INetPacket data) {
+            EmulatorLogger.Log(LogLevel.Info, EventType.PacketSend, this.Name);
             otherInterface.ReceiveData(new NetPacket(this, otherInterface, data.SourceAddress, data.DestinationAddress));
         }
     }
