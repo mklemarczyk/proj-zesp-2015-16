@@ -4,11 +4,11 @@ using Microsoft.QualityTools.Testing.Fakes;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NetEduApp.Emulators.Network.Abstract;
 using NetEduApp.Emulators.Tests.Network;
-using SUTest = NetEduApp.Emulators.Network.NetHwInterface;
+using SUTest = NetEduApp.Emulators.Network.NetLgInterface;
 
 namespace NetEduApp.Emulators.Tests.Network {
 	[TestClass]
-	public class TC_NetHwInterface {
+	public class TC_NetLgInterface {
 
 		#region Init
 
@@ -236,8 +236,8 @@ namespace NetEduApp.Emulators.Tests.Network {
 				var sended = false;
 				INetPacket fakePacket = new Emulators.Network.Abstract.Fakes.StubINetPacket( );
 				INetDevice otherDevice = new Emulators.Network.Abstract.Fakes.StubINetDevice( );
-				INetHwInterface otherIface = new SUTest(otherDevice, "eth1");
-				Emulators.Network.Fakes.ShimNetHwInterface.AllInstances.ReceiveDataINetPacket =
+				INetLgInterface otherIface = new SUTest(otherDevice, "eth1");
+				Emulators.Network.Fakes.ShimNetLgInterface.AllInstances.ReceiveDataINetPacket =
 					(SUTest instance, INetPacket iNetPacket) => {
 						Assert.AreEqual(iface, iNetPacket.SourceInterface);
 						Assert.AreEqual(otherIface, iNetPacket.DestinationInterface);
@@ -259,7 +259,7 @@ namespace NetEduApp.Emulators.Tests.Network {
 
 	#region Helpers
 
-	internal static class NetHwInterfaceExtension {
+	internal static class NetLgInterfaceExtension {
 		internal static object GetOtherInterface(this SUTest obj) {
 			var fieldName = "otherInterface";
 			var type = typeof(SUTest);

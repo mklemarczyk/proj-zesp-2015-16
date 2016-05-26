@@ -63,6 +63,7 @@
     <Compile Include="Network\TC_NetAddress.cs" />
     <Compile Include="Network\TC_NetHwInterface.cs" />
     <Compile Include="Network\TC_NetIpAddress.cs" />
+    <Compile Include="Network\TC_NetLgInterface.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
