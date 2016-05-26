@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace NetEduApp.Emulators.Network.Abstract {
 	public interface INetLgInterface : INetHwInterface {
-		NetAddress Address { get; set; }
+		NetAddress? Address { get; set; }
 	}
 }

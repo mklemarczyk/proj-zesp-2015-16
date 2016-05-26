@@ -35,7 +35,7 @@ namespace NetEduApp.Emulators.Network.Devices {
 
         public void ReceiveData(INetPacket data) {
             foreach (var ipInterface in interfaces) {
-                if (ipInterface.Address != null && ipInterface.Address.Address == data.DestinationAddress?.Address) {
+                if (ipInterface.Address != null && ipInterface.Address.Value.Address == data.DestinationAddress?.Address) {
                     return;
                 }
             }
@@ -48,9 +48,10 @@ namespace NetEduApp.Emulators.Network.Devices {
             if (data.DestinationAddress != null) {
                 NetAddress? target = null;
                 foreach (var ipInterface in interfaces) {
-                    if (ipInterface.Address != null && ipInterface.Address.GetNetwork( ).Contains(data.DestinationAddress.Value) == true) {
+                    if (ipInterface.Address != null && ipInterface.Address.Value.GetNetwork( ).Contains(data.DestinationAddress.Value) == true) {
                         EmulatorLogger.Log(LogLevel.Info, EventType.RouteFoundConnected, string.Empty);
                         ipInterface.SendData(data);
+                        return;
                     }
                 }
                 if (target == null) {
@@ -67,9 +68,10 @@ namespace NetEduApp.Emulators.Network.Devices {
                 }
                 if (target != null) {
                     foreach (var ipInterface in interfaces) {
-                        if (ipInterface.Address != null && ipInterface.Address.GetNetwork( ).Contains(target.Value) == true) {
+                        if (ipInterface.Address != null && ipInterface.Address.Value.GetNetwork( ).Contains(target.Value) == true) {
                             EmulatorLogger.Log(LogLevel.Info, EventType.PacketRouted, string.Empty);
                             ipInterface.SendData(data);
+                            return;
                         }
                     }
                 } else {
