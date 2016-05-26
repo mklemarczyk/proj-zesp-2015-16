@@ -11,7 +11,7 @@ namespace NetEduApp.Emulators.Network.Abstract {
 		INetDevice Parent { get; }
 		string Name { get; }
 
-		void ReciveData(INetPacket data);
+		void ReceiveData(INetPacket data);
 		void SendData(INetPacket data);
 	}
 }

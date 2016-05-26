@@ -52,7 +52,7 @@ namespace NetEduApp.Emulators.Network.Devices {
 			}
 		}
 
-		public void ReciveData(INetPacket data) {
+		public void ReceiveData(INetPacket data) {
 			throw new NotImplementedException( );
 		}
 

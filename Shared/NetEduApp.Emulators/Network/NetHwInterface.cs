@@ -21,9 +21,9 @@ namespace NetEduApp.Emulators.Network {
         public INetDevice Parent { get { return this.parent; } }
         public string Name { get { return this.name; } }
 
-        public virtual void ReciveData(INetPacket data) {
+        public virtual void ReceiveData(INetPacket data) {
             if (data.DestinationInterface == this)
-                parent.ReciveData(data);
+                parent.ReceiveData(data);
         }
 
         public virtual void SendData(INetPacket data) {

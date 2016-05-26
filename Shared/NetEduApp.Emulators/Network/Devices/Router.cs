@@ -32,7 +32,7 @@ namespace NetEduApp.Emulators.Network.Devices {
 
         public string Name { get; set; }
 
-        public void ReciveData(INetPacket data) {
+        public void ReceiveData(INetPacket data) {
             foreach (var ipInterface in interfaces) {
                 if (ipInterface.Address != null && ipInterface.Address.ToString() == data.DestinationAddress.Address.ToString()) {
 #if DEBUG
