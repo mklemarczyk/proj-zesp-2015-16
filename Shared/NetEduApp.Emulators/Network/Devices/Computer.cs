@@ -17,7 +17,7 @@ namespace NetEduApp.Emulators.Network.Devices {
             this.Name = name;
             this.interfaces = new List<INetLgInterface>();
             this.routes = new List<INetRoute>();
-            this.interfaces.Add(new NetLgInterface(emulator, this, name));
+            this.interfaces.Add(new NetLgInterface(this, name));
         }
 
         public INetEmulator Emulator { get { return emulator; } }

@@ -12,7 +12,7 @@ namespace NetEduApp.Emulators.Network {
 		private HashSet<string> names;
 		private HashSet<INetDevice> devices;
 
-		internal NetworkFactory( ) {
+		private NetworkFactory( ) {
 			emulator = new NetworkEmulator( );
 			names = new HashSet<string>( );
 			devices = new HashSet<INetDevice>( );

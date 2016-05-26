@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace NetEduApp.Emulators.Network.Abstract {
 	public interface INetHwInterface {
-		INetEmulator Emulator { get; }
 		INetDevice Parent { get; }
 		string Name { get; }
 
+        void Connect(INetHwInterface other);
+        void Disconnect( );
 		void ReceiveData(INetPacket data);
 		void SendData(INetPacket data);
 	}

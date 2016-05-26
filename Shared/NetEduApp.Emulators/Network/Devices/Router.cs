@@ -14,12 +14,12 @@ namespace NetEduApp.Emulators.Network.Devices {
         internal Router(INetEmulator emulator, string name) {
             this.emulator = emulator;
             this.Name = name;
-            this.interfaces = new List<INetLgInterface>();
-            this.routes = new List<INetRoute>();
-            this.interfaces.Add(new NetLgInterface(emulator, this, name + "1"));
-            this.interfaces.Add(new NetLgInterface(emulator, this, name + "2"));
-            this.interfaces.Add(new NetLgInterface(emulator, this, name + "3"));
-            this.interfaces.Add(new NetLgInterface(emulator, this, name + "4"));
+            this.interfaces = new List<INetLgInterface>( );
+            this.routes = new List<INetRoute>( );
+            this.interfaces.Add(new NetLgInterface(this, name + "1"));
+            this.interfaces.Add(new NetLgInterface(this, name + "2"));
+            this.interfaces.Add(new NetLgInterface(this, name + "3"));
+            this.interfaces.Add(new NetLgInterface(this, name + "4"));
         }
 
         public INetEmulator Emulator { get { return emulator; } }
@@ -34,11 +34,11 @@ namespace NetEduApp.Emulators.Network.Devices {
 
         public void ReceiveData(INetPacket data) {
             foreach (var ipInterface in interfaces) {
-                if (ipInterface.Address != null && ipInterface.Address.ToString() == data.DestinationAddress.Address.ToString()) {
+                if (ipInterface.Address != null && ipInterface.Address.ToString( ) == data.DestinationAddress.Address.ToString( )) {
 #if DEBUG
-					System.Diagnostics.Debug.WriteLine("{0} recived {1}", this.Name, data);
+                    System.Diagnostics.Debug.WriteLine("{0} recived {1}", this.Name, data);
 #endif
-					return;
+                    return;
                 }
             }
             if (data.TTL > 0) {
@@ -49,7 +49,7 @@ namespace NetEduApp.Emulators.Network.Devices {
         public void SendData(INetPacket data) {
             INetAddress target = null;
             foreach (var ipInterface in interfaces) {
-                if (ipInterface.Address != null && ipInterface.Address.GetNetwork().Contains(data.DestinationAddress) == true) {
+                if (ipInterface.Address != null && ipInterface.Address.GetNetwork( ).Contains(data.DestinationAddress) == true) {
                     ipInterface.SendData(data);
                 }
             }
@@ -65,10 +65,10 @@ namespace NetEduApp.Emulators.Network.Devices {
             }
             if (target != null) {
                 foreach (var ipInterface in interfaces) {
-                    if (ipInterface.Address != null && ipInterface.Address.GetNetwork().Contains(target) == true) {
+                    if (ipInterface.Address != null && ipInterface.Address.GetNetwork( ).Contains(target) == true) {
                         ipInterface.SendData(data);
-					}
-				}
+                    }
+                }
             }
         }
     }
