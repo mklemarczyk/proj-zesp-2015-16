@@ -22,6 +22,10 @@ namespace NetEduApp.Emulators.Network {
         public NetAddress? SourceAddress { get { return sourceAddress; } }
         public NetAddress? DestinationAddress { get { return destinationAddress; } }
 
-        public int TTL { get; set; }
-    }
+		public int TTL { get; set; }
+
+		public INetPacket Clone( ) {
+			return this.MemberwiseClone( ) as INetPacket;
+		}
+	}
 }

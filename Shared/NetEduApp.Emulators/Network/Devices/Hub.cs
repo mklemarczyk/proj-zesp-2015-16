@@ -3,61 +3,61 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NetEduApp.Emulators.Logger;
 using NetEduApp.Emulators.Network.Abstract;
 
 namespace NetEduApp.Emulators.Network.Devices {
 	internal class Hub : IHub {
-		public INetEmulator Emulator
-		{
-			get
-			{
-				throw new NotImplementedException( );
-			}
+		private INetEmulator emulator;
+		private List<INetHwInterface> interfaces;
+		private int? busyInterface;
+
+		internal Hub(INetEmulator emulator, string name) {
+			this.emulator = emulator;
+			this.Name = name;
+			this.interfaces = new List<INetHwInterface>( );
+			this.interfaces.Add(new NetLgInterface(this, name + "1"));
+			this.interfaces.Add(new NetLgInterface(this, name + "2"));
+			this.interfaces.Add(new NetLgInterface(this, name + "3"));
+			this.interfaces.Add(new NetLgInterface(this, name + "4"));
 		}
 
-		public IReadOnlyCollection<INetHwInterface> Interfaces
-		{
-			get
-			{
-				throw new NotImplementedException( );
-			}
-		}
+		public INetEmulator Emulator { get { return emulator; } }
+		public IReadOnlyList<INetHwInterface> Interfaces { get { return interfaces; } }
+		public int PortCount { get { return interfaces.Count; } }
+		public string Type { get { return "Hub"; } }
 
-		public string Name
-		{
-			get
-			{
-				throw new NotImplementedException( );
-			}
+		public string Name { get; set; }
 
-			set
-			{
-				throw new NotImplementedException( );
+		public void ReceiveData(INetPacket data, INetHwInterface iface) {
+			if (busyInterface != null) {
+				EmulatorLogger.Log(LogLevel.Error, EventType.HubPacketColision, this.Name);
+				return;
+			} else {
+				int ifaceNo = this.interfaces.FindIndex(x => x.Equals(iface));
+				if (ifaceNo > 0) {
+					busyInterface = ifaceNo;
+					if (data.TTL > 0) {
+						data.TTL--;
+						this.SendData(data);
+					}
+					busyInterface = null;
+				}
 			}
-		}
-
-		public int PortCount
-		{
-			get
-			{
-				throw new NotImplementedException( );
-			}
-		}
-
-		public string Type
-		{
-			get
-			{
-				throw new NotImplementedException( );
-			}
-		}
-
-		public void ReceiveData(INetPacket data) {
-			throw new NotImplementedException( );
 		}
 
 		public void SendData(INetPacket data) {
-			throw new NotImplementedException( );
+			if (busyInterface != null) {
+				for (int i = 0; i < this.interfaces.Count; i++) {
+					if (busyInterface != i) {
+						var ipInterface = this.interfaces[i];
+						Task.Run(( ) => {
+							var transmitData = data.Clone( );
+							ipInterface.SendData(transmitData);
+						});
+					}
+				}
+			}
 		}
 	}
 }

@@ -11,5 +11,7 @@ namespace NetEduApp.Emulators.Network.Abstract {
 		NetAddress? SourceAddress { get; }
 		NetAddress? DestinationAddress { get; }
 		int TTL { get; set; }
+
+		INetPacket Clone( );
 	}
 }
