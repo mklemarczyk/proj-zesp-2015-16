@@ -39,8 +39,6 @@
     <Compile Include="Logger\LogLevel.cs" />
     <Compile Include="Network\Abstract\IComputer.cs" />
     <Compile Include="Network\Abstract\IHub.cs" />
-    <Compile Include="Network\Abstract\INetIpAddress.cs" />
-    <Compile Include="Network\Abstract\INetAddress.cs" />
     <Compile Include="Network\Abstract\INetDevice.cs" />
     <Compile Include="Network\Abstract\INetEmulator.cs" />
     <Compile Include="Network\Abstract\INetHwInterface.cs" />

@@ -7,66 +7,67 @@ using System.Threading.Tasks;
 using NetEduApp.Emulators.Network.Abstract;
 
 namespace NetEduApp.Emulators.Network {
-    public struct NetAddress : INetAddress {
-        private INetIpAddress address;
-        private INetIpAddress netmask;
-        private INetIpAddress broadcast;
+    public struct NetAddress {
+        private NetIpAddress address;
+        private NetIpAddress netmask;
+        private NetIpAddress broadcast;
 
-        public NetAddress(INetIpAddress address) {
+        public NetAddress(NetIpAddress address) {
             this.address = address;
             this.netmask = NetIpAddress.MaxAddress;
             this.broadcast = ComputeBroadcast(this.address, this.netmask);
         }
 
-        public NetAddress(INetIpAddress address, INetIpAddress netmask) {
+        public NetAddress(NetIpAddress address, NetIpAddress netmask) {
             this.address = address;
             this.netmask = netmask;
             this.broadcast = ComputeBroadcast(this.address, this.netmask);
         }
 
-        public NetAddress(INetIpAddress address, INetIpAddress netmask, INetIpAddress broadcast) {
+        public NetAddress(NetIpAddress address, NetIpAddress netmask, NetIpAddress broadcast) {
             this.address = address;
             this.netmask = netmask;
             this.broadcast = broadcast;
         }
 
-        public INetIpAddress Address { get { return address; } }
-        public INetIpAddress Netmask { get { return netmask; } }
-        public INetIpAddress Broadcast { get { return broadcast; } }
+        public NetIpAddress Address { get { return address; } }
+        public NetIpAddress Netmask { get { return netmask; } }
+        public NetIpAddress Broadcast { get { return broadcast; } }
 
         public bool IsValid( ) { return NetmaskIsValid(netmask) && broadcast == ComputeBroadcast(this.Address, this.Netmask); }
         public bool IsNetwork( ) { return address == ComputeNetworkAddress(this.Address, this.Netmask); }
         public bool IsHost( ) { return address != ComputeNetworkAddress(this.Address, this.Netmask); }
-        public bool Contains(INetAddress hostAddress) {
+        public bool Contains(NetAddress hostAddress) {
             return (this.IsNetwork( ) && this.Address == ComputeNetworkAddress(hostAddress.Address, this.Netmask))
                 || this.Address == hostAddress.Address;
         }
-        public INetAddress GetNetwork( ) {
+        public NetAddress GetNetwork( ) {
             if (this.Netmask != NetIpAddress.MaxAddress) {
                 var networkAddress = ComputeNetworkAddress(this.Address, this.Netmask);
                 return new NetAddress(networkAddress, this.Netmask, this.Broadcast);
             }
-            return null;
+            return this;
         }
 
-        public bool Equals(INetAddress other) {
-            /*return this.address == other.Address
-				&& this.netmask == other.Netmask
-				&& this.broadcast == other.Broadcast;*/
-            if (this.address == other.Address)
-                if (this.netmask == other.Netmask)
-                    if (this.broadcast == other.Broadcast)
-                        return true;
-                    else
-                        return false;
-                else
-                    return false;
-            else
-                return false;
+        public bool Equals(NetAddress other) {
+            return this.address == other.Address
+                && this.netmask == other.Netmask
+                && this.broadcast == other.Broadcast;
+        }
+
+        public override bool Equals(object obj) {
+            if (obj is NetAddress) {
+                return this.Equals((NetAddress)obj);
+            }
+            return false;
+        }
+
+        public override int GetHashCode( ) {
+            return (int)this.address.GetUintRepresentation( ) ^ (int)this.netmask.GetUintRepresentation( );
         }
 
         #region Helpers
-        public static bool NetmaskIsValid(INetIpAddress netmask) {
+        public static bool NetmaskIsValid(NetIpAddress netmask) {
             if (netmask != null) {
                 var bitNetmask = netmask.GetUintRepresentation( );
                 bool hostPart = false;
@@ -81,7 +82,7 @@ namespace NetEduApp.Emulators.Network {
             }
             return true;
         }
-        public static INetIpAddress ComputeBroadcast(INetIpAddress address, INetIpAddress netmask) {
+        public static NetIpAddress ComputeBroadcast(NetIpAddress address, NetIpAddress netmask) {
             var addr = address.Bytes;
             var netm = netmask.Bytes;
             var n = Math.Min(addr.Length, netm.Length);
@@ -95,12 +96,20 @@ namespace NetEduApp.Emulators.Network {
             }
             return new NetIpAddress(broad);
         }
-        public static INetIpAddress ComputeNetworkAddress(INetIpAddress address, INetIpAddress netmask) {
+        public static NetIpAddress ComputeNetworkAddress(NetIpAddress address, NetIpAddress netmask) {
             var addr = address.GetUintRepresentation( );
             var netm = netmask.GetUintRepresentation( );
             var neta = addr & netm;
             return new NetIpAddress(neta);
         }
         #endregion
+
+        public static bool operator ==(NetAddress a, NetAddress b) {
+            return a.Equals(b);
+        }
+
+        public static bool operator !=(NetAddress a, NetAddress b) {
+            return !a.Equals(b);
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NetEduApp.Emulators.Network;
 using NetEduApp.Emulators.Network.Abstract;
 using SUTest = NetEduApp.Emulators.Network.NetIpAddress;
 
@@ -191,7 +192,7 @@ namespace NetEduApp.Emulators.Tests.Network {
 
         [TestMethod]
         public void TryParse_Valid( ) {
-            INetIpAddress ipAddress;
+            SUTest ipAddress;
             bool result;
 
             result = SUTest.TryParse("0.0.0.0", out ipAddress);
@@ -225,7 +226,7 @@ namespace NetEduApp.Emulators.Tests.Network {
 
         [TestMethod]
         public void TryParse_NullString( ) {
-            INetIpAddress ipAddress;
+            SUTest ipAddress;
             bool result;
 
             result = SUTest.TryParse(null, out ipAddress);
@@ -236,7 +237,7 @@ namespace NetEduApp.Emulators.Tests.Network {
 
         [TestMethod]
         public void TryParse_EmptyString( ) {
-            INetIpAddress ipAddress;
+            SUTest ipAddress;
             bool result;
 
             result = SUTest.TryParse(string.Empty, out ipAddress);
@@ -247,7 +248,7 @@ namespace NetEduApp.Emulators.Tests.Network {
 
         [TestMethod]
         public void TryParse_MissingByte( ) {
-            INetIpAddress ipAddress;
+            SUTest ipAddress;
             bool result;
 
             result = SUTest.TryParse("121.64.147", out ipAddress);
@@ -258,7 +259,7 @@ namespace NetEduApp.Emulators.Tests.Network {
 
         [TestMethod]
         public void TryParse_InvalidByte( ) {
-            INetIpAddress ipAddress;
+            SUTest ipAddress;
             bool result;
 
             result = SUTest.TryParse("121.1255.64.147", out ipAddress);
@@ -269,7 +270,7 @@ namespace NetEduApp.Emulators.Tests.Network {
 
         [TestMethod]
         public void TryParse_AdditionalByte( ) {
-            INetIpAddress ipAddress;
+            SUTest ipAddress;
             bool result;
 
             result = SUTest.TryParse("121.64.147.21.231", out ipAddress);

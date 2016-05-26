@@ -12,7 +12,7 @@ namespace NetEduApp.Emulators.Network {
 
         internal NetLgInterface(INetDevice parent, string name) : base(parent, name) { }
 
-        public INetAddress Address { get; set; }
+        public NetAddress Address { get; set; }
 
         public override void Connect(INetHwInterface other) {
             if (other is NetLgInterface) {

@@ -12,6 +12,6 @@ namespace NetEduApp.Emulators.Network.Abstract {
 		IList<INetRoute> Routes { get; }
 		INetRoute DefaultRoute { get; set; }
 
-		void SendPing(INetIpAddress iPAddress);
+		void SendPing(NetIpAddress iPAddress);
 	}
 }

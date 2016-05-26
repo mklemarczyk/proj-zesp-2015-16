@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace NetEduApp.Emulators.Network.Abstract {
 	public interface INetRoute {
 		bool IsDefault { get; }
-		INetAddress Address { get; }
-		INetAddress Target { get; }
+		NetAddress Address { get; }
+		NetAddress Target { get; }
 
-		bool IsMatch(INetAddress destinationAddress);
+		bool IsMatch(NetAddress destinationAddress);
 	}
 }

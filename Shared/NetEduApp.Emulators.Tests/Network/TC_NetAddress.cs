@@ -161,7 +161,9 @@ namespace NetEduApp.Emulators.Tests.Network {
 
             var network = netAddress.GetNetwork( );
 
-            Assert.AreEqual(null, network);
+            Assert.AreEqual(netAddress.Netmask, network.Netmask);
+            Assert.AreEqual(netAddress.Broadcast, network.Broadcast);
+            CollectionAssert.AreEqual(new byte[] { 124, 102, 11, 7 }, network.Address.Bytes);
         }
 
         [TestMethod]

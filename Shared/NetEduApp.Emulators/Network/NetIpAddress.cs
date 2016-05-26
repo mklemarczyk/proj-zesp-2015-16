@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 using NetEduApp.Emulators.Network.Abstract;
 
 namespace NetEduApp.Emulators.Network {
-    public struct NetIpAddress : INetIpAddress {
+    public struct NetIpAddress {
         private readonly byte[] bytes;
         public byte[] Bytes => bytes;
 
-        public static INetIpAddress MaxAddress { get { return new NetIpAddress(255, 255, 255, 255); } }
+        public static NetIpAddress MaxAddress { get { return new NetIpAddress(255, 255, 255, 255); } }
 
-        public static INetIpAddress Zero { get { return new NetIpAddress(0, 0, 0, 0); } }
+        public static NetIpAddress Zero { get { return new NetIpAddress(0, 0, 0, 0); } }
 
         public NetIpAddress(params byte[] bytes)
             : this( ) {
@@ -52,7 +52,7 @@ namespace NetEduApp.Emulators.Network {
             }
         }
 
-        public bool Equals(INetIpAddress other) {
+        public bool Equals(NetIpAddress other) {
             var thisBytes = Bytes;
             var otherBytes = other.Bytes;
             if (thisBytes == null) thisBytes = Zero.Bytes;
@@ -64,8 +64,8 @@ namespace NetEduApp.Emulators.Network {
         }
 
         public override bool Equals(object obj) {
-            if (obj is INetIpAddress) {
-                return this.Equals((INetIpAddress)obj);
+            if (obj is NetIpAddress) {
+                return this.Equals((NetIpAddress)obj);
             }
             return false;
         }
@@ -80,7 +80,7 @@ namespace NetEduApp.Emulators.Network {
             return string.Format("{0}.{1}.{2}.{3}", bytes[0], bytes[1], bytes[2], bytes[3]);
         }
 
-        public static bool TryParse(string address, out INetIpAddress validAddress) {
+        public static bool TryParse(string address, out NetIpAddress validAddress) {
             validAddress = default(NetIpAddress);
             if (address == null)
                 return false;

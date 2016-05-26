@@ -8,8 +8,8 @@ using NetEduApp.Emulators.Network.Abstract;
 
 namespace NetEduApp.Emulators.Network {
     public class NetRoute : INetRoute {
-        private INetAddress address;
-        private INetAddress target;
+        private NetAddress address;
+        private NetAddress target;
 
         public NetRoute(NetIpAddress target) {
             this.address = new NetAddress(NetIpAddress.Zero, NetIpAddress.Zero);
@@ -22,10 +22,10 @@ namespace NetEduApp.Emulators.Network {
         }
 
         public bool IsDefault { get { return NetIpAddress.Zero.Equals(this.address); } }
-        public INetAddress Address { get { return this.address; } }
-        public INetAddress Target { get { return this.target; } }
+        public NetAddress Address { get { return this.address; } }
+        public NetAddress Target { get { return this.target; } }
 
-        public bool IsMatch(INetAddress destinationAddress) {
+        public bool IsMatch(NetAddress destinationAddress) {
             if (Address.IsNetwork())
                 return Address.Contains(destinationAddress);
             return false;

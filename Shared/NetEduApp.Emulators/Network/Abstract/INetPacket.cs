@@ -8,8 +8,8 @@ namespace NetEduApp.Emulators.Network.Abstract {
 	public interface INetPacket {
 		INetHwInterface SourceInterface { get; }
 		INetHwInterface DestinationInterface { get; }
-		INetAddress SourceAddress { get; }
-		INetAddress DestinationAddress { get; }
+		NetAddress? SourceAddress { get; }
+		NetAddress? DestinationAddress { get; }
 		int TTL { get; set; }
 	}
 }

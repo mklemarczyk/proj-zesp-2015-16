@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using NetEduApp.Emulators.Logger;
 using NetEduApp.Emulators.Network.Abstract;
 
 namespace NetEduApp.Emulators.Network.Devices {
@@ -15,8 +16,8 @@ namespace NetEduApp.Emulators.Network.Devices {
         internal Computer(INetEmulator emulator, string name) {
             this.emulator = emulator;
             this.Name = name;
-            this.interfaces = new List<INetLgInterface>();
-            this.routes = new List<INetRoute>();
+            this.interfaces = new List<INetLgInterface>( );
+            this.routes = new List<INetRoute>( );
             this.interfaces.Add(new NetLgInterface(this, name));
         }
 
@@ -32,36 +33,44 @@ namespace NetEduApp.Emulators.Network.Devices {
 
         public void ReceiveData(INetPacket data) {
 #if DEBUG
-			System.Diagnostics.Debug.WriteLine("{0} recived {1}", this.Name, data);
+            System.Diagnostics.Debug.WriteLine("{0} recived {1}", this.Name, data);
 #endif
-		}
+        }
         public void SendData(INetPacket data) {
-            INetAddress target = null;
-            foreach (var ipInterface in interfaces) {
-                if (ipInterface.Address != null && ipInterface.Address.GetNetwork().Contains(data.DestinationAddress) == true) {
-                    ipInterface.SendData(data);
-                }
-            }
-            if (target == null) {
-                foreach (var route in this.Routes) {
-                    if (route.IsMatch(data.DestinationAddress)) {
-                        target = route.Target;
-                    }
-                }
-            }
-            if (target == null && this.DefaultRoute != null) {
-                target = this.DefaultRoute.Target;
-            }
-            if (target != null) {
+            if (data.DestinationAddress != null) {
+                NetAddress? target = null;
                 foreach (var ipInterface in interfaces) {
-                    if (ipInterface.Address != null && ipInterface.Address.GetNetwork().Contains(target) == true) {
+                    if (ipInterface.Address != null && ipInterface.Address.GetNetwork( ).Contains(data.DestinationAddress.Value) == true) {
+                        EmulatorLogger.Log(LogLevel.Info, EventType.RouteFoundConnected, string.Empty);
                         ipInterface.SendData(data);
                     }
+                }
+                if (target == null) {
+                    foreach (var route in this.Routes) {
+                        if (route.IsMatch(data.DestinationAddress.Value)) {
+                            EmulatorLogger.Log(LogLevel.Info, EventType.RouteFound, string.Empty);
+                            target = route.Target;
+                        }
+                    }
+                }
+                if (target == null && this.DefaultRoute != null) {
+                    EmulatorLogger.Log(LogLevel.Info, EventType.RouteDefaultUsed, string.Empty);
+                    target = this.DefaultRoute.Target;
+                }
+                if (target != null) {
+                    foreach (var ipInterface in interfaces) {
+                        if (ipInterface.Address != null && ipInterface.Address.GetNetwork( ).Contains(target.Value) == true) {
+                            EmulatorLogger.Log(LogLevel.Info, EventType.PacketRouted, string.Empty);
+                            ipInterface.SendData(data);
+                        }
+                    }
+                } else {
+                    EmulatorLogger.Log(LogLevel.Info, EventType.RouteNotFound, string.Empty);
                 }
             }
         }
 
-        public void SendPing(INetIpAddress ipAddress) {
+        public void SendPing(NetIpAddress ipAddress) {
             SendData(new NetPacket(null, null, null, new NetAddress(ipAddress)));
         }
     }
