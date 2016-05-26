@@ -24,8 +24,8 @@ namespace NetEduApp.Emulators.Network {
 
         public override void Disconnect( ) {
             var other = otherInterface;
-            otherInterface.Disconnect( );
             if (other != null) {
+                otherInterface = null;
                 other.Disconnect( );
             }
             EmulatorLogger.Log(LogLevel.Info, EventType.Disconnected, string.Empty);
