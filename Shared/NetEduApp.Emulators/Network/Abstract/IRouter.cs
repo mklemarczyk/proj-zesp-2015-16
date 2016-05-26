@@ -8,7 +8,7 @@ namespace NetEduApp.Emulators.Network.Abstract {
 	public interface IRouter : INetDevice {
 		int PortCount { get; }
 		IReadOnlyList<INetLgInterface> Interfaces { get; }
-		IList<INetRoute> Routes { get;  }
+		IList<INetRoute> Routes { get; }
 		INetRoute DefaultRoute { get; set; }
 	}
 }

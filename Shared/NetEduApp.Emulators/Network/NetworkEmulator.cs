@@ -19,11 +19,11 @@ namespace NetEduApp.Emulators.Network {
 
 		#region Private methods
 		private void Connect(INetHwInterface a, INetHwInterface b) {
-            a.Connect(b);
+			a.Connect(b);
 		}
 
 		private void Disconnect(INetHwInterface a) {
-            a.Disconnect( );
+			a.Disconnect( );
 		}
 		#endregion
 	}

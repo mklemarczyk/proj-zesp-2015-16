@@ -10,8 +10,8 @@ namespace NetEduApp.Emulators.Network.Abstract {
 		INetDevice Parent { get; }
 		string Name { get; }
 
-        void Connect(INetHwInterface other);
-        void Disconnect( );
+		void Connect(INetHwInterface other);
+		void Disconnect( );
 		void ReceiveData(INetPacket data);
 		void SendData(INetPacket data);
 	}
