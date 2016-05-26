@@ -34,7 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="EmulatorLogger.cs" />
+    <Compile Include="Logger\EmulatorLogger.cs" />
+    <Compile Include="Logger\EventType.cs" />
+    <Compile Include="Logger\LogLevel.cs" />
     <Compile Include="Network\Abstract\IComputer.cs" />
     <Compile Include="Network\Abstract\IHub.cs" />
     <Compile Include="Network\Abstract\INetIpAddress.cs" />
