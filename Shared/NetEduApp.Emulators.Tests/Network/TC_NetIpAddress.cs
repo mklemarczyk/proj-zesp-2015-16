@@ -2,8 +2,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NetEduApp.Emulators.Network;
 
-namespace NetEduApp.Emulators.Tests {
-	[TestClass]
+namespace NetEduApp.Emulators.Tests.Network {
+    [TestClass]
 	public class TC_NetIpAddress {
 
 		#region Constructor

@@ -59,12 +59,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Devices\TC_Computer.cs" />
-    <Compile Include="Devices\TC_Hub.cs" />
-    <Compile Include="Devices\TC_Router.cs" />
-    <Compile Include="Devices\TC_Switch.cs" />
-    <Compile Include="TC_NetAddress.cs" />
-    <Compile Include="TC_NetIpAddress.cs" />
+    <Compile Include="Network\TC_NetAddress.cs" />
+    <Compile Include="Network\TC_NetIpAddress.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
