@@ -7,6 +7,12 @@ namespace NetEduApp.Emulators.Tests.Network {
     [TestClass]
     public class TC_NetAddress {
 
+        private TestContext testContextInstance;
+        public TestContext TestContext {
+            get { return testContextInstance; }
+            set { testContextInstance = value; }
+        }
+
         #region Constructor
 
         [TestMethod]
@@ -303,6 +309,21 @@ namespace NetEduApp.Emulators.Tests.Network {
 
             result = SUTest.NetmaskIsValid(new NetIpAddress(253, 0, 0, 0));
             Assert.AreEqual(false, result);
+        }
+
+        [TestMethod( )]
+        [DataSource("Microsoft.VisualStudio.TestTools.DataSource.XML", "Data/NetworkMasks.xml", "Test", DataAccessMethod.Random)]
+        public void NetmaskIsValid_FromDataSourceTestXml( ) {
+            // Access the data
+            byte x1 = Convert.ToByte(TestContext.DataRow["x1"]);
+            byte x2 = Convert.ToByte(TestContext.DataRow["x2"]);
+            byte x3 = Convert.ToByte(TestContext.DataRow["x3"]);
+            byte x4 = Convert.ToByte(TestContext.DataRow["x4"]);
+
+            bool expected = Convert.ToBoolean(TestContext.DataRow["IsValid"]);
+            bool actual = SUTest.NetmaskIsValid(new NetIpAddress(x1, x2, x3, x4));
+
+            Assert.AreEqual(expected, actual, "{0}.{1}.{2}.{3}", x1, x2, x3, x4);
         }
 
         [TestMethod]
