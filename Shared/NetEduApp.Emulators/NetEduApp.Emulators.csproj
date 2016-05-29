@@ -50,6 +50,7 @@
     <Compile Include="Network\Devices\Hub.cs" />
     <Compile Include="Network\Devices\Router.cs" />
     <Compile Include="Network\Devices\Switch.cs" />
+    <Compile Include="Network\NetMacAddress.cs" />
     <Compile Include="Network\NetIpAddress.cs" />
     <Compile Include="Network\NetAddress.cs" />
     <Compile Include="Network\NetHwInterface.cs" />
