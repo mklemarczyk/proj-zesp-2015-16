@@ -45,37 +45,21 @@ namespace NetEduApp.Emulators.Network.Devices {
 
 		public void SendData(INetPacket data) {
 			if (data.DestinationAddress != null) {
-				NetAddress? target = null;
-				foreach (var ipInterface in interfaces) {
-					if (ipInterface.Address != null && ipInterface.Address.Value.GetNetwork( ).Contains(data.DestinationAddress.Value) == true) {
-						EmulatorLogger.Log(LogLevel.Info, EventType.RouteFoundConnected, string.Empty);
-						ipInterface.SendData(data);
-						return;
-					}
-				}
-				if (target == null) {
-					foreach (var route in this.Routes) {
-						if (route.IsMatch(data.DestinationAddress.Value)) {
-							EmulatorLogger.Log(LogLevel.Info, EventType.RouteFound, string.Empty);
-							target = route.Target;
-						}
-					}
-				}
-				if (target == null && this.DefaultRoute != null) {
-					EmulatorLogger.Log(LogLevel.Info, EventType.RouteDefaultUsed, string.Empty);
-					target = this.DefaultRoute.Target;
-				}
-				if (target != null) {
-					foreach (var ipInterface in interfaces) {
-						if (ipInterface.Address != null && ipInterface.Address.Value.GetNetwork( ).Contains(target.Value) == true) {
-							EmulatorLogger.Log(LogLevel.Info, EventType.PacketRouted, string.Empty);
-							ipInterface.SendData(data);
+				var targetIf = Modules.InterfaceModule.GetTargetInterface(data.DestinationAddress, interfaces);
+				if (targetIf != null) {
+					targetIf.SendData(data);
+					return;
+				} else {
+					var routeTarget = Modules.RouteTableModule.GetRoute(data.DestinationAddress, interfaces, routes, DefaultRoute);
+					if (routeTarget != null) {
+						targetIf = Modules.InterfaceModule.GetTargetInterface(routeTarget, interfaces);
+						if (targetIf != null) {
+							targetIf.SendData(data);
 							return;
 						}
 					}
-				} else {
-					EmulatorLogger.Log(LogLevel.Info, EventType.RouteNotFound, string.Empty);
 				}
+				EmulatorLogger.Log(LogLevel.Info, EventType.RouteNotFound, string.Empty);
 			}
 		}
 	}

@@ -24,6 +24,7 @@ namespace NetEduApp.Emulators.Logger {
 		PacketRecived,
 		PacketRouted,
 		HubPacketColision,
+		RouteInvalidDestinationAddress,
 		#endregion
 	}
 }
