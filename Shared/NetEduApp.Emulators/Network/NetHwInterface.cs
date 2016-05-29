@@ -8,9 +8,9 @@ using NetEduApp.Emulators.Network.Abstract;
 
 namespace NetEduApp.Emulators.Network {
 	internal class NetHwInterface : INetHwInterface {
-		private INetDevice parent;
-		private INetHwInterface otherInterface;
-		private string name;
+		protected INetDevice parent;
+		protected INetHwInterface otherInterface;
+		protected string name;
 
 		internal NetHwInterface(INetDevice parent, string name) {
 			if (parent == null)
@@ -56,6 +56,7 @@ namespace NetEduApp.Emulators.Network {
 			if (other != null) {
 				other.Disconnect( );
 				other.otherInterface = this;
+				EmulatorLogger.Log(LogLevel.Info, EventType.Connected, other.Name);
 			}
 			otherInterface = other;
 			EmulatorLogger.Log(LogLevel.Info, EventType.Connected, this.Name);
@@ -70,8 +71,12 @@ namespace NetEduApp.Emulators.Network {
 		}
 
 		public virtual void SendData(INetPacket data) {
-			EmulatorLogger.Log(LogLevel.Info, EventType.PacketSend, this.Name);
-			otherInterface.ReceiveData(new NetPacket(this, otherInterface, data.SourceAddress, data.DestinationAddress));
+			if(otherInterface != null) {
+				EmulatorLogger.Log(LogLevel.Info, EventType.PacketSend, this.Name);
+				otherInterface.ReceiveData(new NetPacket(this, otherInterface, data.SourceAddress, data.DestinationAddress));
+			}else {
+				EmulatorLogger.Log(LogLevel.Info, EventType.NotConnected, this.Name);
+			}
 		}
 	}
 }
