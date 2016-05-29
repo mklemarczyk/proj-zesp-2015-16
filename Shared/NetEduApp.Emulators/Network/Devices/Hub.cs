@@ -31,7 +31,7 @@ namespace NetEduApp.Emulators.Network.Devices {
 				EmulatorLogger.Log(LogLevel.Error, EventType.HubPacketColision, this.Name);
 				return;
 			} else {
-				int ifaceNo = this.interfaces.FindIndex(x => x.Equals(iface));
+				int ifaceNo = this.interfaces.FindIndex(x => ReferenceEquals(x, iface));
 				if (ifaceNo >= 0) {
 					busyInterface = ifaceNo;
 					if (data.TTL > 0) {
