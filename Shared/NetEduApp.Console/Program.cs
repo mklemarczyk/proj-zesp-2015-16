@@ -26,9 +26,9 @@ namespace NetEduApp.Console {
 			NetworkFactory.MakeLink(pc2.Interfaces[0], s2.Interfaces[0]);
 			NetworkFactory.MakeLink(pc3.Interfaces[0], s3.Interfaces[0]);
 
-			NetworkFactory.MakeLink(s1.Interfaces[0], r1.Interfaces[0]);
-			NetworkFactory.MakeLink(s2.Interfaces[0], r2.Interfaces[0]);
-			NetworkFactory.MakeLink(s3.Interfaces[0], r3.Interfaces[0]);
+			NetworkFactory.MakeLink(s1.Interfaces[1], r1.Interfaces[0]);
+			NetworkFactory.MakeLink(s2.Interfaces[1], r2.Interfaces[0]);
+			NetworkFactory.MakeLink(s3.Interfaces[1], r3.Interfaces[0]);
 
 			NetworkFactory.MakeLink(r1.Interfaces[1], s4.Interfaces[1]);
 			NetworkFactory.MakeLink(r2.Interfaces[1], s4.Interfaces[2]);
