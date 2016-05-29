@@ -7,18 +7,20 @@ using NetEduApp.Emulators.Network.Abstract;
 
 namespace NetEduApp.Emulators.Network {
 	internal class NetPacket : INetPacket {
-		INetHwInterface sourceInterface, destinationInterface;
+		NetMacAddress sourceMacAddress, destinationMacAddress;
 		NetAddress? sourceAddress, destinationAddress;
 
 		internal NetPacket(INetHwInterface sourceInterface, INetHwInterface destinationInterface, NetAddress? sourceAddress, NetAddress? destinationAddress) {
-			this.sourceInterface = sourceInterface;
-			this.destinationInterface = destinationInterface;
+			this.sourceMacAddress = sourceInterface?.HardwareAddress ?? NetMacAddress.Zero;
+			this.destinationMacAddress = destinationInterface?.HardwareAddress ?? NetMacAddress.Zero;
 			this.sourceAddress = sourceAddress;
 			this.destinationAddress = destinationAddress;
 			TTL = 30;
 		}
-		public INetHwInterface SourceInterface { get { return sourceInterface; } }
-		public INetHwInterface DestinationInterface { get { return destinationInterface; } }
+
+		public NetMacAddress SourceHardwareAddress { get { return sourceMacAddress; } }
+		public NetMacAddress DestinationHardwareAddress { get { return destinationMacAddress; } }
+
 		public NetAddress? SourceAddress { get { return sourceAddress; } }
 		public NetAddress? DestinationAddress { get { return destinationAddress; } }
 

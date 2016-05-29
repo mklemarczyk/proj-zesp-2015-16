@@ -9,6 +9,7 @@ namespace NetEduApp.Emulators.Network.Abstract {
 	public interface INetHwInterface {
 		INetDevice Parent { get; }
 		string Name { get; }
+		NetMacAddress HardwareAddress { get; }
 
 		void Connect(INetHwInterface other);
 		void Disconnect( );

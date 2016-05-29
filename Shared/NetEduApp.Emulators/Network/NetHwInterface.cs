@@ -11,6 +11,7 @@ namespace NetEduApp.Emulators.Network {
 		protected INetDevice parent;
 		protected INetHwInterface otherInterface;
 		protected string name;
+		protected NetMacAddress hardwareAddress;
 
 		internal NetHwInterface(INetDevice parent, string name) {
 			if (parent == null)
@@ -21,10 +22,12 @@ namespace NetEduApp.Emulators.Network {
 				throw new ArgumentException("name can not be empty");
 			this.parent = parent;
 			this.name = name;
+			this.hardwareAddress = new NetMacAddress((ulong)DateTime.Now.Ticks);
 		}
 
 		public INetDevice Parent { get { return this.parent; } }
 		public string Name { get { return this.name; } }
+		public NetMacAddress HardwareAddress { get { return this.hardwareAddress; } }
 
 		public virtual void Connect(INetHwInterface other) {
 			if (other == null)
@@ -66,7 +69,7 @@ namespace NetEduApp.Emulators.Network {
 			EmulatorLogger.Log(LogLevel.Info, EventType.PacketRecived, this.Name);
 			if (data == null)
 				throw new ArgumentNullException("data");
-			if (data.DestinationInterface == this)
+			if (data.DestinationHardwareAddress == this.HardwareAddress)
 				parent.ReceiveData(data, this);
 		}
 
