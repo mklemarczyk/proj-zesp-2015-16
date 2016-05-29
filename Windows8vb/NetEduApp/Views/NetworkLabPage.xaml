@@ -130,25 +130,17 @@
 			<AppBarButton Icon="Add" Label="Create">
 				<AppBarButton.Flyout>
 					<MenuFlyout>
-                        <MenuFlyoutItem Text="Access point" Command="{Binding CreateAccessPointCommand}"/>
-                        <MenuFlyoutItem Text="Bridge" Command="{Binding CreateBridgeCommand}"/>
-                        <MenuFlyoutItem Text="Computer" Command="{Binding CreateComputerCommand}"/>
+						<MenuFlyoutItem Text="Computer" Command="{Binding CreateComputerCommand}"/>
 						<MenuFlyoutItem Text="Hub" Command="{Binding CreateHubCommand}"/>
-                        <MenuFlyoutItem Text="Notebook" Command="{Binding CreateNotebookCommand}"/>
-                        <MenuFlyoutItem Text="Repeater" Command="{Binding CreateRepeaterCommand}"/>
-                        <MenuFlyoutItem Text="Router" Command="{Binding CreateRouterCommand}"/>
+						<MenuFlyoutItem Text="Router" Command="{Binding CreateRouterCommand}"/>
                         <MenuFlyoutItem Text="Switch" Command="{Binding CreateSwitchCommand}"/>
                     </MenuFlyout>
 				</AppBarButton.Flyout>
 			</AppBarButton>
 			<AppBarButton Icon="Link" Label="Connet">
 				<AppBarButton.Flyout>
-                    <MenuFlyout>
-                        <MenuFlyoutItem Text="Coaxial cable" Command="{Binding CreateCoaxialLinkCommand}"/>
-                        <MenuFlyoutItem Text="Ethernet cable" Command="{Binding CreateEthernetLinkCommand}"/>
-                        <MenuFlyoutItem Text="Ethernet crossover cable" Command="{Binding CreateEthernetCrossoverLinkCommand}"/>
-                        <MenuFlyoutItem Text="Optical fiber cable" Command="{Binding CreateOpticalFiberLinkCommand}"/>
-                        <MenuFlyoutItem Text="Serial cable" Command="{Binding CreateSerialLinkCommand}"/>
+					<MenuFlyout>
+						<MenuFlyoutItem Text="Ethernet cable" Command="{Binding CreateEthernetLinkCommand}"/>
 					</MenuFlyout>
 				</AppBarButton.Flyout>
 			</AppBarButton>
