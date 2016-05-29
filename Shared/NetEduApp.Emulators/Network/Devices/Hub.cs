@@ -14,10 +14,10 @@ namespace NetEduApp.Emulators.Network.Devices {
 		internal Hub(string name) {
 			this.Name = name;
 			this.interfaces = new List<INetHwInterface>( );
-			this.interfaces.Add(new NetLgInterface(this, name + "1"));
-			this.interfaces.Add(new NetLgInterface(this, name + "2"));
-			this.interfaces.Add(new NetLgInterface(this, name + "3"));
-			this.interfaces.Add(new NetLgInterface(this, name + "4"));
+			this.interfaces.Add(new NetHwInterface(this, name + "1"));
+			this.interfaces.Add(new NetHwInterface(this, name + "2"));
+			this.interfaces.Add(new NetHwInterface(this, name + "3"));
+			this.interfaces.Add(new NetHwInterface(this, name + "4"));
 		}
 
 		public IReadOnlyList<INetHwInterface> Interfaces { get { return interfaces; } }
@@ -32,7 +32,7 @@ namespace NetEduApp.Emulators.Network.Devices {
 				return;
 			} else {
 				int ifaceNo = this.interfaces.FindIndex(x => x.Equals(iface));
-				if (ifaceNo > 0) {
+				if (ifaceNo >= 0) {
 					busyInterface = ifaceNo;
 					if (data.TTL > 0) {
 						data.TTL--;
