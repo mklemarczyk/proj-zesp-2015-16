@@ -7,6 +7,9 @@ using NetEduApp.Emulators.Network.Abstract;
 
 namespace NetEduApp.Emulators.Network.Devices {
 	internal class Switch : ISwitch {
+		public Switch(string devName) {
+			throw new NotImplementedException( );
+		}
 
 		public IReadOnlyList<INetHwInterface> Interfaces {
 			get {
