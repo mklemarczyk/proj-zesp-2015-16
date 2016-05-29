@@ -7,47 +7,31 @@ using NetEduApp.Emulators.Network.Abstract;
 
 namespace NetEduApp.Emulators.Network.Devices {
 	internal class Switch : ISwitch {
-		public INetEmulator Emulator
-		{
-			get
-			{
+
+		public IReadOnlyList<INetHwInterface> Interfaces {
+			get {
 				throw new NotImplementedException( );
 			}
 		}
 
-		public IReadOnlyList<INetHwInterface> Interfaces
-		{
-			get
-			{
+		public string Name {
+			get {
+				throw new NotImplementedException( );
+			}
+
+			set {
 				throw new NotImplementedException( );
 			}
 		}
 
-		public string Name
-		{
-			get
-			{
-				throw new NotImplementedException( );
-			}
-
-			set
-			{
+		public int PortCount {
+			get {
 				throw new NotImplementedException( );
 			}
 		}
 
-		public int PortCount
-		{
-			get
-			{
-				throw new NotImplementedException( );
-			}
-		}
-
-		public string Type
-		{
-			get
-			{
+		public string Type {
+			get {
 				throw new NotImplementedException( );
 			}
 		}

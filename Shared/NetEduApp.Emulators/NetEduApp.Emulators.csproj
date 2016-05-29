@@ -40,7 +40,6 @@
     <Compile Include="Network\Abstract\IComputer.cs" />
     <Compile Include="Network\Abstract\IHub.cs" />
     <Compile Include="Network\Abstract\INetDevice.cs" />
-    <Compile Include="Network\Abstract\INetEmulator.cs" />
     <Compile Include="Network\Abstract\INetHwInterface.cs" />
     <Compile Include="Network\Abstract\INetLgInterface.cs" />
     <Compile Include="Network\Abstract\INetPacket.cs" />
@@ -57,7 +56,6 @@
     <Compile Include="Network\NetLgInterface.cs" />
     <Compile Include="Network\NetPacket.cs" />
     <Compile Include="Network\NetRoute.cs" />
-    <Compile Include="Network\NetworkEmulator.cs" />
     <Compile Include="Network\NetworkFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

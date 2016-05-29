@@ -9,19 +9,16 @@ using NetEduApp.Emulators.Network.Abstract;
 
 namespace NetEduApp.Emulators.Network.Devices {
 	internal class Computer : IComputer {
-		private INetEmulator emulator;
 		private List<INetLgInterface> interfaces;
 		private List<INetRoute> routes;
 
-		internal Computer(INetEmulator emulator, string name) {
-			this.emulator = emulator;
+		internal Computer(string name) {
 			this.Name = name;
 			this.interfaces = new List<INetLgInterface>( );
 			this.routes = new List<INetRoute>( );
 			this.interfaces.Add(new NetLgInterface(this, name));
 		}
 
-		public INetEmulator Emulator { get { return emulator; } }
 		public IReadOnlyList<INetLgInterface> Interfaces { get { return interfaces; } }
 		public int PortCount { get { return interfaces.Count; } }
 		public IList<INetRoute> Routes { get { return routes; } }

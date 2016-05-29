@@ -8,12 +8,10 @@ using NetEduApp.Emulators.Network.Abstract;
 
 namespace NetEduApp.Emulators.Network.Devices {
 	internal class Hub : IHub {
-		private INetEmulator emulator;
 		private List<INetHwInterface> interfaces;
 		private int? busyInterface;
 
-		internal Hub(INetEmulator emulator, string name) {
-			this.emulator = emulator;
+		internal Hub(string name) {
 			this.Name = name;
 			this.interfaces = new List<INetHwInterface>( );
 			this.interfaces.Add(new NetLgInterface(this, name + "1"));
@@ -22,7 +20,6 @@ namespace NetEduApp.Emulators.Network.Devices {
 			this.interfaces.Add(new NetLgInterface(this, name + "4"));
 		}
 
-		public INetEmulator Emulator { get { return emulator; } }
 		public IReadOnlyList<INetHwInterface> Interfaces { get { return interfaces; } }
 		public int PortCount { get { return interfaces.Count; } }
 		public string Type { get { return "Hub"; } }
