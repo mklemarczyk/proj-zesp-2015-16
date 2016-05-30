@@ -21,9 +21,20 @@ namespace NetEduApp.Emulators.Network {
 			this.target = new NetAddress(target);
 		}
 
-		public bool IsDefault { get { return NetIpAddress.Zero.Equals(this.address); } }
+		public bool IsDefault {
+			get {
+				return NetIpAddress.Zero.Equals(this.address.Address)
+					&& NetIpAddress.Zero.Equals(this.address.Netmask);
+			}
+		}
 		public NetAddress Address { get { return this.address; } }
 		public NetAddress Target { get { return this.target; } }
+
+		public bool IsValid( ) {
+			return this.address.IsValid( )
+				&& this.address.IsNetwork( )
+				&& this.target.IsValid( );
+		}
 
 		public bool IsMatch(NetAddress destinationAddress) {
 			if (Address.IsNetwork( ))
