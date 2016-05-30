@@ -39,11 +39,16 @@
 				</Border.Projection>
 				<StackPanel Background="White">
 					<FlyoutBase.AttachedFlyout>
-						<Flyout common:FlyoutState.IsOpen="{Binding IsSelected}" common:FlyoutState.Parent="{Binding ElementName=itemBorder}">
-							<ItemsControl ItemsSource="{Binding Interfaces}" Width="200" Height="200" Background="Aqua">
+						<Flyout Placement="Bottom" common:FlyoutState.IsOpen="{Binding IsInterfacesVisible, Mode=TwoWay}" common:FlyoutState.Parent="{Binding ElementName=itemBorder}">
+							<Flyout.FlyoutPresenterStyle>
+								<Style TargetType="FlyoutPresenter">
+									<Setter Property="Padding" Value="0" />
+								</Style>
+							</Flyout.FlyoutPresenterStyle>
+							<ItemsControl ItemsSource="{Binding Interfaces}" Width="auto" Height="auto" Background="Aqua">
 								<ItemsControl.ItemTemplate>
 									<DataTemplate>
-										<Button Content="{Binding}" Command="{Binding ConnectCommand, ElementName=itemBorder.DataContext}" CommandParameter="{Binding}" />
+										<MenuFlyoutItem Text="{Binding}" Command="{Binding DataContext.InterfaceSelectCommand, ElementName=pageRoot}" CommandParameter="{Binding}" Margin="0" />
 									</DataTemplate>
 								</ItemsControl.ItemTemplate>
 								<ItemsControl.ItemsPanel>

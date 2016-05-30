@@ -4,8 +4,8 @@
 
         Public Event PropertyChanged As PropertyChangedEventHandler Implements INotifyPropertyChanged.PropertyChanged
 
-        Protected Sub RaisePropertyChanged(propertyName As String)
-            RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
-        End Sub
-    End Class
+		Protected Sub RaisePropertyChanged(<CallerMemberName> Optional propertyName As String = Nothing)
+			RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
+		End Sub
+	End Class
 End Namespace
