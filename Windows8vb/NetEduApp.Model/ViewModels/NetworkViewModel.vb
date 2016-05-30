@@ -231,8 +231,23 @@ Namespace ViewModels
 		End Sub
 
 		Private Sub Grid_PointerExited()
-            'ResetState()
-        End Sub
+			If pickedData IsNot Nothing Then
+				If pickedData.IsInterfacesVisible Then
+					AddHandler pickedData.PropertyChanged, AddressOf ResetIfFlyoutClosed
+				Else
+					ResetState()
+				End If
+			Else
+				ResetState()
+			End If
+		End Sub
+
+		Private Sub ResetIfFlyoutClosed(s As Object, e As PropertyChangedEventArgs)
+			If pickedData IsNot Nothing Then
+				RemoveHandler pickedData.PropertyChanged, AddressOf ResetIfFlyoutClosed
+			End If
+			ResetState()
+		End Sub
 
 		Private Sub Image_PointerPressed(sender As Object)
 			If Me.currentAction = LabAction.Idle Then
@@ -254,7 +269,7 @@ Namespace ViewModels
 				Me.pickedData = pickedData
 
 				If activeLink.ItemA Is FakeDeviceViewModel.Fake Then
-					pickedData.IsInterfacesVisible = False
+					pickedData.IsInterfacesVisible = True
 				Else
 					If activeLink.ItemB Is FakeDeviceViewModel.Fake Then
 						pickedData.IsInterfacesVisible = True
@@ -264,6 +279,10 @@ Namespace ViewModels
 		End Sub
 
 		Private Sub Button_InterfaceSelected(sender As Object)
+			If pickedData IsNot Nothing Then
+				RemoveHandler pickedData.PropertyChanged, AddressOf ResetIfFlyoutClosed
+			End If
+
 			If Me.currentAction = LabAction.CreateLink Then
 				If activeLink.ItemA Is FakeDeviceViewModel.Fake Then
 					activeLink.ItemA = pickedData
