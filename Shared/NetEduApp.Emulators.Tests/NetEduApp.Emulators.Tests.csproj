@@ -65,6 +65,7 @@
     <Compile Include="Network\TC_NetMacAddress.cs" />
     <Compile Include="Network\TC_NetIpAddress.cs" />
     <Compile Include="Network\TC_NetLgInterface.cs" />
+    <Compile Include="Network\TC_NetRoute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
