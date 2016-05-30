@@ -206,7 +206,7 @@ namespace NetEduApp.Emulators.Tests.Network {
 			((Emulators.Network.Abstract.Fakes.StubINetDevice)fakeDevice).ReceiveDataINetPacketINetHwInterface = (INetPacket iNetPacket, INetHwInterface myIface) => received = fakePacket == iNetPacket;
 
 			var otherIface = new SUTest(fakeDevice, "eth2");
-			fakePacket.DestinationInterfaceGet = ( ) => otherIface;
+			fakePacket.DestinationHardwareAddressGet = ( ) => otherIface.HardwareAddress;
 
 			iface.ReceiveData(fakePacket);
 
@@ -221,7 +221,7 @@ namespace NetEduApp.Emulators.Tests.Network {
 			var fakePacket = new Emulators.Network.Abstract.Fakes.StubINetPacket( );
 			((Emulators.Network.Abstract.Fakes.StubINetDevice)fakeDevice).ReceiveDataINetPacketINetHwInterface = (INetPacket iNetPacket, INetHwInterface myIface) => received = fakePacket == iNetPacket;
 
-			fakePacket.DestinationInterfaceGet = ( ) => iface;
+			fakePacket.DestinationHardwareAddressGet = ( ) => iface.HardwareAddress;
 
 			iface.ReceiveData(fakePacket);
 
@@ -239,8 +239,8 @@ namespace NetEduApp.Emulators.Tests.Network {
 				INetHwInterface otherIface = new SUTest(otherDevice, "eth1");
 				Emulators.Network.Fakes.ShimNetHwInterface.AllInstances.ReceiveDataINetPacket =
 					(SUTest instance, INetPacket iNetPacket) => {
-						Assert.AreEqual(iface, iNetPacket.SourceInterface);
-						Assert.AreEqual(otherIface, iNetPacket.DestinationInterface);
+						Assert.AreEqual(iface.HardwareAddress, iNetPacket.SourceHardwareAddress);
+						Assert.AreEqual(otherIface.HardwareAddress, iNetPacket.DestinationHardwareAddress);
 						Assert.AreEqual(fakePacket.SourceAddress, iNetPacket.SourceAddress);
 						Assert.AreEqual(fakePacket.DestinationAddress, iNetPacket.DestinationAddress);
 						sended = true;
