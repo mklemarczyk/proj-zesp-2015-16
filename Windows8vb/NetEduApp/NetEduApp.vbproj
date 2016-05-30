@@ -116,7 +116,7 @@
     <Compile Include="App.xaml.vb">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Common\FlayoutState.vb" />
+    <Compile Include="Common\FlyoutState.vb" />
     <Compile Include="Common\PointerRoutedArgsConverter.vb" />
     <Compile Include="Views\Config\ConfigMenu.xaml.vb">
       <DependentUpon>ConfigMenu.xaml</DependentUpon>
