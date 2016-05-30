@@ -8,12 +8,14 @@ using NetEduApp.Emulators.Network.Abstract;
 
 namespace NetEduApp.Emulators.Network {
 	internal class NetHwInterface : INetHwInterface {
+		private static byte n = 0;
 		protected INetDevice parent;
 		protected INetHwInterface otherInterface;
 		protected string name;
 		protected NetMacAddress hardwareAddress;
 
 		internal NetHwInterface(INetDevice parent, string name) {
+			unchecked { n++; }
 			if (parent == null)
 				throw new ArgumentNullException("parent");
 			if (name == null)
@@ -22,7 +24,7 @@ namespace NetEduApp.Emulators.Network {
 				throw new ArgumentException("name can not be empty");
 			this.parent = parent;
 			this.name = name;
-			this.hardwareAddress = new NetMacAddress((ulong)DateTime.Now.Ticks);
+			this.hardwareAddress = new NetMacAddress(((ulong)DateTime.Now.Ticks << 8) + n);
 		}
 
 		public INetDevice Parent { get { return this.parent; } }
