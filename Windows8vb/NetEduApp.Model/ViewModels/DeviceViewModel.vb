@@ -14,6 +14,8 @@ Namespace ViewModels
 		Protected MustOverride Function GetNamePattern() As String
 		Public MustOverride ReadOnly Property ImagePath As String
 
+		Public ReadOnly Property Interfaces As List(Of String) = New List(Of String)
+
 		Public Sub New(lab As Laboratory)
 			If lab IsNot Nothing Then
 				ParentLab = lab
