@@ -1,7 +1,6 @@
-﻿Imports NetEduApp.Models
-Imports NetEduApp.ViewModels
-Imports NetEduApp.Views.Config
+﻿Imports NetEduApp.Views.Config
 Imports Windows.UI.Input
+Imports NetEduApp.Common
 ' The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234237
 
 ''' <summary>
@@ -120,9 +119,9 @@ Public NotInheritable Class NetworkLabPage
         If prop IsNot Nothing Then
             If args.NewValue IsNot Nothing Then
                 prop.Visibility = Visibility.Visible
-                prop.Navigate(GetType(ConfigMenu))
-                prop.BackStack.Clear()
-            Else
+				prop.Navigate(GetType(ConfigMenu))
+				prop.BackStack.Clear()
+			Else
                 prop.Visibility = Visibility.Collapsed
             End If
         End If
