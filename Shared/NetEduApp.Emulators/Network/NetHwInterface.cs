@@ -20,7 +20,7 @@ namespace NetEduApp.Emulators.Network {
 				throw new ArgumentNullException("parent");
 			if (name == null)
 				throw new ArgumentNullException("name");
-			if(name == string.Empty)
+			if (name == string.Empty)
 				throw new ArgumentException("name can not be empty");
 			this.parent = parent;
 			this.name = name;
@@ -36,7 +36,7 @@ namespace NetEduApp.Emulators.Network {
 				throw new ArgumentNullException("other");
 			if (ReferenceEquals(this, other))
 				throw new ArgumentException("Can not connect the same interface instances");
-			if(ReferenceEquals(this.otherInterface, other))
+			if (ReferenceEquals(this.otherInterface, other))
 				throw new ArgumentException("That connection was made already");
 			if (other is NetHwInterface) {
 				this.Connect((NetHwInterface)other);
@@ -76,10 +76,10 @@ namespace NetEduApp.Emulators.Network {
 		}
 
 		public virtual void SendData(INetPacket data) {
-			if(otherInterface != null) {
+			if (otherInterface != null) {
 				EmulatorLogger.Log(LogLevel.Info, EventType.PacketSend, this.Name);
-				otherInterface.ReceiveData(new NetPacket(this, otherInterface, data.SourceAddress, data.DestinationAddress));
-			}else {
+				otherInterface.ReceiveData(new NetPacket(this.HardwareAddress, otherInterface.HardwareAddress, data.SourceAddress, data.DestinationAddress));
+			} else {
 				EmulatorLogger.Log(LogLevel.Info, EventType.NotConnected, this.Name);
 			}
 		}
