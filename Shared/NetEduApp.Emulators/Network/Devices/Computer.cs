@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NetEduApp.Emulators.Logger;
 using NetEduApp.Emulators.Network.Abstract;
+using NetEduApp.Emulators.Network.Modules;
 
 namespace NetEduApp.Emulators.Network.Devices {
 	internal class Computer : IComputer {
@@ -36,14 +37,14 @@ namespace NetEduApp.Emulators.Network.Devices {
 
 		public void SendData(INetPacket data) {
 			if (data.DestinationAddress != null) {
-				var targetIf = Modules.InterfaceModule.GetTargetInterface(data.DestinationAddress, interfaces);
+				var targetIf = RouteTableModule.GetTargetInterface(data.DestinationAddress, interfaces);
 				if (targetIf != null) {
 					targetIf.SendData(data);
 					return;
 				} else {
-					var routeTarget = Modules.RouteTableModule.GetRoute(data.DestinationAddress, interfaces, routes, DefaultRoute);
+					var routeTarget = RouteTableModule.GetRoute(data.DestinationAddress, interfaces, routes, DefaultRoute);
 					if (routeTarget != null) {
-						targetIf = Modules.InterfaceModule.GetTargetInterface(routeTarget, interfaces);
+						targetIf = RouteTableModule.GetTargetInterface(routeTarget, interfaces);
 						if (targetIf != null) {
 							targetIf.SendData(data);
 							return;
@@ -55,7 +56,7 @@ namespace NetEduApp.Emulators.Network.Devices {
 		}
 
 		public void SendPing(NetIpAddress ipAddress) {
-			SendData(new NetPacket(null, null, null, new NetAddress(ipAddress)));
+			SendData(new NetPacket(NetMacAddress.Zero, NetMacAddress.Zero, null, new NetAddress(ipAddress)));
 		}
 	}
 }
