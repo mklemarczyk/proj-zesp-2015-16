@@ -10,12 +10,16 @@ namespace NetEduApp.Emulators.Network {
 		NetMacAddress sourceMacAddress, destinationMacAddress;
 		NetAddress? sourceAddress, destinationAddress;
 
-		internal NetPacket(INetHwInterface sourceInterface, INetHwInterface destinationInterface, NetAddress? sourceAddress, NetAddress? destinationAddress) {
-			this.sourceMacAddress = sourceInterface?.HardwareAddress ?? NetMacAddress.Zero;
-			this.destinationMacAddress = destinationInterface?.HardwareAddress ?? NetMacAddress.Zero;
+		internal NetPacket(NetMacAddress sourceHardwareAddress, NetMacAddress destinationHardwareAddress) {
+			this.sourceMacAddress = sourceHardwareAddress;
+			this.destinationMacAddress = destinationHardwareAddress;
+			TTL = 30;
+		}
+
+		internal NetPacket(NetMacAddress sourceHardwareAddress, NetMacAddress destinationHardwareAddress, NetAddress? sourceAddress, NetAddress? destinationAddress)
+			: this(sourceHardwareAddress, destinationHardwareAddress) {
 			this.sourceAddress = sourceAddress;
 			this.destinationAddress = destinationAddress;
-			TTL = 30;
 		}
 
 		public NetMacAddress SourceHardwareAddress { get { return sourceMacAddress; } }
