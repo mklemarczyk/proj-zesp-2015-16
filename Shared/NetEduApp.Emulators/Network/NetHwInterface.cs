@@ -71,9 +71,10 @@ namespace NetEduApp.Emulators.Network {
 			EmulatorLogger.Log(LogLevel.Info, EventType.PacketRecived, this.Name);
 			if (data == null)
 				throw new ArgumentNullException("data");
-			if (data is Packets.LldpDiscoveryPacket)
+			if (data is Packets.LldpDiscoveryPacket) {
+				EmulatorLogger.Log(LogLevel.Info, EventType.LldpDiscoveryPacketRecived, this.Name);
 				this.SendData(new Packets.LldpResponsePacket(this.HardwareAddress, data.SourceHardwareAddress));
-			else
+			} else
 				parent.ReceiveData(data, this);
 		}
 
