@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NetEduApp.Emulators.Network;
+using NetEduApp.Emulators.Network.Abstract;
 using SUTest = NetEduApp.Emulators.Network.NetPacket;
 
 namespace NetEduApp.Emulators.Tests.Network {
@@ -32,8 +33,8 @@ namespace NetEduApp.Emulators.Tests.Network {
 				new NetIpAddress(214, 21, 0, 0));
 
 			var netPacket = new SUTest(
-				srcInterf,
-				dstInterf,
+				((INetHwInterface)srcInterf).HardwareAddress,
+				((INetHwInterface)dstInterf).HardwareAddress,
 				srcAddress,
 				dstAddress);
 
@@ -57,8 +58,8 @@ namespace NetEduApp.Emulators.Tests.Network {
 			dstInterf.HardwareAddressGet = ( ) => dstMac;
 
 			var netPacket = new SUTest(
-				srcInterf,
-				dstInterf,
+				((INetHwInterface)srcInterf).HardwareAddress,
+				((INetHwInterface)dstInterf).HardwareAddress,
 				null,
 				null);
 
@@ -96,8 +97,8 @@ namespace NetEduApp.Emulators.Tests.Network {
 				new NetIpAddress(214, 21, 0, 0));
 
 			var netPacket = new SUTest(
-				srcInterf,
-				dstInterf,
+				((INetHwInterface)srcInterf).HardwareAddress,
+				((INetHwInterface)dstInterf).HardwareAddress,
 				srcAddress,
 				dstAddress);
 			netPacket.TTL = 20;
