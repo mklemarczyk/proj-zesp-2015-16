@@ -9,6 +9,18 @@ using NetEduApp.Emulators.Network.Abstract;
 namespace NetEduApp.Emulators.Network.Modules {
 	internal class RouteTableModule {
 
+		public static INetLgInterface GetTargetInterface(NetAddress? destinationAddress, IEnumerable<INetLgInterface> ipInterfaces) {
+			if (destinationAddress != null) {
+				foreach (var ipInterface in ipInterfaces) {
+					if (ipInterface.Address != null && ipInterface.Address.Value.GetNetwork( ).Contains(destinationAddress.Value) == true) {
+						EmulatorLogger.Log(LogLevel.Info, EventType.RouteFoundConnected, string.Empty);
+						return ipInterface;
+					}
+				}
+			}
+			return null;
+		}
+
 		public static NetAddress? GetRoute(NetAddress? destinationAddress, IEnumerable<INetLgInterface> ipInterfaces, IEnumerable<INetRoute> routes, INetRoute defaultRoute) {
 			if (destinationAddress != null) {
 				foreach (var route in routes) {

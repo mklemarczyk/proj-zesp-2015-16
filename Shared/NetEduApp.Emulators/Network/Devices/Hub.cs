@@ -14,10 +14,10 @@ namespace NetEduApp.Emulators.Network.Devices {
 		internal Hub(string name) {
 			this.Name = name;
 			this.interfaces = new List<INetHwInterface>( );
-			this.interfaces.Add(new NetHwInterface(this, name + "1"));
-			this.interfaces.Add(new NetHwInterface(this, name + "2"));
-			this.interfaces.Add(new NetHwInterface(this, name + "3"));
-			this.interfaces.Add(new NetHwInterface(this, name + "4"));
+			this.interfaces.Add(new NetHwInterface(this, name + "/eth0"));
+			this.interfaces.Add(new NetHwInterface(this, name + "/eth1"));
+			this.interfaces.Add(new NetHwInterface(this, name + "/eth2"));
+			this.interfaces.Add(new NetHwInterface(this, name + "/eth3"));
 		}
 
 		public IReadOnlyList<INetHwInterface> Interfaces { get { return interfaces; } }

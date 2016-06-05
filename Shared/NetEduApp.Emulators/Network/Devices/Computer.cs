@@ -16,7 +16,7 @@ namespace NetEduApp.Emulators.Network.Devices {
 			this.Name = name;
 			this.interfaces = new List<INetLgInterface>( );
 			this.routes = new List<INetRoute>( );
-			this.interfaces.Add(new NetLgInterface(this, name));
+			this.interfaces.Add(new NetLgInterface(this, name + "/eth0"));
 		}
 
 		public IReadOnlyList<INetLgInterface> Interfaces { get { return interfaces; } }
