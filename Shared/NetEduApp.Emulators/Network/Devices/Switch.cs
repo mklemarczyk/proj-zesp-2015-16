@@ -38,9 +38,9 @@ namespace NetEduApp.Emulators.Network.Devices {
 				if (ipInterface.HardwareAddress != default(NetMacAddress) && ipInterface.HardwareAddress == data.DestinationHardwareAddress) {
 					if (data is Packets.LldpResponsePacket) {
 						if (macTable.Register(ifaceNo, data.SourceHardwareAddress)) {
-							EmulatorLogger.Log(LogLevel.Info, EventType.LldpAdded, this.Name);
+							EmulatorLogger.Log(LogLevel.Info, EventType.LldpEntryAdded, this.Name);
 						} else {
-							EmulatorLogger.Log(LogLevel.Info, EventType.LldpExists, this.Name);
+							EmulatorLogger.Log(LogLevel.Info, EventType.LldpEntryExists, this.Name);
 						}
 						this.SendData(null);
 					}
