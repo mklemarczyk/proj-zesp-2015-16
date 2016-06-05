@@ -39,9 +39,9 @@
                         IsHitTestVisible="false" TextWrapping="NoWrap" VerticalAlignment="Bottom" Margin="0,0,30,40"/>
 		</Grid>
 		<StackPanel Grid.Row="1">
-			<Button Content="General" Click="Button1_Click" />
-			<Button Content="Interfaces" Click="Button2_Click" />
-			<Button Content="Routing" Click="Button3_Click" />
+			<Button Content="General" Click="Button1_Click" HorizontalAlignment="Stretch" Padding="12,8" Margin="2" />
+			<Button Content="Interfaces" Click="Button2_Click" HorizontalAlignment="Stretch" Padding="12,8" Margin="2" />
+			<Button Content="Routing" Click="Button3_Click" HorizontalAlignment="Stretch" Padding="12,8" Margin="2" />
 		</StackPanel>
 	</Grid>
 </Page>

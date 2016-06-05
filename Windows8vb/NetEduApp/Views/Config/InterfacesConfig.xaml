@@ -35,11 +35,11 @@
                         AutomationProperties.Name="Back"
                         AutomationProperties.AutomationId="BackButton"
                         AutomationProperties.ItemType="Navigation Button" />
-            <TextBlock x:Name="pageTitle" Text="Configuration" Style="{StaticResource SubheaderTextBlockStyle}" Grid.Column="1" 
+            <TextBlock x:Name="pageTitle" Text="Interfaces" Style="{StaticResource SubheaderTextBlockStyle}" Grid.Column="1" 
                         IsHitTestVisible="false" TextWrapping="NoWrap" VerticalAlignment="Bottom" Margin="0,0,30,40"/>
 		</Grid>
-		<Grid Grid.Row="1">
+		<ItemsControl Grid.Row="1">
 
-		</Grid>
+		</ItemsControl>
 	</Grid>
 </Page>

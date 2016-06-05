@@ -5,25 +5,25 @@ Namespace Views.Config
 	''' <summary>
 	''' An empty page that can be used on its own or navigated to within a Frame.
 	''' </summary>
-	Public NotInheritable Class ConfigMenu
+	Public NotInheritable Class InterfaceConfig
 		Inherits Page
 
 #Region "Navigation"
-        ''' <summary>
-        ''' NavigationHelper is used on each page to aid in navigation and 
-        ''' process lifetime management
-        ''' </summary>
-        Public ReadOnly Property NavigationHelper As Model.Common.NavigationHelper
-            Get
-                Return Me._navigationHelper
-            End Get
-        End Property
-        Private _navigationHelper As Model.Common.NavigationHelper
+		''' <summary>
+		''' NavigationHelper is used on each page to aid in navigation and 
+		''' process lifetime management
+		''' </summary>
+		Public ReadOnly Property NavigationHelper As Model.Common.NavigationHelper
+			Get
+				Return Me._navigationHelper
+			End Get
+		End Property
+		Private _navigationHelper As Model.Common.NavigationHelper
 
-        Public Sub New()
+		Public Sub New()
 			InitializeComponent()
-            Me._navigationHelper = New Model.Common.NavigationHelper(Me)
-            AddHandler Me._navigationHelper.LoadState, AddressOf NavigationHelper_LoadState
+			Me._navigationHelper = New Model.Common.NavigationHelper(Me)
+			AddHandler Me._navigationHelper.LoadState, AddressOf NavigationHelper_LoadState
 			AddHandler Me._navigationHelper.SaveState, AddressOf NavigationHelper_SaveState
 		End Sub
 
@@ -40,7 +40,7 @@ Namespace Views.Config
         ''' session.  The state will be null the first time a page is visited.</param>
         Private Sub NavigationHelper_LoadState(sender As Object, e As Model.Common.LoadStateEventArgs)
 
-        End Sub
+		End Sub
 
         ''' <summary>
         ''' Preserves state associated with this page in case the application is suspended or the
@@ -54,7 +54,7 @@ Namespace Views.Config
         ''' serializable state.</param>
         Private Sub NavigationHelper_SaveState(sender As Object, e As Model.Common.SaveStateEventArgs)
 
-        End Sub
+		End Sub
 
 #Region "NavigationHelper registration"
 
@@ -78,16 +78,5 @@ Namespace Views.Config
 #End Region
 #End Region
 
-		Private Sub Button1_Click(sender As Object, e As RoutedEventArgs)
-			Frame.Navigate(GetType(GeneralConfig))
-		End Sub
-
-		Private Sub Button2_Click(sender As Object, e As RoutedEventArgs)
-			Frame.Navigate(GetType(InterfacesConfig))
-		End Sub
-
-		Private Sub Button3_Click(sender As Object, e As RoutedEventArgs)
-			Frame.Navigate(GetType(RoutingConfig))
-		End Sub
 	End Class
 End Namespace

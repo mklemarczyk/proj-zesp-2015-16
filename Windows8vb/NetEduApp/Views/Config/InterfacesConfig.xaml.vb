@@ -45,7 +45,7 @@ Namespace Views.Config
         ''' <summary>
         ''' Preserves state associated with this page in case the application is suspended or the
         ''' page is discarded from the navigation cache.  Values must conform to the serialization
-        ''' requirements of <see cref="Common.SuspensionManager.SessionState"/>.
+        ''' requirements of <see cref="Model.Common.SuspensionManager.SessionState"/>.
         ''' </summary>
         ''' <param name="sender">
         ''' The source of the event; typically <see cref="NavigationHelper"/>
@@ -58,16 +58,16 @@ Namespace Views.Config
 
 #Region "NavigationHelper registration"
 
-        ''' The methods provided in this section are simply used to allow
-        ''' NavigationHelper to respond to the page's navigation methods.
-        ''' 
-        ''' Page specific logic should be placed in event handlers for the  
-        ''' <see cref="Common.NavigationHelper.LoadState"/>
-        ''' and <see cref="Common.NavigationHelper.SaveState"/>.
-        ''' The navigation parameter is available in the LoadState method 
-        ''' in addition to page state preserved during an earlier session.
+		''' The methods provided in this section are simply used to allow
+		''' NavigationHelper to respond to the page's navigation methods.
+		''' 
+		''' Page specific logic should be placed in event handlers for the  
+		''' <see cref="Model.Common.NavigationHelper.LoadState"/>
+		''' and <see cref="Model.Common.NavigationHelper.SaveState"/>.
+		''' The navigation parameter is available in the LoadState method 
+		''' in addition to page state preserved during an earlier session.
 
-        Protected Overrides Sub OnNavigatedTo(e As NavigationEventArgs)
+		Protected Overrides Sub OnNavigatedTo(e As NavigationEventArgs)
 			_navigationHelper.OnNavigatedTo(e)
 		End Sub
 

@@ -1,5 +1,5 @@
-﻿<Page x:Name="pageRoot"
-    x:Class="NetEduApp.Views.Config.GeneralConfig"
+﻿<Page
+    x:Class="NetEduApp.Views.Config.InterfaceConfig"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:NetEduApp"
@@ -35,23 +35,11 @@
                         AutomationProperties.Name="Back"
                         AutomationProperties.AutomationId="BackButton"
                         AutomationProperties.ItemType="Navigation Button" />
-            <TextBlock x:Name="pageTitle" Text="General" Style="{StaticResource SubheaderTextBlockStyle}" Grid.Column="1" 
+			<TextBlock x:Name="pageTitle" Text="Interface" Style="{StaticResource SubheaderTextBlockStyle}" Grid.Column="1" 
                         IsHitTestVisible="false" TextWrapping="NoWrap" VerticalAlignment="Bottom" Margin="0,0,30,40"/>
 		</Grid>
 		<Grid Grid.Row="1">
-			<Grid.RowDefinitions>
-				<RowDefinition Height="Auto"/>
-				<RowDefinition Height="Auto"/>
-				<RowDefinition Height="Auto"/>
-				<RowDefinition Height="Auto"/>
-				<RowDefinition Height="Auto"/>
-			</Grid.RowDefinitions>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="Auto"/>
-				<ColumnDefinition/>
-			</Grid.ColumnDefinitions>
-			<TextBox Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Margin="10" TextWrapping="Wrap"/>
-			<TextBlock HorizontalAlignment="Left" Margin="10" TextWrapping="Wrap" Text="Nazwa" VerticalAlignment="Center" Style="{StaticResource BaseTextBlockStyle}"/>
+
 		</Grid>
 	</Grid>
 </Page>
