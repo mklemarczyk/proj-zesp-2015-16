@@ -71,12 +71,21 @@ namespace NetEduApp.Emulators.Network.Devices {
 					}
 				}
 			} else {
-
+				var targetPort = macTable.GetPort(data.DestinationHardwareAddress);
+				if (targetPort != null) {
+					interfaces[targetPort.Value].SendData(data);
+				} else {
+					var queued = new KeyValuePair<int, INetPacket>(-1, data);
+					packetsQueue.Enqueue(queued);
+					#region Handle missing Mac
+					SendDiscovery(queued.Key);
+					#endregion
+				}
 			}
 		}
 
 		private void SendDiscovery(int key) {
-			foreach(var iface in interfaces) {
+			foreach (var iface in interfaces) {
 				iface.SendData(new Packets.LldpDiscoveryPacket(iface.HardwareAddress, NetMacAddress.MaxAddress));
 			}
 		}
