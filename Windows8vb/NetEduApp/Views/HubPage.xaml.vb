@@ -49,8 +49,6 @@ Public NotInheritable Class HubPage
     ''' session.  The state will be null the first time a page is visited.</param>
     Private Async Sub NavigationHelper_LoadState(sender As Object, e As Model.Common.LoadStateEventArgs)
         ' TODO: Assign a collection of bindable groups to Me.DefaultViewModel("Groups")
-        Dim sampleDataGroup As Model.Data.SampleDataGroup = Await Model.Data.SampleDataSource.GetGroupAsync("Group-4")
-        Me.DefaultViewModel("Section3Items") = sampleDataGroup
         Dim groups As IEnumerable(Of Model.Data.SampleDataGroup) = Await Model.Data.SampleDataSource.GetGroupsAsync()
         Me.DefaultViewModel("Groups") = groups
 

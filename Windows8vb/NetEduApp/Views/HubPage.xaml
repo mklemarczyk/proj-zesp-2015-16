@@ -106,8 +106,8 @@
                     </Grid>
                 </DataTemplate>
             </HubSection>
-			<HubSection IsHeaderInteractive="True" DataContext="{Binding Section3Items}" d:DataContext="{Binding Groups[2], Source={d:DesignData Source=/Assets/SampleData.json, Type=data:SampleDataSource}}"
-                        x:Uid="Section3Header" Header="Section 3" Padding="40,40,40,32">
+			<HubSection IsHeaderInteractive="True" DataContext="{Binding Groups[2]}" d:DataContext="{Binding Groups[2], Source={d:DesignData Source=/Assets/SampleData.json, Type=data:SampleDataSource}}"
+                        x:Uid="Section3Header" Header="{Binding Title}" Padding="40,40,40,32">
                 <DataTemplate>
                     <GridView
                         x:Name="itemGridView"
