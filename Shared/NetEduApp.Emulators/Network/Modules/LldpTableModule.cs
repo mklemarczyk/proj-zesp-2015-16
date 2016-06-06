@@ -31,7 +31,7 @@ namespace NetEduApp.Emulators.Network.Modules {
 		}
 
 		public int? GetPort(NetMacAddress hardwareAddress) {
-			return table.Where(x => x.hardwareAddress == hardwareAddress).Select(x => x.portNo).FirstOrDefault( );
+			return table.Where(x => x.hardwareAddress == hardwareAddress).Select(x => (int?)x.portNo).FirstOrDefault( );
 		}
 
 		private struct Entry {
