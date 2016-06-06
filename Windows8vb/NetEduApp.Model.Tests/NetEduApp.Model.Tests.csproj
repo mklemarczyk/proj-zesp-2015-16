@@ -115,6 +115,8 @@
     <SDKReference Include="TestPlatform, Version=14.0" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mocks\LaboratoryMock.cs" />
+    <Compile Include="Mocks\DeviceViewModelMock.cs" />
     <Compile Include="TC_NavigationHelper.cs" />
     <Compile Include="TC_NetworkViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -124,6 +126,7 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="NetEduApp.Model.Tests_TemporaryKey.pfx" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\UnitTestLogo.scale-100.png">
@@ -144,6 +147,12 @@
       <Project>{f697072b-4aa2-4bc2-acf6-c339fac22091}</Project>
       <Name>NetEduApp.Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="LightMock, Version=1.0.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LightMock.1.0.0.6\lib\portable-net40+sl50+win+wp80+MonoAndroid10+xamarinios10+MonoTouch10\LightMock.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

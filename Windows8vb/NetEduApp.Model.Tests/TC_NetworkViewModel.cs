@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
+using LightMock;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework.AppContainer;
+using NetEduApp.Model.Tests.Mocks;
 using NetEduApp.Model.ViewModels;
 using SUTest = NetEduApp.Model.ViewModels.NetworkViewModel;
 
@@ -80,7 +82,7 @@ namespace NetEduApp.Model.Tests {
 		}
 
 		[UITestMethod]
-		public void SelectedDeviceChangedTest( ) {
+		public void SelectedDeviceChangedTest_ToObject( ) {
 			SUTest viewModel = new SUTest( );
 
 			bool canExecuteChanged = false;
@@ -88,9 +90,27 @@ namespace NetEduApp.Model.Tests {
 				canExecuteChanged = true;
 			};
 
-			viewModel.SelectedDevice = new ComputerViewModel(new Laboratory());
+			var mockContext = new MockContext<DeviceViewModel>( );
+			var mockLabContext = new MockContext<Laboratory>( );
+			var device = new DeviceViewModelMock(mockContext, mockLabContext);
+
+			viewModel.SelectedDevice = device;
 
 			Microsoft.VisualStudio.TestPlatform.UnitTestFramework.Assert.IsTrue(canExecuteChanged);
+		}
+
+		[UITestMethod]
+		public void SelectedDeviceChangedTest_ToNull( ) {
+			SUTest viewModel = new SUTest( );
+
+			bool canExecuteChanged = false;
+			viewModel.EditCommand.CanExecuteChanged += (object sender, EventArgs e) => {
+				canExecuteChanged = true;
+			};
+
+			viewModel.SelectedDevice = null;
+
+			Microsoft.VisualStudio.TestPlatform.UnitTestFramework.Assert.IsFalse(canExecuteChanged);
 		}
 
 		[UITestMethod]
@@ -106,7 +126,11 @@ namespace NetEduApp.Model.Tests {
 		public void EditCommandTest_SelectedDevice( ) {
 			SUTest viewModel = new SUTest( );
 
-			viewModel.SelectedDevice = new ComputerViewModel(new Laboratory( ));
+			var mockContext = new MockContext<DeviceViewModel>( );
+			var mockLabContext = new MockContext<Laboratory>( );
+			var device = new DeviceViewModelMock(mockContext, mockLabContext);
+
+			viewModel.SelectedDevice = device;
 
 			Microsoft.VisualStudio.TestPlatform.UnitTestFramework.Assert.IsTrue(viewModel.EditCommand.CanExecute(null));
 		}
