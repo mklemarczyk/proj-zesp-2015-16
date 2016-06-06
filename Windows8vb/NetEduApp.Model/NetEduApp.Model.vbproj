@@ -117,23 +117,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="DataModel\SampleDataSource.vb" />
-    <Compile Include="ViewModels\AccessPointViewModel.vb" />
-    <Compile Include="ViewModels\BridgeViewModel.vb" />
-    <Compile Include="ViewModels\CoaxialLinkViewModel.vb" />
     <Compile Include="ViewModels\ComputerViewModel.vb" />
     <Compile Include="ViewModels\DeviceViewModel.vb" />
-    <Compile Include="ViewModels\EthernetCrossoverLinkViewModel.vb" />
     <Compile Include="ViewModels\EthernetLinkViewModel.vb" />
     <Compile Include="ViewModels\FakeDeviceViewModel.vb" />
     <Compile Include="ViewModels\HubViewModel.vb" />
     <Compile Include="ViewModels\Laboratory.vb" />
     <Compile Include="ViewModels\LinkViewModel.vb" />
-    <Compile Include="ViewModels\NotebookViewModel.vb" />
-    <Compile Include="ViewModels\OpticalFiberLinkViewModel.vb" />
-    <Compile Include="ViewModels\RepeaterViewModel.vb" />
     <Compile Include="ViewModels\RouterViewModel.vb" />
-    <Compile Include="ViewModels\SerialLinkViewModel.vb" />
-    <Compile Include="ViewModels\SwitchViewModel.vb" />
     <Compile Include="Common\NavigationHelper.vb" />
     <Compile Include="Common\ObservableDictionary.vb" />
     <Compile Include="Common\RelayCommand.vb" />

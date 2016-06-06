@@ -22,20 +22,6 @@
 			Links.Add(l1)
 		End Sub
 
-		Public Sub NewAccessPoint()
-			Dim device = New AccessPointViewModel(Me)
-			If Not Devices.Contains(device) Then
-				Devices.Add(device)
-			End If
-		End Sub
-
-		Public Sub NewBridge()
-			Dim device = New BridgeViewModel(Me)
-			If Not Devices.Contains(device) Then
-				Devices.Add(device)
-			End If
-		End Sub
-
 		Public Sub NewComputer()
 			Dim device = New ComputerViewModel(Me)
 			If Not Devices.Contains(device) Then
@@ -50,20 +36,6 @@
 			End If
 		End Sub
 
-		Public Sub NewNotebook()
-			Dim device = New NotebookViewModel(Me)
-			If Not Devices.Contains(device) Then
-				Devices.Add(device)
-			End If
-		End Sub
-
-		Public Sub NewRepeater()
-			Dim device = New RepeaterViewModel(Me)
-			If Not Devices.Contains(device) Then
-				Devices.Add(device)
-			End If
-		End Sub
-
 		Public Sub NewRouter()
 			Dim device = New RouterViewModel(Me)
 			If Not Devices.Contains(device) Then
@@ -71,31 +43,8 @@
 			End If
 		End Sub
 
-		Public Sub NewSwitch()
-			Dim device = New SwitchViewModel(Me)
-			If Not Devices.Contains(device) Then
-				Devices.Add(device)
-			End If
-		End Sub
-
 		Public Sub NewEthernetLink()
 			Links.Add(New EthernetLinkViewModel)
-		End Sub
-
-		Public Sub NewEthernetCrossoverLink()
-			Links.Add(New EthernetCrossoverLinkViewModel)
-		End Sub
-
-		Public Sub NewCoaxialLink()
-			Links.Add(New CoaxialLinkViewModel)
-		End Sub
-
-		Public Sub NewOpticalFiberLink()
-			Links.Add(New OpticalFiberLinkViewModel)
-		End Sub
-
-		Public Sub NewSerialLink()
-			Links.Add(New SerialLinkViewModel)
 		End Sub
 
 		Public Sub RemoveDevice(Device As DeviceViewModel)

@@ -10,23 +10,13 @@ Namespace ViewModels
 
 #Region "New()"
 		Public Sub New()
-            'NavigationService = CType(App.Current, App).NavigationService
-            Lab = New Laboratory
+			Lab = New Laboratory
 
-			CreateAccessPointCommand = New RelayCommand(AddressOf CreateAccessPointAction)
-			CreateBridgeCommand = New RelayCommand(AddressOf CreateBridgeAction)
 			CreateComputerCommand = New RelayCommand(AddressOf CreateComputerAction)
 			CreateHubCommand = New RelayCommand(AddressOf CreateHubAction)
-			CreateNotebookCommand = New RelayCommand(AddressOf CreateNotebookAction)
-			CreateRepeaterCommand = New RelayCommand(AddressOf CreateRepeaterAction)
 			CreateRouterCommand = New RelayCommand(AddressOf CreateRouterAction)
-			CreateSwitchCommand = New RelayCommand(AddressOf CreateSwitchAction)
 
-			CreateCoaxialLinkCommand = New RelayCommand(AddressOf CreateCoaxialLinkAction)
-			CreateEthernetCrossoverLinkCommand = New RelayCommand(AddressOf CreateEthernetCrossoverLinkAction)
 			CreateEthernetLinkCommand = New RelayCommand(AddressOf CreateEthernetLinkAction)
-			CreateOpticalFiberLinkCommand = New RelayCommand(AddressOf CreateOpticalFiberLinkAction)
-			CreateSerialLinkCommand = New RelayCommand(AddressOf CreateSerialLinkAction)
 
 			EditCommand = New RelayCommand(AddressOf EditAction, AddressOf CanEditPredicate)
 			DeleteCommand = New RelayCommand(AddressOf DeleteAction, AddressOf CanDeletePredicate)
@@ -98,47 +88,20 @@ Namespace ViewModels
 #End Region
 
 #Region "Create device commands"
-		Private Sub CreateAccessPointAction()
-			Lab.NewAccessPoint()
-		End Sub
-		Private Sub CreateBridgeAction()
-			Lab.NewBridge()
-		End Sub
 		Private Sub CreateComputerAction()
 			Lab.NewComputer()
 		End Sub
 		Private Sub CreateHubAction()
 			Lab.NewHub()
 		End Sub
-		Private Sub CreateNotebookAction()
-			Lab.NewNotebook()
-		End Sub
-		Private Sub CreateRepeaterAction()
-			Lab.NewRepeater()
-		End Sub
 		Private Sub CreateRouterAction()
 			Lab.NewRouter()
-		End Sub
-		Private Sub CreateSwitchAction()
-			Lab.NewSwitch()
 		End Sub
 #End Region
 
 #Region "Create link commands"
-		Private Sub CreateCoaxialLinkAction()
-			MenuFlyoutItem_Click(GetType(CoaxialLinkViewModel))
-		End Sub
-		Private Sub CreateEthernetCrossoverLinkAction()
-			MenuFlyoutItem_Click(GetType(EthernetCrossoverLinkViewModel))
-		End Sub
 		Private Sub CreateEthernetLinkAction()
 			MenuFlyoutItem_Click(GetType(EthernetLinkViewModel))
-		End Sub
-		Private Sub CreateOpticalFiberLinkAction()
-			MenuFlyoutItem_Click(GetType(OpticalFiberLinkViewModel))
-		End Sub
-		Private Sub CreateSerialLinkAction()
-			MenuFlyoutItem_Click(GetType(SerialLinkViewModel))
 		End Sub
 #End Region
 

@@ -154,7 +154,6 @@
 						<MenuFlyoutItem Text="Computer" Command="{Binding CreateComputerCommand}"/>
 						<MenuFlyoutItem Text="Hub" Command="{Binding CreateHubCommand}"/>
 						<MenuFlyoutItem Text="Router" Command="{Binding CreateRouterCommand}"/>
-						<MenuFlyoutItem Text="Switch" Command="{Binding CreateSwitchCommand}"/>
 					</MenuFlyout>
 				</AppBarButton.Flyout>
 			</AppBarButton>
