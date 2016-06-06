@@ -68,20 +68,11 @@ Namespace ViewModels
 #End Region
 
 #Region "Commands"
-		Public Property CreateAccessPointCommand As ICommand
-		Public Property CreateBridgeCommand As ICommand
 		Public Property CreateComputerCommand As ICommand
 		Public Property CreateHubCommand As ICommand
-		Public Property CreateNotebookCommand As ICommand
-		Public Property CreateRepeaterCommand As ICommand
 		Public Property CreateRouterCommand As ICommand
-		Public Property CreateSwitchCommand As ICommand
 
-		Public Property CreateCoaxialLinkCommand As ICommand
-		Public Property CreateEthernetCrossoverLinkCommand As ICommand
 		Public Property CreateEthernetLinkCommand As ICommand
-		Public Property CreateOpticalFiberLinkCommand As ICommand
-		Public Property CreateSerialLinkCommand As ICommand
 
 		Public Property EditCommand As RelayCommand
 		Public Property DeleteCommand As RelayCommand
