@@ -15,6 +15,7 @@ Namespace ViewModels
 		Public MustOverride ReadOnly Property ImagePath As String
 
 		Public ReadOnly Property Interfaces As List(Of String) = New List(Of String)
+		Public ReadOnly Property VisibleInterfaces As ObservableCollection(Of String) = New ObservableCollection(Of String)
 
 		Public Sub New(lab As Laboratory)
 			If lab IsNot Nothing Then
@@ -81,9 +82,15 @@ Namespace ViewModels
 			Set(value As Boolean)
 				If Not _IsInterfacesVisible = value Then
 					_IsInterfacesVisible = value
+					Debug.WriteLine("{0}", value)
 					RaisePropertyChanged()
 				End If
 			End Set
 		End Property
+
+		Friend Sub RemoveInterface(interfaceName As String)
+			VisibleInterfaces.Remove(interfaceName)
+			RaisePropertyChanged("Interfaces")
+		End Sub
 	End Class
 End Namespace

@@ -11,6 +11,10 @@
 			Interfaces.Add("eth1")
 			Interfaces.Add("eth2")
 			Interfaces.Add("eth3")
+			VisibleInterfaces.Add("eth0")
+			VisibleInterfaces.Add("eth1")
+			VisibleInterfaces.Add("eth2")
+			VisibleInterfaces.Add("eth3")
 		End Sub
 
         Protected Overrides Function GetNamePattern() As String

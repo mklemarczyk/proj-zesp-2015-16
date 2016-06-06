@@ -36,6 +36,8 @@
             End Set
         End Property
 
-        Public Event PropertyChanged As PropertyChangedEventHandler Implements INotifyPropertyChanged.PropertyChanged
+		Public Property InterfA As String
+		Public Property InterfB As String
+		Public Event PropertyChanged As PropertyChangedEventHandler Implements INotifyPropertyChanged.PropertyChanged
     End Class
 End Namespace

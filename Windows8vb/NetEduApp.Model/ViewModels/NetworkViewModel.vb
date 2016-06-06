@@ -240,11 +240,16 @@ Namespace ViewModels
 			If Me.currentAction = LabAction.CreateLink Then
 				If activeLink.ItemA Is FakeDeviceViewModel.Fake Then
 					activeLink.ItemA = pickedData
+					activeLink.InterfA = DirectCast(sender, String)
 					pickedData.IsInterfacesVisible = False
 				Else
 					If activeLink.ItemB Is FakeDeviceViewModel.Fake Then
 						activeLink.ItemB = pickedData
+						activeLink.InterfB = DirectCast(sender, String)
 						pickedData.IsInterfacesVisible = False
+
+						activeLink.ItemA.RemoveInterface(activeLink.InterfA)
+						activeLink.ItemB.RemoveInterface(activeLink.InterfB)
 
 						Me.currentAction = LabAction.Idle
 						activeLink = Nothing

@@ -8,6 +8,7 @@
 			MyBase.New(lab)
 
 			Interfaces.Add("eth0")
+			VisibleInterfaces.Add("eth0")
 		End Sub
 
         Protected Overrides Function GetNamePattern() As String

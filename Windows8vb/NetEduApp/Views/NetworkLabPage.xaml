@@ -45,7 +45,7 @@
 									<Setter Property="Padding" Value="0" />
 								</Style>
 							</Flyout.FlyoutPresenterStyle>
-							<ItemsControl ItemsSource="{Binding Interfaces}" Width="auto" Height="auto" Background="Aqua">
+							<ItemsControl ItemsSource="{Binding VisibleInterfaces}" Width="auto" Height="auto" Background="Aqua">
 								<ItemsControl.ItemTemplate>
 									<DataTemplate>
 										<MenuFlyoutItem Text="{Binding}" Command="{Binding DataContext.InterfaceSelectCommand, ElementName=pageRoot}" CommandParameter="{Binding}" Margin="0" />
