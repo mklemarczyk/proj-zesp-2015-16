@@ -8,7 +8,7 @@
     <OutputType>AppContainerExe</OutputType>
     <RootNamespace>NetEduApp</RootNamespace>
     <AssemblyName>NetEduApp</AssemblyName>
-    <DefaultLanguage>en-US</DefaultLanguage>
+    <DefaultLanguage>pl-PL</DefaultLanguage>
     <TargetPlatformVersion>8.1</TargetPlatformVersion>
     <MinimumVisualStudioVersion>12</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -152,6 +152,7 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <Content Include="Assets\HubBackground.png" />
     <Content Include="Assets\SampleData.json" />
     <None Include="NetEduApp_TemporaryKey.pfx" />
     <PRIResource Include="Strings\pl-PL\Resources.resw">

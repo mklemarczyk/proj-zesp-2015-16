@@ -58,13 +58,15 @@
                         VerticalAlignment="Top" IsHitTestVisible="false" TextWrapping="NoWrap" />
                 </Grid>
             </Hub.Header>
-            <HubSection Width="780" Margin="0,0,80,0">
+            <HubSection Width="780" Margin="0,0,80,0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
                 <HubSection.Background>
-                    <ImageBrush ImageSource="/Assets/MediumGray.png" Stretch="UniformToFill" />
+                    <ImageBrush ImageSource="/Assets/HubBackground.png" Stretch="UniformToFill" />
                 </HubSection.Background>
                 <DataTemplate>
-                    <Button Content="Open simulator" Command="{Binding GoToSimulator}" />
-                </DataTemplate>
+					<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+						<Button Content="Przejdź do symulatora" Command="{Binding GoToSimulator}"/>
+					</StackPanel>
+				</DataTemplate>
             </HubSection>
             <HubSection Width="500" x:Uid="Section1Header" Header="{Binding Title}"
                         DataContext="{Binding Groups[0]}"
@@ -89,19 +91,15 @@
                         d:DataContext="{Binding Groups[1], Source={d:DesignData Source=/Assets/SampleData.json, Type=data:SampleDataSource}}">
                 <DataTemplate>
                     <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <TextBlock Style="{StaticResource TitleTextBlockStyle}" Margin="0,0,0,10"
-                                   x:Uid="ItemTitle" Text="Item Title" />
-                        <TextBlock Style="{StaticResource SubheaderTextBlockStyle}" Grid.Row="1"
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="*" />
+						</Grid.RowDefinitions>
+						<TextBlock Style="{StaticResource SubheaderTextBlockStyle}" Grid.Row="1"
                                    x:Uid="Section2UnderTitle" Text="{Binding Subtitle}"/>
-                        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Grid.Row="2" Margin="0,20,0,0"
-                                   x:Uid="ItemSubTitle" Text="Item Sub Title"/>
-                        <TextBlock Style="{StaticResource BodyTextBlockStyle}" Grid.Row="3" 
+						<TextBlock Style="{StaticResource BodyTextBlockStyle}" Grid.Row="3" 
                                    x:Uid="LongText" Text="{Binding Description}"/>
                     </Grid>
                 </DataTemplate>

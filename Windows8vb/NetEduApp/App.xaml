@@ -9,7 +9,7 @@
     <Application.Resources>
         <!-- Application-specific resources -->
 
-        <x:String x:Key="AppName">Computer Network Lab</x:String>
+        <x:String x:Key="AppName">Symulator sieci komputerowej</x:String>
         <common:OffsetConverter x:Key="OffsetConverter" />
         <common:PointerRoutedArgsConverter x:Key="PointerRoutedArgsConverter" />
 
