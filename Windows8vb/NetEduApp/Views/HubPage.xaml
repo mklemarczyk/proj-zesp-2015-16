@@ -42,25 +42,23 @@
         <Hub SectionHeaderClick="Hub_SectionHeaderClick">
             <Hub.Header>
                 <!-- Back button and page title -->
-				<Border Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="-12" Padding="12">
-					<Grid>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="80"/>
-							<ColumnDefinition Width="*"/>
-						</Grid.ColumnDefinitions>
-						<Button  x:Name="backButton" Style="{StaticResource NavigationBackButtonNormalStyle}"
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="80"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+					<Button  x:Name="backButton" Style="{StaticResource NavigationBackButtonNormalStyle}"
                         Margin="-1,-1,39,0" 
                         VerticalAlignment="Top"
                         Command="{Binding NavigationHelper.GoBackCommand, ElementName=pageRoot}"
                         AutomationProperties.Name="Back"
                         AutomationProperties.AutomationId="BackButton"
                         AutomationProperties.ItemType="Navigation Button"/>
-						<TextBlock x:Name="pageTitle" Text="{StaticResource AppName}" Style="{StaticResource HeaderTextBlockStyle}" Grid.Column="1" 
+					<TextBlock x:Name="pageTitle" Text="{StaticResource AppName}" Style="{StaticResource HeaderTextBlockStyle}" Grid.Column="1" 
                         VerticalAlignment="Top" IsHitTestVisible="false" TextWrapping="NoWrap" />
-					</Grid>
-				</Border>
+				</Grid>
 			</Hub.Header>
-            <HubSection Width="780" Margin="0,0,80,0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+            <HubSection Width="760" Margin="0,0,80,0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
                 <HubSection.Background>
                     <ImageBrush ImageSource="/Assets/HubBackground.png" Stretch="UniformToFill" />
                 </HubSection.Background>
