@@ -71,17 +71,14 @@ namespace NetEduApp.Emulators.Network {
 			EmulatorLogger.Log(LogLevel.Info, EventType.PacketRecived, this.Name);
 			if (data == null)
 				throw new ArgumentNullException("data");
-			if (data is Packets.LldpDiscoveryPacket) {
-				EmulatorLogger.Log(LogLevel.Info, EventType.LldpDiscoveryPacketRecived, this.Name);
-				this.SendData(new Packets.LldpResponsePacket(this.HardwareAddress, data.SourceHardwareAddress));
-			} else
+			if (data.DestinationHardwareAddress == this.HardwareAddress)
 				parent.ReceiveData(data, this);
 		}
 
 		public virtual void SendData(INetPacket data) {
 			if (otherInterface != null) {
 				EmulatorLogger.Log(LogLevel.Info, EventType.PacketSend, this.Name);
-				otherInterface.ReceiveData(new NetPacket(this.HardwareAddress, data.DestinationHardwareAddress, data.SourceAddress, data.DestinationAddress));
+				otherInterface.ReceiveData(new NetPacket(this.HardwareAddress, otherInterface.HardwareAddress, data.SourceAddress, data.DestinationAddress));
 			} else {
 				EmulatorLogger.Log(LogLevel.Info, EventType.NotConnected, this.Name);
 			}

@@ -26,11 +26,5 @@ namespace NetEduApp.Emulators.Logger {
 		HubPacketColision,
 		RouteInvalidDestinationAddress,
 		#endregion
-
-		#region Lldp
-		LldpEntryExists,
-		LldpEntryAdded,
-		LldpDiscoveryPacketRecived,
-		#endregion
 	}
 }

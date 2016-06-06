@@ -20,27 +20,19 @@ namespace NetEduApp.Console {
 			var h1 = NetworkFactory.CreateHub( );
 			var h2 = NetworkFactory.CreateHub( );
 			var h3 = NetworkFactory.CreateHub( );
-
-			var s1 = NetworkFactory.CreateSwitch( );
-			var s2 = NetworkFactory.CreateSwitch( );
-			var s3 = NetworkFactory.CreateSwitch( );
-			var s4 = NetworkFactory.CreateSwitch( );
+			var h4 = NetworkFactory.CreateHub( );
 
 			NetworkFactory.MakeLink(pc1.Interfaces[0], h1.Interfaces[0]);
 			NetworkFactory.MakeLink(pc2.Interfaces[0], h2.Interfaces[0]);
 			NetworkFactory.MakeLink(pc3.Interfaces[0], h3.Interfaces[0]);
 
-			NetworkFactory.MakeLink(h1.Interfaces[1], s1.Interfaces[0]);
-			NetworkFactory.MakeLink(h2.Interfaces[1], s2.Interfaces[0]);
-			NetworkFactory.MakeLink(h3.Interfaces[1], s3.Interfaces[0]);
+			NetworkFactory.MakeLink(h1.Interfaces[1], r1.Interfaces[0]);
+			NetworkFactory.MakeLink(h2.Interfaces[1], r2.Interfaces[0]);
+			NetworkFactory.MakeLink(h3.Interfaces[1], r3.Interfaces[0]);
 
-			NetworkFactory.MakeLink(s1.Interfaces[1], r1.Interfaces[0]);
-			NetworkFactory.MakeLink(s2.Interfaces[1], r2.Interfaces[0]);
-			NetworkFactory.MakeLink(s3.Interfaces[1], r3.Interfaces[0]);
-
-			NetworkFactory.MakeLink(r1.Interfaces[1], s4.Interfaces[1]);
-			NetworkFactory.MakeLink(r2.Interfaces[1], s4.Interfaces[2]);
-			NetworkFactory.MakeLink(r3.Interfaces[1], s4.Interfaces[2]);
+			NetworkFactory.MakeLink(r1.Interfaces[1], h4.Interfaces[0]);
+			NetworkFactory.MakeLink(r2.Interfaces[1], h4.Interfaces[1]);
+			NetworkFactory.MakeLink(r3.Interfaces[1], h4.Interfaces[2]);
 
 			pc1.Interfaces[0].Address = new NetAddress(IPAddressParse("192.168.1.1"), IPAddressParse("255.255.255.0"), IPAddressParse("192.168.1.255"));
 			pc2.Interfaces[0].Address = new NetAddress(IPAddressParse("192.168.2.1"), IPAddressParse("255.255.255.0"), IPAddressParse("192.168.2.255"));

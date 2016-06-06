@@ -27,13 +27,6 @@ namespace NetEduApp.Emulators.Network {
 			return device;
 		}
 
-		public static ISwitch CreateSwitch( ) {
-			var name = "Switch{0}";
-			var devName = string.Format(name, i++);
-			var device = new Switch(devName);
-			return device;
-		}
-
 		public static IRouter CreateRouter( ) {
 			var name = "Router{0}";
 			var devName = string.Format(name, i++);
