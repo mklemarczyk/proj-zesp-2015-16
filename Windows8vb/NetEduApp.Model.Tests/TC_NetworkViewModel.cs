@@ -79,10 +79,37 @@ namespace NetEduApp.Model.Tests {
 			Microsoft.VisualStudio.TestPlatform.UnitTestFramework.Assert.IsTrue(collectionChanged);
 		}
 
+		[UITestMethod]
+		public void SelectedDeviceChangedTest( ) {
+			SUTest viewModel = new SUTest( );
 
+			bool canExecuteChanged = false;
+			viewModel.EditCommand.CanExecuteChanged += (object sender, EventArgs e) => {
+				canExecuteChanged = true;
+			};
 
+			viewModel.SelectedDevice = new ComputerViewModel(new Laboratory());
 
+			Microsoft.VisualStudio.TestPlatform.UnitTestFramework.Assert.IsTrue(canExecuteChanged);
+		}
 
+		[UITestMethod]
+		public void EditCommandTest_NoSelectedDevice( ) {
+			SUTest viewModel = new SUTest( );
+
+			viewModel.SelectedDevice = null;
+
+			Microsoft.VisualStudio.TestPlatform.UnitTestFramework.Assert.IsFalse(viewModel.EditCommand.CanExecute(null));
+		}
+
+		[UITestMethod]
+		public void EditCommandTest_SelectedDevice( ) {
+			SUTest viewModel = new SUTest( );
+
+			viewModel.SelectedDevice = new ComputerViewModel(new Laboratory( ));
+
+			Microsoft.VisualStudio.TestPlatform.UnitTestFramework.Assert.IsTrue(viewModel.EditCommand.CanExecute(null));
+		}
 
 	}
 }
