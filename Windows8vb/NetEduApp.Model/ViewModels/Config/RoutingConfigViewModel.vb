@@ -39,12 +39,34 @@ Namespace ViewModels.Config
 		End Sub
 
 		Protected Overrides Sub SaveAction()
-			Me.Device.Name = Me._TargetAddress
-			MyBase.SaveAction()
+			If SelectedRoute IsNot Nothing Then
+				Dim ipAddress, ipSubnetMask, targetAddress As NetIpAddress
+				NetIpAddress.TryParse(Me.IpAddress, ipAddress)
+				NetIpAddress.TryParse(Me.IpSubnetMask, ipSubnetMask)
+				NetIpAddress.TryParse(Me.TargetAddress, targetAddress)
+				Me.SelectedRoute.SubnetAddress = New NetAddress(ipAddress, ipSubnetMask)
+				Me.SelectedRoute.TargetAddress = targetAddress
+				Me.SelectedRoute = Nothing
+			Else
+				Dim newRoute As RouteViewModel = New RouteViewModel
+				Dim ipAddress, ipSubnetMask, targetAddress As NetIpAddress
+				NetIpAddress.TryParse(Me.IpAddress, ipAddress)
+				NetIpAddress.TryParse(Me.IpSubnetMask, ipSubnetMask)
+				NetIpAddress.TryParse(Me.TargetAddress, targetAddress)
+				newRoute.SubnetAddress = New NetAddress(ipAddress, ipSubnetMask)
+				newRoute.TargetAddress = targetAddress
+				Me.Routes.Add(newRoute)
+			End If
 		End Sub
 
 		Protected Overrides Function CanSave() As Boolean
-			Return Not String.IsNullOrWhiteSpace(Me._TargetAddress)
+			Dim ipAddress, ipSubnetMask, targetAddress As NetIpAddress
+			Return NetIpAddress.TryParse(Me.IpAddress, ipAddress) AndAlso
+				NetIpAddress.TryParse(Me.IpSubnetMask, ipSubnetMask) AndAlso
+				NetIpAddress.TryParse(Me.TargetAddress, targetAddress) AndAlso
+				(New NetAddress(ipAddress, ipSubnetMask)).IsValid() AndAlso
+				(New NetAddress(ipAddress, ipSubnetMask)).IsNetwork() AndAlso
+				Not (New NetAddress(ipAddress, ipSubnetMask)).Contains(New NetAddress(targetAddress, ipSubnetMask))
 		End Function
 
 		Public Property Routes As ObservableCollection(Of RouteViewModel)
