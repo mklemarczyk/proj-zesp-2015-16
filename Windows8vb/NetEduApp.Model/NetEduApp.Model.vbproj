@@ -126,7 +126,6 @@
     <Compile Include="ViewModels\Config\ConfigMenuViewModel.vb" />
     <Compile Include="ViewModels\Config\ConfigViewModelBase.vb" />
     <Compile Include="ViewModels\Config\GeneralConfigViewModel.vb" />
-    <Compile Include="ViewModels\Config\InterfaceConfigViewModel.vb" />
     <Compile Include="ViewModels\Config\InterfacesConfigViewModel.vb" />
     <Compile Include="ViewModels\Config\RoutingConfigViewModel.vb" />
     <Compile Include="ViewModels\Devices\ComputerViewModel.vb" />
@@ -139,7 +138,7 @@
     <Compile Include="ViewModels\Laboratory.vb" />
     <Compile Include="ViewModels\LinkViewModel.vb" />
     <Compile Include="ViewModels\NetworkViewModel.vb" />
-    <Compile Include="ViewModels\RotueViewModel.vb" />
+    <Compile Include="ViewModels\RouteViewModel.vb" />
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />

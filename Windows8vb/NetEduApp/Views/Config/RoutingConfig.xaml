@@ -50,19 +50,43 @@
 				<RowDefinition Height="Auto"/>
 				<RowDefinition Height="Auto"/>
 			</Grid.RowDefinitions>
-			<ListView Grid.ColumnSpan="2" />
+			<ListView Grid.ColumnSpan="2" ItemsSource="{Binding DefaultViewModel.Routes, ElementName=pageRoot}" SelectedItem="{Binding DefaultViewModel.SelectedRoute, ElementName=pageRoot, Mode=TwoWay}">
+				<ListView.ItemContainerStyle>
+					<Style TargetType="ListViewItem">
+						<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+					</Style>
+				</ListView.ItemContainerStyle>
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<Grid Margin="8">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition />
+								<ColumnDefinition Width="Auto"/>
+								<ColumnDefinition />
+							</Grid.ColumnDefinitions>
+							<StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center">
+								<TextBlock Text="{Binding SubnetAddress.Address}" Style="{StaticResource BaseTextBlockStyle}" />
+								<TextBlock Text="{Binding SubnetAddress.Netmask}" Style="{StaticResource BaseTextBlockStyle}" />
+							</StackPanel>
+							<SymbolIcon Grid.Column="1" VerticalAlignment="Center" Symbol="Next" />
+							<StackPanel  Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+								<TextBlock Text="{Binding TargetAddress}" Style="{StaticResource BaseTextBlockStyle}" />
+							</StackPanel>
+						</Grid>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
 			<TextBlock Grid.Row="1" HorizontalAlignment="Left" Margin="8" TextWrapping="Wrap" Text="Adres sieci" VerticalAlignment="Center" Style="{StaticResource BaseTextBlockStyle}"/>
-			<TextBox Grid.Row="1" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Margin="8" TextWrapping="Wrap"/>
+			<TextBox Grid.Row="1" Text="{Binding DefaultViewModel.IpAddress, ElementName=pageRoot, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Margin="8" TextWrapping="Wrap"/>
 			<TextBlock Grid.Row="2" HorizontalAlignment="Left" Margin="8" TextWrapping="Wrap" Text="Maska sieci" VerticalAlignment="Center" Style="{StaticResource BaseTextBlockStyle}"/>
-			<TextBox Grid.Row="2" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Margin="8" TextWrapping="Wrap"/>
+			<TextBox Grid.Row="2" Text="{Binding DefaultViewModel.IpSubnetMask, ElementName=pageRoot, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Margin="8" TextWrapping="Wrap"/>
 			<TextBlock Grid.Row="3" HorizontalAlignment="Left" Margin="8" TextWrapping="Wrap" Text="Adres docelowy" VerticalAlignment="Center" Style="{StaticResource BaseTextBlockStyle}"/>
-			<TextBox Grid.Row="3" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Margin="8" TextWrapping="Wrap"/>
+			<TextBox Grid.Row="3" Text="{Binding DefaultViewModel.TargetAddress, ElementName=pageRoot, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Margin="8" TextWrapping="Wrap"/>
 			<StackPanel Grid.ColumnSpan="2" Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-				<Button Margin="4" Content="Dodaj"/>
-				<Button Margin="4" Content="Zapisz"/>
-				<Button Margin="4" Content="Usuń"/>
+				<Button Margin="4" Content="Nowy" Command="{Binding DefaultViewModel.AddCommand, ElementName=pageRoot}"/>
+				<Button Margin="4" Content="Zapisz" Command="{Binding DefaultViewModel.SaveCommand, ElementName=pageRoot}"/>
+				<Button Margin="4" Content="Usuń" Command="{Binding DefaultViewModel.DeleteCommand, ElementName=pageRoot}"/>
 			</StackPanel>
-
 		</Grid>
 	</Grid>
 </Page>
