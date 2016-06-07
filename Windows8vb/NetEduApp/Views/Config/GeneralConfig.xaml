@@ -50,8 +50,11 @@
 				<ColumnDefinition Width="Auto"/>
 				<ColumnDefinition/>
 			</Grid.ColumnDefinitions>
-			<TextBox Text="{Binding DefaultViewModel.Name, ElementName=pageRoot, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Margin="10" TextWrapping="Wrap"/>
 			<TextBlock HorizontalAlignment="Left" Margin="10" TextWrapping="Wrap" Text="Nazwa" VerticalAlignment="Center" Style="{StaticResource BaseTextBlockStyle}"/>
+			<TextBox Grid.Column="1" Text="{Binding DefaultViewModel.Name, ElementName=pageRoot, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10" TextWrapping="Wrap"/>
+
+			<TextBlock Grid.Row="1" HorizontalAlignment="Left" Margin="10" TextWrapping="Wrap" Text="Brama domyślna" VerticalAlignment="Center" Style="{StaticResource BaseTextBlockStyle}"/>
+			<TextBox Grid.Column="1" Grid.Row="1" Text="{Binding DefaultViewModel.DefaultGatewayAddress, ElementName=pageRoot, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10" TextWrapping="Wrap"/>
 
 			<StackPanel Grid.ColumnSpan="2" Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
 				<Button Margin="4" Content="Zapisz" Command="{Binding DefaultViewModel.SaveCommand, ElementName=pageRoot}"/>
