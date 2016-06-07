@@ -60,8 +60,8 @@ Namespace ViewModels.Config
 			Else
 				Dim ipAddress, ipSubnetMask, ipBroadcast As NetIpAddress
 				NetIpAddress.TryParse(Me.IpAddress, ipAddress)
-				NetIpAddress.TryParse(Me.IpAddress, ipSubnetMask)
-				NetIpAddress.TryParse(Me.IpAddress, ipBroadcast)
+				NetIpAddress.TryParse(Me.IpSubnetMask, ipSubnetMask)
+				NetIpAddress.TryParse(Me.IpBroadcast, ipBroadcast)
 				SelectedInterface.IpAddress = New NetAddress(ipAddress, ipSubnetMask, ipBroadcast)
 			End If
 			SelectedInterface = Nothing
