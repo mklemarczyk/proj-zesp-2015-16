@@ -152,6 +152,13 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <Content Include="Assets\Devices\ap.jpg" />
+    <Content Include="Assets\Devices\devices.jpg" />
+    <Content Include="Assets\Devices\hub.jpg" />
+    <Content Include="Assets\Devices\pc.jpg" />
+    <Content Include="Assets\Devices\router.jpg" />
+    <Content Include="Assets\Devices\skretka.jpg" />
+    <Content Include="Assets\Devices\switch.jpg" />
     <Content Include="Assets\HubBackground.png" />
     <Content Include="Assets\SampleData.json" />
     <None Include="NetEduApp_TemporaryKey.pfx" />
