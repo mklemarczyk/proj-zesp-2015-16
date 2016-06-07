@@ -43,15 +43,20 @@
 				<RowDefinition Height="Auto"/>
 				<RowDefinition Height="Auto"/>
 				<RowDefinition Height="Auto"/>
-				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="1*"/>
 				<RowDefinition Height="Auto"/>
 			</Grid.RowDefinitions>
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="Auto"/>
 				<ColumnDefinition/>
 			</Grid.ColumnDefinitions>
-			<TextBox Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Margin="10" TextWrapping="Wrap"/>
+			<TextBox Text="{Binding DefaultViewModel.Name, ElementName=pageRoot, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Margin="10" TextWrapping="Wrap"/>
 			<TextBlock HorizontalAlignment="Left" Margin="10" TextWrapping="Wrap" Text="Nazwa" VerticalAlignment="Center" Style="{StaticResource BaseTextBlockStyle}"/>
+
+			<StackPanel Grid.ColumnSpan="2" Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+				<Button Margin="4" Content="Zapisz" Command="{Binding DefaultViewModel.SaveCommand, ElementName=pageRoot}"/>
+				<Button Margin="4" Content="Anuluj" Command="{Binding DefaultViewModel.CancelCommand, ElementName=pageRoot}"/>
+			</StackPanel>
 		</Grid>
 	</Grid>
 </Page>
