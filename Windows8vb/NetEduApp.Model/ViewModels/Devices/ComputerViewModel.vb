@@ -7,7 +7,7 @@
 		Public Sub New(lab As Laboratory)
 			MyBase.New(lab)
 
-			Interfaces.Add("eth0")
+			Interfaces.Add(New InterfaceViewModel("eth0"))
 			VisibleInterfaces.Add("eth0")
 		End Sub
 

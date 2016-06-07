@@ -38,8 +38,12 @@
             <TextBlock x:Name="pageTitle" Text="Interfaces" Style="{StaticResource SubheaderTextBlockStyle}" Grid.Column="1" 
                         IsHitTestVisible="false" TextWrapping="NoWrap" VerticalAlignment="Bottom" Margin="0,0,30,40"/>
 		</Grid>
-		<ItemsControl Grid.Row="1">
-
-		</ItemsControl>
+		<ListView Grid.Row="1" ItemsSource="{Binding Interfaces}" Margin="8">
+			<ListView.ItemTemplate>
+				<DataTemplate>
+					<TextBlock Text="{Binding Name}" Margin="4" />
+				</DataTemplate>
+			</ListView.ItemTemplate>
+		</ListView>
 	</Grid>
 </Page>

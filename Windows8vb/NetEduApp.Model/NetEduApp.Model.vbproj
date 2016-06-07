@@ -116,23 +116,30 @@
     <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036,42314</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="DataModel\SampleDataSource.vb" />
-    <Compile Include="ViewModels\ComputerViewModel.vb" />
-    <Compile Include="ViewModels\DeviceViewModel.vb" />
-    <Compile Include="ViewModels\EthernetLinkViewModel.vb" />
-    <Compile Include="ViewModels\FakeDeviceViewModel.vb" />
-    <Compile Include="ViewModels\HubViewModel.vb" />
-    <Compile Include="ViewModels\Laboratory.vb" />
-    <Compile Include="ViewModels\LinkViewModel.vb" />
-    <Compile Include="ViewModels\RouterViewModel.vb" />
     <Compile Include="Common\NavigationHelper.vb" />
     <Compile Include="Common\ObservableDictionary.vb" />
     <Compile Include="Common\RelayCommand.vb" />
     <Compile Include="Common\SuspensionManager.vb" />
     <Compile Include="Common\ViewModelBase.vb" />
+    <Compile Include="DataModel\SampleDataSource.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
-    <Compile Include="ViewModels\ComputerConfigurationViewModel.vb" />
+    <Compile Include="ViewModels\Config\ConfigMenuViewModel.vb" />
+    <Compile Include="ViewModels\Config\ConfigViewModelBase.vb" />
+    <Compile Include="ViewModels\Config\GeneralConfigViewModel.vb" />
+    <Compile Include="ViewModels\Config\InterfaceConfigViewModel.vb" />
+    <Compile Include="ViewModels\Config\InterfacesConfigViewModel.vb" />
+    <Compile Include="ViewModels\Config\RoutingConfigViewModel.vb" />
+    <Compile Include="ViewModels\Devices\ComputerViewModel.vb" />
+    <Compile Include="ViewModels\Devices\DeviceViewModel.vb" />
+    <Compile Include="ViewModels\Devices\FakeDeviceViewModel.vb" />
+    <Compile Include="ViewModels\Devices\HubViewModel.vb" />
+    <Compile Include="ViewModels\Devices\RouterViewModel.vb" />
+    <Compile Include="ViewModels\EthernetLinkViewModel.vb" />
+    <Compile Include="ViewModels\InterfaceViewModel.vb" />
+    <Compile Include="ViewModels\Laboratory.vb" />
+    <Compile Include="ViewModels\LinkViewModel.vb" />
     <Compile Include="ViewModels\NetworkViewModel.vb" />
+    <Compile Include="ViewModels\RotueViewModel.vb" />
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -164,9 +171,7 @@
     <Import Include="Windows.UI.Xaml.Media.Imaging" />
     <Import Include="Windows.UI.Xaml.Navigation" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\Config\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\..\Shared\NetEduApp.Emulators\NetEduApp.Emulators.csproj">
       <Project>{b9d2b18f-1a38-42f8-8608-42ac6c0fa3f6}</Project>

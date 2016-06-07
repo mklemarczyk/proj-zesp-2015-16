@@ -5,6 +5,8 @@ Namespace ViewModels
 		Inherits ViewModelBase
 		Implements IDisposable
 
+		Public Property DefaultGateway As String
+
 		Private _Position As Point
 		Private _Name As String
 		Private _IsSelected As Boolean
@@ -14,7 +16,7 @@ Namespace ViewModels
 		Protected MustOverride Function GetNamePattern() As String
 		Public MustOverride ReadOnly Property ImagePath As String
 
-		Public ReadOnly Property Interfaces As List(Of String) = New List(Of String)
+		Public ReadOnly Property Interfaces As ObservableCollection(Of InterfaceViewModel) = New ObservableCollection(Of InterfaceViewModel)
 		Public ReadOnly Property VisibleInterfaces As ObservableCollection(Of String) = New ObservableCollection(Of String)
 
 		Public Sub New(lab As Laboratory)
