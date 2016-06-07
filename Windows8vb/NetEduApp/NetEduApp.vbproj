@@ -119,6 +119,7 @@
     <Compile Include="App.xaml.vb">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\CanvasView.vb" />
     <Compile Include="Common\FlyoutState.vb" />
     <Compile Include="Common\PointerRoutedArgsConverter.vb" />
     <Compile Include="Views\Config\ConfigMenu.xaml.vb">
@@ -164,9 +165,6 @@
     <None Include="NetEduApp_TemporaryKey.pfx" />
     <None Include="Package.StoreAssociation.xml" />
     <PRIResource Include="Strings\pl-PL\Resources.resw">
-      <SubType>Designer</SubType>
-    </PRIResource>
-    <PRIResource Include="Strings\en-US\Resources.resw">
       <SubType>Designer</SubType>
     </PRIResource>
     <Content Include="Assets\Images\InternetMap.jpg" />

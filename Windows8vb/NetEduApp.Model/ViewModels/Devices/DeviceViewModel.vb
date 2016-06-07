@@ -4,14 +4,13 @@ Imports NetEduApp.Model.Common
 Namespace ViewModels
 	Public MustInherit Class DeviceViewModel
 		Inherits ViewModelBase
-		Implements IDisposable
 
 		Private _Position As Point
 		Private _Name As String
 		Private _IsSelected As Boolean
 		Private _IsInterfacesVisible As Boolean
 		Friend ParentLab As Laboratory
-		Friend Settings As Dictionary(Of String, String)
+
 		Protected MustOverride Function GetNamePattern() As String
 		Public MustOverride ReadOnly Property ImagePath As String
 
@@ -39,10 +38,6 @@ Namespace ViewModels
 			End While
 			Return newName
 		End Function
-
-		Public Sub Dispose() Implements IDisposable.Dispose
-			ParentLab = Nothing
-		End Sub
 
 		Public Property Position As Point
 			Get
@@ -86,7 +81,6 @@ Namespace ViewModels
 			Set(value As Boolean)
 				If Not _IsInterfacesVisible = value Then
 					_IsInterfacesVisible = value
-					Debug.WriteLine("{0}", value)
 					RaisePropertyChanged()
 				End If
 			End Set
@@ -96,5 +90,28 @@ Namespace ViewModels
 			VisibleInterfaces.Remove(interfaceName)
 			RaisePropertyChanged("Interfaces")
 		End Sub
+
+#Region "IDisposable Support"
+		Private disposedValue As Boolean ' To detect redundant calls
+
+		' IDisposable
+		Protected Overrides Sub Dispose(disposing As Boolean)
+			If Not Me.disposedValue Then
+				If disposing Then
+					ParentLab = Nothing
+					Interfaces.Clear()
+					Interfaces = Nothing
+					Routes.Clear()
+					Routes = Nothing
+					VisibleInterfaces.Clear()
+				End If
+
+				' TODO: free unmanaged resources (unmanaged objects) and override Finalize() below.
+				' TODO: set large fields to null.
+			End If
+			Me.disposedValue = True
+			MyBase.Dispose(disposing)
+		End Sub
+#End Region
 	End Class
 End Namespace

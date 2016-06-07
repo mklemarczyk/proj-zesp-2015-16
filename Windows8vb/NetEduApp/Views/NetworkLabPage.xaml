@@ -22,7 +22,7 @@
 							Y2="{Binding ItemB.Position.Y, Converter={StaticResource OffsetConverter}, ConverterParameter=35}"/>
 		</DataTemplate>
 		<DataTemplate x:Key="DevideDataTemplate">
-			<Border x:Name="itemBorder" BorderBrush="Black" BorderThickness="1" Tag="{Binding}" Visibility="Collapsed">
+			<Border x:Name="itemBorder" BorderBrush="Black" BorderThickness="1" Visibility="Collapsed">
 				<Interactivity:Interaction.Behaviors>
 					<Core:DataTriggerBehavior Binding="{Binding Name}" ComparisonCondition="NotEqual" Value="{x:Null}">
 						<Core:ChangePropertyAction PropertyName="Visibility" Value="Visible"/>
@@ -34,9 +34,6 @@
 						<Core:ChangePropertyAction PropertyName="BorderBrush" Value="Black"/>
 					</Core:DataTriggerBehavior>
 				</Interactivity:Interaction.Behaviors>
-				<Border.Projection>
-					<PlaneProjection GlobalOffsetX="{Binding Position.X}" GlobalOffsetY="{Binding Position.Y}" />
-				</Border.Projection>
 				<StackPanel Background="White">
 					<FlyoutBase.AttachedFlyout>
 						<Flyout Placement="Bottom" common:FlyoutState.IsOpen="{Binding IsInterfacesVisible, Mode=TwoWay}" common:FlyoutState.Parent="{Binding ElementName=itemBorder}">
@@ -110,7 +107,7 @@
 			<TextBlock x:Name="pageTitle" Text="{StaticResource AppName}" Style="{StaticResource HeaderTextBlockStyle}" Grid.Column="1" 
                         IsHitTestVisible="false" TextWrapping="NoWrap" VerticalAlignment="Bottom" Margin="0,0,30,40"/>
 		</Grid>
-		<Grid Grid.Row="1" Background="#FFCBE5F3" AllowDrop="True"
+		<Grid Grid.Row="1" Background="#FFCBE5F3" AllowDrop="True" Margin="0,0,0,92"
               Drop="Page_Drop" DragOver="Page_DragOver">
 			<Interactivity:Interaction.Behaviors>
 				<Core:EventTriggerBehavior EventName="PointerReleased">
@@ -130,13 +127,8 @@
 					</ItemsPanelTemplate>
 				</ItemsControl.ItemsPanel>
 			</ItemsControl>
-			<ItemsControl x:Name="netItemsControl" ItemsSource="{Binding Lab.Devices}" ItemTemplate="{StaticResource DevideDataTemplate}">
-				<ItemsControl.ItemsPanel>
-					<ItemsPanelTemplate>
-						<Canvas />
-					</ItemsPanelTemplate>
-				</ItemsControl.ItemsPanel>
-			</ItemsControl>
+			<common:CanvasView x:Name="netItemsControl" ItemsSource="{Binding Lab.Devices}" ItemTemplate="{StaticResource DevideDataTemplate}"
+							   TopPath="Position.Y" LeftPath="Position.X" />
 		</Grid>
 		<Frame x:Name="prop" DataContext="{Binding EditDevice, Mode=OneWay}" Grid.Column="1" Grid.Row="1" Background="Black" Margin="0,0,0,90" Width="380"
                DataContextChanged="prop_DataContextChanged" />
@@ -145,8 +137,8 @@
 	<Page.BottomAppBar>
 		<CommandBar IsOpen="True" IsSticky="True" Closed="CommandBar_Closed">
 			<CommandBar.SecondaryCommands>
-				<AppBarButton Icon="OpenFile" Label="Wczytaj" />
-				<AppBarButton Icon="Save" Label="Zapisz" />
+				<AppBarButton Icon="OpenFile" Label="Wczytaj" Command="{Binding LoadCommand}"/>
+				<AppBarButton Icon="Save" Label="Zapisz" Command="{Binding SaveCommand}"/>
 			</CommandBar.SecondaryCommands>
 			<AppBarButton Icon="Add" Label="Dodaj">
 				<AppBarButton.Flyout>

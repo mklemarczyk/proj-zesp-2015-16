@@ -1,4 +1,8 @@
 ﻿Imports NetEduApp.Model.Common
+Imports Windows.Security.Cryptography
+Imports Windows.Storage
+Imports Windows.Storage.Pickers
+Imports Windows.Storage.Streams
 
 Namespace ViewModels
 	Public Class NetworkViewModel
@@ -11,6 +15,9 @@ Namespace ViewModels
 #Region "New()"
 		Public Sub New()
 			Lab = New Laboratory
+
+			LoadCommand = New RelayCommand(AddressOf LoadAction)
+			SaveCommand = New RelayCommand(AddressOf SaveAction)
 
 			CreateComputerCommand = New RelayCommand(AddressOf CreateComputerAction)
 			CreateHubCommand = New RelayCommand(AddressOf CreateHubAction)
@@ -69,6 +76,9 @@ Namespace ViewModels
 #End Region
 
 #Region "Commands"
+		Public Property LoadCommand As RelayCommand
+		Public Property SaveCommand As RelayCommand
+
 		Public Property CreateComputerCommand As ICommand
 		Public Property CreateHubCommand As ICommand
 		Public Property CreateRouterCommand As ICommand
@@ -88,6 +98,41 @@ Namespace ViewModels
 		End Sub
 		Private Sub CreateRouterAction()
 			Lab.NewRouter()
+		End Sub
+#End Region
+
+#Region "Load/Save actions"
+		Private Async Sub LoadAction()
+			Dim jsonString As String
+
+			Dim fileOpenPicker As FileOpenPicker = New FileOpenPicker()
+			fileOpenPicker.ViewMode = PickerViewMode.Thumbnail
+			fileOpenPicker.FileTypeFilter.Add(".netproj")
+			fileOpenPicker.CommitButtonText = "Wczytaj projekt"
+			fileOpenPicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary
+			Dim file = Await fileOpenPicker.PickSingleFileAsync()
+
+			If file IsNot Nothing Then
+				jsonString = Await FileIO.ReadTextAsync(file)
+
+				Services.ExportService.InterprateJson(jsonString, Me.Lab)
+
+				RaisePropertyChanged(NameOf(Lab))
+			End If
+		End Sub
+		Private Async Sub SaveAction()
+			Dim jsonString As String = String.Empty
+			Services.ExportService.GenerateJson(Me.Lab, jsonString)
+
+			Dim fileSavePicker = New FileSavePicker()
+			fileSavePicker.FileTypeChoices.Add("Projekt sieci", New String() {".netproj"})
+			fileSavePicker.CommitButtonText = "Zapisz projekt"
+			fileSavePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary
+			Dim file = Await fileSavePicker.PickSaveFileAsync()
+
+			If file IsNot Nothing Then
+				Await FileIO.WriteTextAsync(file, jsonString)
+			End If
 		End Sub
 #End Region
 
