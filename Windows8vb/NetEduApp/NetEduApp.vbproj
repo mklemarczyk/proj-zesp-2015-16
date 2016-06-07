@@ -127,9 +127,6 @@
     <Compile Include="Views\Config\GeneralConfig.xaml.vb">
       <DependentUpon>GeneralConfig.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Config\InterfaceConfig.xaml.vb">
-      <DependentUpon>InterfaceConfig.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Config\InterfacesConfig.xaml.vb">
       <DependentUpon>InterfacesConfig.xaml</DependentUpon>
     </Compile>
@@ -190,10 +187,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Config\GeneralConfig.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Config\InterfaceConfig.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

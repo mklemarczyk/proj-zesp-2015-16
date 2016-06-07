@@ -31,7 +31,8 @@ Namespace ViewModels.Config
 		End Sub
 
 		Protected Overridable Sub OnDeviceChanged()
-			SaveCommand.RaiseCanExecuteChanged()
+			Me.SaveCommand.RaiseCanExecuteChanged()
+			Me.RaisePropertyChanged(NameOf(Device))
 		End Sub
 
 		Public Property Device As DeviceViewModel

@@ -1,11 +1,10 @@
-﻿Imports NetEduApp.Model.Common
+﻿Imports NetEduApp.Emulators.Network
+Imports NetEduApp.Model.Common
 
 Namespace ViewModels
 	Public MustInherit Class DeviceViewModel
 		Inherits ViewModelBase
 		Implements IDisposable
-
-		Public Property DefaultGateway As String
 
 		Private _Position As Point
 		Private _Name As String
@@ -16,8 +15,11 @@ Namespace ViewModels
 		Protected MustOverride Function GetNamePattern() As String
 		Public MustOverride ReadOnly Property ImagePath As String
 
-		Public ReadOnly Property Interfaces As ObservableCollection(Of InterfaceViewModel) = New ObservableCollection(Of InterfaceViewModel)
 		Public ReadOnly Property VisibleInterfaces As ObservableCollection(Of String) = New ObservableCollection(Of String)
+
+		Public Property DefaultGateway As Nullable(Of NetIpAddress)
+		Public Property Interfaces As List(Of InterfaceViewModel) = New List(Of InterfaceViewModel)
+		Public Property Routes As List(Of RouteViewModel) = New List(Of RouteViewModel)
 
 		Public Sub New(lab As Laboratory)
 			If lab IsNot Nothing Then
