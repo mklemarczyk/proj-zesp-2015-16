@@ -20,9 +20,22 @@ Namespace Views.Config
 		End Property
 		Private _navigationHelper As Model.Common.NavigationHelper
 
+		''' <summary>
+		''' This can be changed to a strongly typed view model.
+		''' </summary>
+		Public ReadOnly Property DefaultViewModel As Model.ViewModels.Config.InterfaceConfigViewModel
+			Get
+				Return Me._defaultViewModel
+			End Get
+		End Property
+		Private _defaultViewModel
+
 		Public Sub New()
 			InitializeComponent()
+
 			Me._navigationHelper = New Model.Common.NavigationHelper(Me)
+			Me._defaultViewModel = New Model.ViewModels.Config.InterfaceConfigViewModel(Me._navigationHelper)
+
 			AddHandler Me._navigationHelper.LoadState, AddressOf NavigationHelper_LoadState
 			AddHandler Me._navigationHelper.SaveState, AddressOf NavigationHelper_SaveState
 		End Sub
@@ -39,7 +52,7 @@ Namespace Views.Config
         ''' a dictionary of state preserved by this page during an earlier
         ''' session.  The state will be null the first time a page is visited.</param>
         Private Sub NavigationHelper_LoadState(sender As Object, e As Model.Common.LoadStateEventArgs)
-
+			Me.DefaultViewModel.Device = Me.DataContext
 		End Sub
 
         ''' <summary>
@@ -53,7 +66,7 @@ Namespace Views.Config
         ''' <param name="e">Event data that provides an empty dictionary to be populated with 
         ''' serializable state.</param>
         Private Sub NavigationHelper_SaveState(sender As Object, e As Model.Common.SaveStateEventArgs)
-
+			Me.DefaultViewModel.Device = Nothing
 		End Sub
 
 #Region "NavigationHelper registration"
