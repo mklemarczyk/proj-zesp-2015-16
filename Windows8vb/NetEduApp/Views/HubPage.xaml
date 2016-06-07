@@ -106,8 +106,8 @@
             </HubSection>
 			<HubSection IsHeaderInteractive="True" DataContext="{Binding Groups[2]}" d:DataContext="{Binding Groups[2], Source={d:DesignData Source=/Assets/SampleData.json, Type=data:SampleDataSource}}"
                         x:Uid="Section3Header" Header="{Binding Title}" Padding="40,40,40,32">
-                <DataTemplate>
-                    <GridView
+				<DataTemplate>
+					<GridView
                         x:Name="itemGridView"
                         ItemsSource="{Binding Items}"
                         Margin="-9,-14,0,0"
@@ -118,41 +118,9 @@
                         IsSwipeEnabled="false"
                         IsItemClickEnabled="True"
                         ItemClick="ItemView_ItemClick">
-                    </GridView>
-                </DataTemplate>
-            </HubSection>
-            <HubSection x:Uid="Section4Header" Header="{Binding Title}"
-                        DataContext="{Binding Groups[3]}"
-                        d:DataContext="{Binding Groups[3], Source={d:DesignData Source=/Assets/SampleData.json, Type=data:SampleDataSource}}">
-                <DataTemplate>
-                    <!-- width of 400 -->
-                    <StackPanel Orientation="Vertical">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="130"/>
-                                <ColumnDefinition Width="5"/>
-                                <ColumnDefinition Width="130"/>
-                                <ColumnDefinition Width="5"/>
-                                <ColumnDefinition Width="130"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="270"/>
-                                <RowDefinition Height="95"/>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <Image Source="{Binding ImagePath}" Grid.ColumnSpan="5" Margin="0,0,0,10" Stretch="Fill" />
-                            <Image Source="/Assets/MediumGray.png" Grid.Row="1" Stretch="Fill"/>
-                            <Image Source="/Assets/MediumGray.png" Grid.Row="1" Grid.Column="2" Stretch="Fill"/>
-                            <Image Source="/Assets/MediumGray.png" Grid.Row="1" Grid.Column="4" Stretch="Fill"/>
-                            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Grid.Row="2" Grid.ColumnSpan="5"  Margin="0,15,0,0"
-                                       x:Uid="DescriptionHeader" Text="Description text:"/>
-                            <TextBlock Style="{StaticResource BodyTextBlockStyle}" Grid.Row="3" Grid.ColumnSpan="5"
-                                       x:Uid="LongText" Text="{Binding Description}"/>
-                        </Grid>
-                    </StackPanel>
-                </DataTemplate>
-            </HubSection>
-        </Hub>
+					</GridView>
+				</DataTemplate>
+			</HubSection>
+		</Hub>
     </Grid>
 </Page>
