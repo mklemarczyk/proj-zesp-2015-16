@@ -43,6 +43,7 @@ Namespace ViewModels
 					If _SelectedDevice IsNot Nothing Then
 						_SelectedDevice.IsSelected = True
 					End If
+					EditDevice = Nothing
 					EditCommand.RaiseCanExecuteChanged()
 					DeleteCommand.RaiseCanExecuteChanged()
 					RaisePropertyChanged("SelectedDevice")
@@ -98,7 +99,11 @@ Namespace ViewModels
 
 #Region "Edit action"
 		Private Sub EditAction()
-			EditDevice = SelectedDevice
+			If EditDevice Is Nothing Then
+				EditDevice = SelectedDevice
+			Else
+				EditDevice = Nothing
+			End If
 		End Sub
 		Private Function CanEditPredicate() As Boolean
 			Return SelectedDevice IsNot Nothing
