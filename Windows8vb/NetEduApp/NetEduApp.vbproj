@@ -167,9 +167,6 @@
     <PRIResource Include="Strings\pl-PL\Resources.resw">
       <SubType>Designer</SubType>
     </PRIResource>
-    <PRIResource Include="Strings\en-US\Resources.resw">
-      <SubType>Designer</SubType>
-    </PRIResource>
     <Content Include="Assets\Images\InternetMap.jpg" />
     <Content Include="Assets\Lab\Computer.png" />
     <Content Include="Assets\Lab\Hub.png" />
