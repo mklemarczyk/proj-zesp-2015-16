@@ -12,8 +12,14 @@ Namespace ViewModels.Config
 		Private _IpSubnetMask As String = String.Empty
 		Private _TargetAddress As String = String.Empty
 
+		Public ReadOnly Property NewCommand As RelayCommand
+		Public ReadOnly Property DeleteCommand As RelayCommand
+
 		Public Sub New(navigationHelper As NavigationHelper)
 			MyBase.New(navigationHelper)
+
+			NewCommand = New RelayCommand(AddressOf NewAction)
+			DeleteCommand = New RelayCommand(AddressOf DeleteAction, AddressOf CanDelete)
 		End Sub
 
 		Protected Overrides Sub OnDeviceChanged()
@@ -32,9 +38,15 @@ Namespace ViewModels.Config
 				Me.IpAddress = SelectedRoute.SubnetAddress.Address.ToString()
 				Me.IpSubnetMask = SelectedRoute.SubnetAddress.Netmask.ToString()
 				Me.TargetAddress = SelectedRoute.TargetAddress.ToString()
+			Else
+				Me.IpAddress = String.Empty
+				Me.IpSubnetMask = String.Empty
+				Me.TargetAddress = String.Empty
 			End If
 
 			Me.SaveCommand.RaiseCanExecuteChanged()
+			Me.NewCommand.RaiseCanExecuteChanged()
+			Me.DeleteCommand.RaiseCanExecuteChanged()
 			Me.RaisePropertyChanged(NameOf(SelectedRoute))
 		End Sub
 
@@ -67,6 +79,22 @@ Namespace ViewModels.Config
 				(New NetAddress(ipAddress, ipSubnetMask)).IsValid() AndAlso
 				(New NetAddress(ipAddress, ipSubnetMask)).IsNetwork() AndAlso
 				Not (New NetAddress(ipAddress, ipSubnetMask)).Contains(New NetAddress(targetAddress, ipSubnetMask))
+		End Function
+
+		Protected Overrides Sub CancelAction()
+			Me.SelectedRoute = Nothing
+		End Sub
+
+		Protected Sub NewAction()
+			Me.SelectedRoute = Nothing
+		End Sub
+
+		Protected Sub DeleteAction()
+			Me.Routes.Remove(Me.SelectedRoute)
+		End Sub
+
+		Protected Function CanDelete() As Boolean
+			Return Me.SelectedRoute IsNot Nothing
 		End Function
 
 		Public Property Routes As ObservableCollection(Of RouteViewModel)

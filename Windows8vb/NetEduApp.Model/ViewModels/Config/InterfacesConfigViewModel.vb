@@ -85,6 +85,10 @@ Namespace ViewModels.Config
 			Return False
 		End Function
 
+		Protected Overrides Sub CancelAction()
+			Me.SelectedInterface = Nothing
+		End Sub
+
 		Public Property Interfaces As ObservableCollection(Of InterfaceViewModel)
 			Get
 				Return Me._Interfaces
