@@ -33,9 +33,15 @@ Namespace ViewModels.Config
 			If SelectedInterface IsNot Nothing Then
 				Me.Name = SelectedInterface.Name
 				Me.MacAddress = SelectedInterface.MacAddress.ToString()
-				Me.IpAddress = SelectedInterface.IpAddress.Address.ToString()
-				Me.IpSubnetMask = SelectedInterface.IpAddress.Netmask.ToString()
-				Me.IpBroadcast = SelectedInterface.IpAddress.Broadcast.ToString()
+				If SelectedInterface.IpAddress.HasValue Then
+					Me.IpAddress = SelectedInterface.IpAddress.Value.Address.ToString()
+					Me.IpSubnetMask = SelectedInterface.IpAddress.Value.Netmask.ToString()
+					Me.IpBroadcast = SelectedInterface.IpAddress.Value.Broadcast.ToString()
+				Else
+					Me.IpAddress = String.Empty
+					Me.IpSubnetMask = String.Empty
+					Me.IpBroadcast = String.Empty
+				End If
 			Else
 				Me.Name = String.Empty
 				Me.MacAddress = String.Empty
@@ -49,12 +55,34 @@ Namespace ViewModels.Config
 		End Sub
 
 		Protected Overrides Sub SaveAction()
-			Me.Device.Name = Me._Name
-			MyBase.SaveAction()
+			If String.IsNullOrEmpty(Me.IpAddress) Then
+				SelectedInterface.IpAddress = Nothing
+			Else
+				Dim ipAddress, ipSubnetMask, ipBroadcast As NetIpAddress
+				NetIpAddress.TryParse(Me.IpAddress, ipAddress)
+				NetIpAddress.TryParse(Me.IpAddress, ipSubnetMask)
+				NetIpAddress.TryParse(Me.IpAddress, ipBroadcast)
+				SelectedInterface.IpAddress = New NetAddress(ipAddress, ipSubnetMask, ipBroadcast)
+			End If
+			SelectedInterface = Nothing
 		End Sub
 
 		Protected Overrides Function CanSave() As Boolean
-			Return Not String.IsNullOrWhiteSpace(Me._Name)
+			Dim ipAddress, ipSubnetMask, ipBroadcast As NetIpAddress
+			If SelectedInterface IsNot Nothing Then
+				If (String.IsNullOrEmpty(Me.IpAddress) And
+					String.IsNullOrEmpty(Me.IpSubnetMask) And
+					String.IsNullOrEmpty(Me.IpBroadcast)) Then
+					Return True
+				ElseIf (NetIpAddress.TryParse(Me.IpAddress, ipAddress) AndAlso
+						NetIpAddress.TryParse(Me.IpSubnetMask, ipSubnetMask) AndAlso
+						NetIpAddress.TryParse(Me.IpBroadcast, ipBroadcast) AndAlso
+						(New NetAddress(ipAddress, ipSubnetMask, ipBroadcast)).IsValid() AndAlso
+						(New NetAddress(ipAddress, ipSubnetMask, ipBroadcast)).IsHost()) Then
+					Return True
+				End If
+			End If
+			Return False
 		End Function
 
 		Public Property Interfaces As ObservableCollection(Of InterfaceViewModel)

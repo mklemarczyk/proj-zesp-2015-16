@@ -8,7 +8,7 @@ Namespace ViewModels
 
 		Private _Name As String = String.Empty
 		Private _MacAddress As NetMacAddress
-		Private _IpAddress As NetAddress
+		Private _IpAddress As NetAddress?
 
 		Public Sub New(Name As String)
 			Me.Name = Name
@@ -32,11 +32,11 @@ Namespace ViewModels
 			End Set
 		End Property
 
-		Public Property IpAddress As NetAddress
+		Public Property IpAddress As NetAddress?
 			Get
 				Return _IpAddress
 			End Get
-			Set(value As NetAddress)
+			Set(value As NetAddress?)
 				_IpAddress = value
 			End Set
 		End Property
