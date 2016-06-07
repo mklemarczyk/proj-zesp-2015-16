@@ -123,6 +123,7 @@
     <Compile Include="Common\ViewModelBase.vb" />
     <Compile Include="DataModel\SampleDataSource.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="Services\ExportService.vb" />
     <Compile Include="ViewModels\Config\ConfigMenuViewModel.vb" />
     <Compile Include="ViewModels\Config\ConfigViewModelBase.vb" />
     <Compile Include="ViewModels\Config\GeneralConfigViewModel.vb" />
@@ -170,7 +171,6 @@
     <Import Include="Windows.UI.Xaml.Media.Imaging" />
     <Import Include="Windows.UI.Xaml.Navigation" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\..\Shared\NetEduApp.Emulators\NetEduApp.Emulators.csproj">
       <Project>{b9d2b18f-1a38-42f8-8608-42ac6c0fa3f6}</Project>
