@@ -1,0 +1,17 @@
+﻿<Application
+    x:Class="NetEduApp.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:NetEduApp"
+    xmlns:localData="using:NetEduApp.Data"
+    xmlns:common="using:NetEduApp.Common">
+
+    <Application.Resources>
+        <!-- Application-specific resources -->
+
+        <x:String x:Key="AppName">Symulator sieci komputerowej</x:String>
+        <common:OffsetConverter x:Key="OffsetConverter" />
+        <common:PointerRoutedArgsConverter x:Key="PointerRoutedArgsConverter" />
+
+    </Application.Resources>
+</Application>

@@ -1,0 +1,71 @@
+﻿{
+	"Groups": [
+		{
+			"UniqueId": "Group-1",
+			"Title": "Sieć komputerowa",
+			"Subtitle": "Czym jest sieć komputerowa?",
+			"ImagePath": "/Assets/Images/InternetMap.jpg",
+			"Description": "Zbiór komputerów i innych urządzeń połączonych ze sobą kanałami komunikacyjnymi oraz oprogramowanie wykorzystywane w tej sieci. Sieć komputerowa umożliwia wzajemne przekazywanie informacji oraz udostępnianie zasobów własnych między podłączonymi do niej urządzeniami, tzw. „punktami sieci”.\n\nGłównym przeznaczeniem sieci komputerowej jest ułatwienie komunikacji pomiędzy ludźmi, będącymi faktycznymi użytkownikami sieci. Sieć umożliwia łatwy i szybki dostęp do publikowanych danych, jak również otwiera techniczną możliwość tworzenia i korzystania ze wspólnych zasobów informacji i zasobów danych.",
+			"Items": [
+			]
+		},
+		{
+			"UniqueId": "Group-2",
+			"Title": "Topologie sieciowe",
+			"Subtitle": "Przegląd popularnych topologii",
+			"ImagePath": "/Assets/LightGray.png",
+			"Description": "Topologia liniowa (ang. line) – wszystkie elementy sieci (oprócz granicznych) połączone są z dwoma sąsiadującymi.\n\nTopologia magistrali (szyny, liniowa) (ang. bus) – wszystkie elementy sieci podłączone do jednej magistrali.\n\nTopologia pierścienia (ang. ring) – poszczególne elementy są połączone pomiędzy sobą odcinkami kabla tworząc zamknięty pierścień.\n\nTopologia gwiazdy (ang. star) – komputery są podłączone do jednego punktu centralnego, koncentratora (koncentrator tworzy fizyczną topologię gwiazdy, ale logiczną magistralę) lub przełącznika.\n\nTopologia hierarchiczna – zwana także topologią drzewa, jest kombinacją topologii gwiazdy i magistrali, budowa podobna do drzewa binarnego.\n\nTopologia siatki – oprócz koniecznych połączeń sieć zawiera połączenia nadmiarowe; rozwiązanie często stosowane w sieciach, w których wymagana jest bezawaryjność",
+			"Items": [
+			]
+		},
+		{
+			"UniqueId": "Group-3",
+			"Title": "Urządzenia sieciowe",
+			"Subtitle": "Najważniejsze urządenia sieciowe",
+			"ImagePath": "/Assets/Devices/devices.jpg",
+			"Description": "Głównym przeznaczeniem sieci komputerowej – ideą dla której została stworzona i wciąż jest ulepszana i rozwijana – to ułatwienie komunikacji pomiędzy ludźmi, będącymi faktycznymi użytkownikami sieci. Sieć umożliwia łatwy i szybki dostęp do publikowanych danych, jak również otwiera techniczną możliwość tworzenia i korzystania ze wspólnych zasobów informacji i zasobów danych. W sensie prawnym, i w pewnym przybliżeniu, użytkownicy sieci komputerowej są również jej beneficjentami.",
+			"Items": [
+				{
+					"UniqueId": "Group-3-Item-1",
+					"Title": "PC",
+					"Subtitle": "Komputer osobisty",
+					"ImagePath": "/Assets/Devices/pc.jpg",
+					"Description": "Maszyna elektroniczna przeznaczona do przetwarzania informacji, które da się zapisać w formie ciągu cyfr albo sygnału ciągłego.",
+					"Content": "Maszyna elektroniczna przeznaczona do przetwarzania informacji, które da się zapisać w formie ciągu cyfr albo sygnału ciągłego.\n\nMimo że mechaniczne maszyny liczące istniały od wielu stuleci, komputery w sensie współczesnym pojawiły się dopiero w połowie XX wieku, gdy zbudowano pierwsze komputery elektroniczne. Miały one rozmiary sporych pomieszczeń i zużywały kilkaset razy więcej energii niż współczesne komputery osobiste (PC), a jednocześnie miały miliardy razy mniejszą moc obliczeniową."
+				},
+				{
+					"UniqueId": "Group-3-Item-2",
+					"Title": "Hub",
+					"Subtitle": "Koncentrator sieciowy",
+					"ImagePath": "/Assets/Devices/hub.jpg",
+					"Description": "Urządzenie pozwalające na przyłączenie wielu urządzeń sieciowych do sieci komputerowej o topologii gwiazdy. Najczęściej spotykane w wersji 4-, 8-, 16- lub 24-portowej.",
+					"Content": "Urządzenie pozwalające na przyłączenie wielu urządzeń sieciowych do sieci komputerowej o topologii gwiazdy. Najczęściej spotykane w wersji 4-, 8-, 16- lub 24-portowej.\n\nKoncentrator pracuje w warstwie pierwszej modelu ISO/OSI (warstwie fizycznej), przesyłając sygnały elektryczne z jednego portu (gniazda) na wszystkie pozostałe. Taka metoda działania nie pozwala mu na analizowanie ramek pod kątem adresu MAC ani datagramów pod kątem adresu IP. Ponieważ koncentrator powiela każdy otrzymany sygnał elektryczny, tworzy tak zwaną domenę kolizyjną - z tego względu czasami koncentrator nazywany jest wieloportowym wzmacniakiem. W sieciach Ethernet najczęściej wykorzystywaną metodą detekcji zaistnienia kolizji jest CSMA/CD. Koncentrator zwykle podłączany jest do routera jako rozgałęziacz, do niego zaś dopiero podłączane są pozostałe urządzenia sieciowe: komputery pełniące rolę stacji roboczych, serwerów, drukarki sieciowe i inne."
+				},
+				{
+					"UniqueId": "Group-3-Item-3",
+					"Title": "Switch",
+					"Subtitle": "Przełącznik",
+					"ImagePath": "/Assets/Devices/switch.jpg",
+					"Description": "Urządzenie łączące segmenty sieci komputerowej pracujące głównie w drugiej warstwie modelu ISO/OSI (łącza danych), jego zadaniem jest przekazywanie ramki między segmentami sieci z doborem portu przełącznika, na który jest przekazywana.",
+					"Content": "Urządzenie łączące segmenty sieci komputerowej pracujące głównie w drugiej warstwie modelu ISO/OSI (łącza danych), jego zadaniem jest przekazywanie ramki między segmentami sieci z doborem portu przełącznika, na który jest przekazywana.\n\nPrzełącznik w sieci Ethernet analizuje adresy MAC nadawcy i odbiorcy przychodzącej ramki. Adres MAC nadawcy jest wykorzystywany do prowadzenia tablicy skojarzeń, zawierającej adresy MAC i odpowiadające im porty przełącznika, tablica ta może zawierać 4096, 8192, a nawet 16384 wpisów. By zapewnić dostosowywanie się przełącznika do zmian w sieci ważność wpisu wygasa jeżeli przez określony czas nie napływają ramki z danym MAC nadawcy.\n\n\n\nPo otrzymaniu ramki przełącznik szuka adresu MAC odbiorcy w tablicy skojarzeń, jeżeli adres nie występuje w niej, to ramka wysyłana jest na wszystkie porty z wyjątkiem źródłowego, gdy jest znany, to tylko na port określony w tablicy skojarzeń.\n\n\n\nPrzez przesyłanie ramki tylko na jeden port przełączniki ograniczają domenę kolizyjną do pojedynczego portu, dzięki czemu są w stanie zapewnić każdemu hostowi podłączonemu do portu osobny kanał transmisyjno-nadawczy, nie zaś współdzielony, jak to jest w przypadku koncentratora."
+				},
+				{
+					"UniqueId": "Group-3-Item-4",
+					"Title": "Router",
+					"Subtitle": "Trasownik",
+					"ImagePath": "/Assets/Devices/router.jpg",
+					"Description": "Urządzenie sieciowe pracujące w trzeciej warstwie modelu OSI. Służy do łączenia różnych sieci komputerowych (różnych w sensie informatycznym, czyli np. o różnych klasach, maskach itd.), pełni więc rolę węzła komunikacyjnego.",
+					"Content": "Urządzenie sieciowe pracujące w trzeciej warstwie modelu OSI. Służy do łączenia różnych sieci komputerowych (różnych w sensie informatycznym, czyli np. o różnych klasach, maskach itd.), pełni więc rolę węzła komunikacyjnego. Na podstawie informacji zawartych w pakietach TCP/IP jest w stanie przekazać pakiety z dołączonej do siebie sieci źródłowej do docelowej, rozróżniając ją spośród wielu dołączonych do siebie sieci. Proces kierowania ruchem nosi nazwę trasowania, routingu lub routowania.\n\nRoutery posiadają z reguły wiele różnego rodzaju interfejsów m.in. Ethernet (od 10 Mbit/s do 100 Gbit/s), ATM, Frame Relay, SONET/SDH czy 3G. W zależności od typu urządzenia, interfejsy znajdują się na osobnych kartach (tzw. kartach liniowych) lub zabudowane na stałe w urządzeniu. Nowoczesne routery brzegowe posiadają wiele różnego rodzaju dodatkowych funkcji - takich jak mechanizmy wspierające funkcje lokalnej centrali wideotelefonii IP, ściany ogniowej, systemu IDS/IPS, optymizacji połączeń w sieciach rozległych itp. itd. Routery szkieletowe budowane są ze zwróceniem szczególnej uwagi na skalowalność - z zachowaniem minimalnych rozmiarów i zapotrzebowania na prąd i chłodzenie. Coraz częściej, routery optymalizowane są pod kątem przetwarzania ruchu Ethernet i IPv4/IPv6."
+				},
+				{
+					"UniqueId": "Group-3-Item-5",
+					"Title": "Skrętka",
+					"Subtitle": "Przewód typu skrętka",
+					"ImagePath": "/Assets/Devices/skretka.jpg",
+					"Description": "Skrętka składa się z ośmiu żył (czterech par żył). Żyły w skrętkach są ze sobą splecione parami. Każda para skrętki posiada jedną żyłę do przenoszenia napięcia, a drugą uziemioną.",
+					"Content": "Skrętka składa się z ośmiu żył (czterech par żył). Żyły w skrętkach są ze sobą splecione parami. Każda para skrętki posiada jedną żyłę do przenoszenia napięcia, a drugą uziemioną. Jakikolwiek szum pojawiający się w jednej żyle, występuje także w drugiej. Ponieważ żyły w parze są spolaryzowane przeciwnie w stosunku do siebie, szum pojawiający się w jednej żyle jest „znoszony” przez szum z drugiej żyły na końcu kabla dołączonego do odbiornika. Skrętki są najczęściej używane w systemach, które do transmisji używają kodu Manchester. Stopień w jakim zakłócenia są wyeliminowane zależy od ilości splotów przypadających na jednostkę metra. Większa ilość splotów na metr gwarantuje zmniejszenie szumu. Dla jeszcze większej ochrony przed zakłóceniami stosuje się ekran w postaci folii, w którą zawinięte są pary żył oraz uziemienie. Folia może być owinięta wokół pojedynczych par lub wszystkich żył. Impedancja typowej skrętki wynosi 100Ω, a maksymalna prędkość transmisji wynosi 1 Gbit/s. Maksymalna odległość pomiędzy urządzeniami połączonymi skrętką nie powinna przekraczać 100 m."
+				}
+			]
+		}
+	]
+}
