@@ -9,11 +9,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{A7F4C5
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetEduApp.Console", "..\Shared\NetEduApp.Console\NetEduApp.Console.csproj", "{65E97C6A-550E-4D36-8593-70E615F0901B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetEduApp.Emulators", "..\Shared\NetEduApp.Emulators\NetEduApp.Emulators.csproj", "{B9D2B18F-1A38-42F8-8608-42AC6C0FA3F6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetEduApp.Simulator", "..\Shared\NetEduApp.Simulator\NetEduApp.Simulator.csproj", "{B9D2B18F-1A38-42F8-8608-42AC6C0FA3F6}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "NetEduApp.Model", "NetEduApp.Model\NetEduApp.Model.vbproj", "{F697072B-4AA2-4BC2-ACF6-C339FAC22091}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetEduApp.Emulators.Tests", "..\Shared\NetEduApp.Emulators.Tests\NetEduApp.Emulators.Tests.csproj", "{96033631-BD55-41EB-8262-C8464AE8CA3C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetEduApp.Simulator.Tests", "..\Shared\NetEduApp.Simulator.Tests\NetEduApp.Simulator.Tests.csproj", "{96033631-BD55-41EB-8262-C8464AE8CA3C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetEduApp.Model.Tests", "NetEduApp.Model.Tests\NetEduApp.Model.Tests.csproj", "{1FB41915-72E1-43FB-A36E-3B60EB5C2C7C}"
 EndProject

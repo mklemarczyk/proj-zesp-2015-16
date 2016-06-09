@@ -1,4 +1,4 @@
-﻿Imports NetEduApp.Emulators.Network
+﻿Imports NetEduApp.Simulator
 Imports NetEduApp.Model.ViewModels
 Imports Windows.Data
 Imports Windows.Data.Json

@@ -47,9 +47,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NetEduApp.Emulators\NetEduApp.Emulators.csproj">
+    <ProjectReference Include="..\NetEduApp.Simulator\NetEduApp.Simulator.csproj">
       <Project>{b9d2b18f-1a38-42f8-8608-42ac6c0fa3f6}</Project>
-      <Name>NetEduApp.Emulators</Name>
+      <Name>NetEduApp.Simulator</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

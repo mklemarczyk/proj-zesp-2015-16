@@ -253,9 +253,9 @@
     <Import Include="Windows.UI.Xaml.Navigation" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Shared\NetEduApp.Emulators\NetEduApp.Emulators.csproj">
+    <ProjectReference Include="..\..\Shared\NetEduApp.Simulator\NetEduApp.Simulator.csproj">
       <Project>{b9d2b18f-1a38-42f8-8608-42ac6c0fa3f6}</Project>
-      <Name>NetEduApp.Emulators</Name>
+      <Name>NetEduApp.Simulator</Name>
     </ProjectReference>
     <ProjectReference Include="..\NetEduApp.Model\NetEduApp.Model.vbproj">
       <Project>{f697072b-4aa2-4bc2-acf6-c339fac22091}</Project>

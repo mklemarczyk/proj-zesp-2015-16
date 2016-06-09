@@ -1,5 +1,5 @@
 ﻿Imports NetEduApp.Model.Common
-Imports NetEduApp.Emulators.Network
+Imports NetEduApp.Simulator
 
 Namespace ViewModels.Config
 	Public Class GeneralConfigViewModel
