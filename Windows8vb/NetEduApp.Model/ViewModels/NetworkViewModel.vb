@@ -103,6 +103,9 @@ Namespace ViewModels
 
 #Region "Load/Save actions"
 		Private Async Sub LoadAction()
+#If Not DEBUG Then
+			Try
+#End If
 			Dim jsonString As String
 
 			Dim fileOpenPicker As FileOpenPicker = New FileOpenPicker()
@@ -119,8 +122,18 @@ Namespace ViewModels
 
 				RaisePropertyChanged(NameOf(Lab))
 			End If
+#If Not DEBUG Then
+			Catch ex As Exception
+				Me.Lab.Dispose()
+				Me.Lab = New Laboratory()
+				RaisePropertyChanged(NameOf(Lab))
+			End Try
+#End If
 		End Sub
 		Private Async Sub SaveAction()
+#If Not DEBUG Then
+			Try
+#End If
 			Dim jsonString As String = String.Empty
 			Services.ExportService.GenerateJson(Me.Lab, jsonString)
 
@@ -133,6 +146,11 @@ Namespace ViewModels
 			If file IsNot Nothing Then
 				Await FileIO.WriteTextAsync(file, jsonString)
 			End If
+#If Not DEBUG Then
+			Catch ex As Exception
+
+			End Try
+#End If
 		End Sub
 #End Region
 

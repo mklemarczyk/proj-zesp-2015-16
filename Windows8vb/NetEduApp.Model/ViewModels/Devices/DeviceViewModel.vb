@@ -23,7 +23,7 @@ Namespace ViewModels
 		Public Sub New(lab As Laboratory)
 			If lab IsNot Nothing Then
 				ParentLab = lab
-				Name = GetNewName()
+				_Name = GetNewName()
 				ParentLab.RegisterMyName(Me, Nothing)
 			End If
 		End Sub
@@ -54,9 +54,10 @@ Namespace ViewModels
 				Return _Name
 			End Get
 			Set(value As String)
-				If Not ParentLab.IsNameExist(value) Then
-					ParentLab.RegisterMyName(Me, _Name)
+				Dim oldName = _Name
+				If Not String.IsNullOrWhiteSpace(value) AndAlso Not ParentLab.IsNameExist(value) Then
 					_Name = value
+					ParentLab.RegisterMyName(Me, oldName)
 					RaisePropertyChanged()
 				End If
 			End Set
