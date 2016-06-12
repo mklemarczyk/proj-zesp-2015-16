@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using NetEduApp.Simulator.Abstract;
 
 namespace NetEduApp.Simulator {
-	public class NetRoute : INetRoute {
+	public sealed class NetRoute : INetRoute {
 		private NetAddress address;
 		private NetAddress target;
 

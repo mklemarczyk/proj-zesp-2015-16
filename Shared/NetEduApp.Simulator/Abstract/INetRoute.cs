@@ -11,6 +11,7 @@ namespace NetEduApp.Simulator.Abstract {
 		NetAddress Address { get; }
 		NetAddress Target { get; }
 
+		bool IsValid( );
 		bool IsMatch(NetAddress destinationAddress);
 	}
 }
