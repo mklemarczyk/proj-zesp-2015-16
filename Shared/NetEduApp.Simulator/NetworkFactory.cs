@@ -8,11 +8,9 @@ using NetEduApp.Simulator.Devices;
 
 namespace NetEduApp.Simulator {
 	public class NetworkFactory {
-		private HashSet<string> names;
 		private HashSet<INetDevice> devices;
 
 		private NetworkFactory( ) {
-			names = new HashSet<string>( );
 			devices = new HashSet<INetDevice>( );
 		}
 
@@ -24,6 +22,7 @@ namespace NetEduApp.Simulator {
 			var name = "Hub{0}";
 			var devName = string.Format(name, i++);
 			var device = new Hub(devName);
+			instance.devices.Add(device);
 			return device;
 		}
 
@@ -31,6 +30,7 @@ namespace NetEduApp.Simulator {
 			var name = "Router{0}";
 			var devName = string.Format(name, i++);
 			var device = new Router(devName);
+			instance.devices.Add(device);
 			return device;
 		}
 
@@ -39,6 +39,7 @@ namespace NetEduApp.Simulator {
 			var devName = string.Format(name, i++);
 			var device = new Computer(devName);
 			device.Name = devName;
+			instance.devices.Add(device);
 			return device;
 		}
 
@@ -57,7 +58,7 @@ namespace NetEduApp.Simulator {
 				device.Dispose( );
 			}
 			instance.devices.Clear( );
-			instance.names.Clear( );
+			i = 0;
 		}
 
 		private static void Connect(INetHwInterface a, INetHwInterface b) {
