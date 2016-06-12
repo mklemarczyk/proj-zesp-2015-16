@@ -83,5 +83,32 @@ namespace NetEduApp.Simulator {
 				EmulatorLogger.Log(LogLevel.Info, EventType.NotConnected, this.Name);
 			}
 		}
+
+		#region IDisposable Support
+		private bool disposedValue = false; // To detect redundant calls
+
+		protected virtual void Dispose(bool disposing) {
+			if (!disposedValue) {
+				if (disposing) {
+					this.parent = null;
+					this.otherInterface = null;
+				}
+
+				// TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
+				// TODO: set large fields to null.
+
+				disposedValue = true;
+			}
+		}
+
+		~NetHwInterface( ) {
+			Dispose(false);
+		}
+
+		public void Dispose( ) {
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+		#endregion
 	}
 }

@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace NetEduApp.Simulator.Abstract {
-	public interface INetHwInterface {
+	public interface INetHwInterface : IDisposable {
 		INetDevice Parent { get; }
 		string Name { get; }
 		NetMacAddress HardwareAddress { get; }

@@ -53,7 +53,11 @@ namespace NetEduApp.Simulator {
 		}
 
 		public static void Clear( ) {
-			throw new NotImplementedException( );
+			foreach(var device in instance.devices) {
+				device.Dispose( );
+			}
+			instance.devices.Clear( );
+			instance.names.Clear( );
 		}
 
 		private static void Connect(INetHwInterface a, INetHwInterface b) {

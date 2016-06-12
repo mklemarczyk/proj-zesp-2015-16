@@ -56,5 +56,34 @@ namespace NetEduApp.Simulator.Devices {
 				}
 			}
 		}
+
+		#region IDisposable Support
+		private bool disposedValue = false; // To detect redundant calls
+
+		protected virtual void Dispose(bool disposing) {
+			if (!disposedValue) {
+				if (disposing) {
+					foreach (var iface in interfaces) {
+						iface.Dispose( );
+					}
+					interfaces.Clear( );
+				}
+
+				// TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
+				// TODO: set large fields to null.
+
+				disposedValue = true;
+			}
+		}
+
+		~Hub( ) {
+			Dispose(false);
+		}
+
+		public void Dispose( ) {
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+		#endregion
 	}
 }

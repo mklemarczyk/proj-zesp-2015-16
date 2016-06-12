@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace NetEduApp.Simulator.Abstract {
-	public interface INetDevice {
+	public interface INetDevice : IDisposable {
 		string Name { get; set; }
 		string Type { get; }
 

@@ -25,5 +25,23 @@ namespace NetEduApp.Simulator {
 				EmulatorLogger.Log(LogLevel.Error, EventType.NotConnected, "There are no connected devie: " + this.Name);
 			}
 		}
+
+		#region IDisposable Support
+		private bool disposedValue = false; // To detect redundant calls
+
+		protected override void Dispose(bool disposing) {
+			if (!disposedValue) {
+				if (disposing) {
+					this.parent = null;
+					this.otherInterface = null;
+				}
+
+				// TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
+				// TODO: set large fields to null.
+
+				disposedValue = true;
+			}
+		}
+		#endregion
 	}
 }
