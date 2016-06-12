@@ -124,6 +124,7 @@
     <Compile Include="DataModel\SampleDataSource.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="Services\ExportService.vb" />
+    <Compile Include="Services\SimulatorService.vb" />
     <Compile Include="ViewModels\Config\ConfigMenuViewModel.vb" />
     <Compile Include="ViewModels\Config\ConfigViewModelBase.vb" />
     <Compile Include="ViewModels\Config\GeneralConfigViewModel.vb" />
