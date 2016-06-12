@@ -22,6 +22,7 @@ namespace NetEduApp.Simulator.Devices {
 			this.interfaces.Add(new NetLgInterface(this, name + "/eth3"));
 		}
 
+		IReadOnlyList<INetHwInterface> INetDevice.Interfaces { get { return interfaces; } }
 		public IReadOnlyList<INetLgInterface> Interfaces { get { return interfaces; } }
 		public int PortCount { get { return interfaces.Count; } }
 		public IList<INetRoute> Routes { get { return routes; } }

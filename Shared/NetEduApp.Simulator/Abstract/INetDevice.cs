@@ -9,6 +9,8 @@ namespace NetEduApp.Simulator.Abstract {
 		string Name { get; set; }
 		string Type { get; }
 
+		IReadOnlyList<INetHwInterface> Interfaces { get; }
+
 		void ReceiveData(INetPacket data, INetHwInterface iface);
 		void SendData(INetPacket data);
 	}

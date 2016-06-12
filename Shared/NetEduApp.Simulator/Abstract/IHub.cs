@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace NetEduApp.Simulator.Abstract {
 	public interface IHub : INetDevice {
-		int PortCount { get; }
-		IReadOnlyList<INetHwInterface> Interfaces { get; } // 4, 8, 16
+		int PortCount { get; } // 4, 8, 16
 	}
 }

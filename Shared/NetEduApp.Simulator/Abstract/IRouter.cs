@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace NetEduApp.Simulator.Abstract {
 	public interface IRouter : INetDevice {
 		int PortCount { get; }
-		IReadOnlyList<INetLgInterface> Interfaces { get; }
+		new IReadOnlyList<INetLgInterface> Interfaces { get; }
 		IList<INetRoute> Routes { get; }
 		INetRoute DefaultRoute { get; set; }
 	}
