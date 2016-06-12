@@ -10,6 +10,7 @@ namespace NetEduApp.Simulator.Abstract {
 		string Type { get; }
 
 		IReadOnlyList<INetHwInterface> Interfaces { get; }
+		int PortCount { get; }
 
 		void ReceiveData(INetPacket data, INetHwInterface iface);
 		void SendData(INetPacket data);

@@ -42,7 +42,6 @@
     <Compile Include="Abstract\INetPacket.cs" />
     <Compile Include="Abstract\INetRoute.cs" />
     <Compile Include="Abstract\IRouter.cs" />
-    <Compile Include="Abstract\ISwitch.cs" />
     <Compile Include="Devices\Computer.cs" />
     <Compile Include="Devices\Hub.cs" />
     <Compile Include="Devices\Router.cs" />
