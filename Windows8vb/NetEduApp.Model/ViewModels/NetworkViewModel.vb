@@ -11,6 +11,7 @@ Namespace ViewModels
 		Private names As HashSet(Of String)
 		Private _SelectedDevice As DeviceViewModel
 		Private _EditDevice As DeviceViewModel
+		Private _Trafic As List(Of PacketViewModel)
 
 #Region "New()"
 		Public Sub New()
@@ -27,6 +28,7 @@ Namespace ViewModels
 
 			EditCommand = New RelayCommand(AddressOf EditAction, AddressOf CanEditPredicate)
 			DeleteCommand = New RelayCommand(AddressOf DeleteAction, AddressOf CanDeletePredicate)
+			SendPacketCommand = New RelayCommand(AddressOf SendPacketAction)
 
 			ApplyActionCommand = New RelayCommand(AddressOf Grid_PointerReleased)
 			CancelActionCommand = New RelayCommand(AddressOf Grid_PointerExited)
@@ -72,6 +74,18 @@ Namespace ViewModels
 			End Set
 		End Property
 
+		Public Property Trafic As List(Of PacketViewModel)
+			Get
+				Return _Trafic
+			End Get
+			Set(value As List(Of PacketViewModel))
+				If _Trafic IsNot value Then
+					_Trafic = value
+					RaisePropertyChanged(NameOf(Trafic))
+				End If
+			End Set
+		End Property
+
 		Public Property Lab As Laboratory
 #End Region
 
@@ -87,6 +101,7 @@ Namespace ViewModels
 
 		Public Property EditCommand As RelayCommand
 		Public Property DeleteCommand As RelayCommand
+		Public Property SendPacketCommand As RelayCommand
 #End Region
 
 #Region "Create device commands"
@@ -181,6 +196,17 @@ Namespace ViewModels
 		Private Function CanDeletePredicate() As Boolean
 			Return SelectedDevice IsNot Nothing
 		End Function
+#End Region
+
+#Region "Send packet action"
+		Private Sub SendPacketAction()
+			If Trafic Is Nothing Then
+				Trafic = New List(Of PacketViewModel)
+			Else
+				Trafic = Nothing
+			End If
+			Services.SimulatorService.Test(Lab)
+		End Sub
 #End Region
 
 		''' <summary>

@@ -4,6 +4,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:local="using:NetEduApp"
       xmlns:common="using:NetEduApp.Common"
+	  xmlns:configView="using:NetEduApp.Views.Config"
       xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
       xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -132,6 +133,17 @@
 		</Grid>
 		<Frame x:Name="prop" DataContext="{Binding EditDevice, Mode=OneWay}" Grid.Column="1" Grid.Row="1" Background="Black" Margin="0,0,0,90" Width="380"
                DataContextChanged="prop_DataContextChanged" />
+		<Frame DataContext="{Binding Trafic, Mode=OneWay}" Grid.Column="1" Grid.Row="1" Background="Black" Margin="0,0,0,90" Width="380"
+			   SourcePageType="configView:TraficConfig" Visibility="Collapsed">
+			<Interactivity:Interaction.Behaviors>
+				<Core:DataTriggerBehavior Binding="{Binding}" ComparisonCondition="NotEqual" Value="{x:Null}">
+					<Core:ChangePropertyAction PropertyName="Visibility" Value="Visible"/>
+				</Core:DataTriggerBehavior>
+				<Core:DataTriggerBehavior Binding="{Binding}" ComparisonCondition="Equal" Value="{x:Null}">
+					<Core:ChangePropertyAction PropertyName="Visibility" Value="Collapsed"/>
+				</Core:DataTriggerBehavior>
+			</Interactivity:Interaction.Behaviors>
+		</Frame>
 	</Grid>
 
 	<Page.BottomAppBar>
@@ -158,7 +170,7 @@
 			</AppBarButton>
 			<AppBarButton Icon="Edit" Label="Ustawienia" Command="{Binding EditCommand}" CommandParameter="{Binding SelectedDevice}" />
 			<AppBarButton Icon="Remove" Label="Usuń" Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedDevice}" />
-			<AppBarButton Icon="Send" Label="Wyślij pakiet" />
+			<AppBarButton Icon="Send" Label="Wyślij pakiet" Command="{Binding SendPacketCommand}" />
 		</CommandBar>
 	</Page.BottomAppBar>
 </Page>
