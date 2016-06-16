@@ -163,6 +163,7 @@
     <Content Include="Assets\Devices\router.jpg" />
     <Content Include="Assets\Devices\skretka.jpg" />
     <Content Include="Assets\Devices\switch.jpg" />
+    <Content Include="Assets\FileIcon.png" />
     <Content Include="Assets\HubBackground.png" />
     <Content Include="Assets\SampleData.json" />
     <None Include="NetEduApp_TemporaryKey.pfx" />

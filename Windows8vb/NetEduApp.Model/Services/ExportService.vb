@@ -2,9 +2,27 @@
 Imports NetEduApp.Model.ViewModels
 Imports Windows.Data
 Imports Windows.Data.Json
+Imports Windows.Storage
+Imports Windows.UI.Notifications
 
 Namespace Services
 	Public Class ExportService
+		Public Shared File As Laboratory
+
+		Public Shared Async Function PrepareLabFromFileActivated(fileEventArgs As FileActivatedEventArgs) As Task(Of Boolean)
+			If fileEventArgs.Files.Count > 0 Then
+				Try
+					Dim jsonString = Await FileIO.ReadTextAsync(fileEventArgs.Files(0))
+					Dim lab As Laboratory = Nothing
+					InterprateJson(jsonString, lab)
+					File = lab
+					Return True
+				Catch ex As Exception
+                    NotificationService.ShowToast("Plik uszkodzony")
+                End Try
+			End If
+			Return False
+		End Function
 
 		Public Shared Sub GenerateJson(model As Laboratory, ByRef json As String)
 			Dim jsonObj As JsonObject = New JsonObject()
@@ -80,22 +98,23 @@ Namespace Services
 			If model IsNot Nothing Then
 				model.Dispose()
 			End If
+
 			model = New Laboratory()
-			If JsonObject.TryParse(json, jsonObj) Then
-				Dim deviceArray = jsonObj("Devices").GetArray()
-				For Each deviceValue In deviceArray
-					Dim deviceViewModel As DeviceViewModel = LoadDevice(deviceValue, model)
+			jsonObj = JsonObject.Parse(json)
 
-					If Not model.Devices.Contains(deviceViewModel) Then
-						model.Devices.Add(deviceViewModel)
-					End If
-				Next
+			Dim deviceArray = jsonObj("Devices").GetArray()
+			For Each deviceValue In deviceArray
+				Dim deviceViewModel As DeviceViewModel = LoadDevice(deviceValue, model)
 
-				Dim linkArray = jsonObj("Links").GetArray()
-				For Each linkValue In linkArray
-					model.Links.Add(LoadLink(linkValue, model.Devices))
-				Next
-			End If
+				If Not model.Devices.Contains(deviceViewModel) Then
+					model.Devices.Add(deviceViewModel)
+				End If
+			Next
+
+			Dim linkArray = jsonObj("Links").GetArray()
+			For Each linkValue In linkArray
+				model.Links.Add(LoadLink(linkValue, model.Devices))
+			Next
 		End Sub
 
 		Private Shared Function LoadDevice(value As JsonValue, model As Laboratory) As DeviceViewModel
