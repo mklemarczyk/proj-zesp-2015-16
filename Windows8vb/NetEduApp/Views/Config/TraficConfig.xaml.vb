@@ -23,7 +23,7 @@ Namespace Views.Config
 		''' <summary>
 		''' This can be changed to a strongly typed view model.
 		''' </summary>
-		Public ReadOnly Property DefaultViewModel As Model.ViewModels.Config.RoutingConfigViewModel
+		Public ReadOnly Property DefaultViewModel As Model.ViewModels.Config.TraficConfigViewModel
 			Get
 				Return Me._defaultViewModel
 			End Get
@@ -52,8 +52,8 @@ Namespace Views.Config
         ''' a dictionary of state preserved by this page during an earlier
         ''' session.  The state will be null the first time a page is visited.</param>
         Private Sub NavigationHelper_LoadState(sender As Object, e As Model.Common.LoadStateEventArgs)
-			Me.DefaultViewModel.Device = Me.DataContext
-		End Sub
+            Me.DefaultViewModel.Lab = Me.DataContext
+        End Sub
 
         ''' <summary>
         ''' Preserves state associated with this page in case the application is suspended or the
@@ -66,8 +66,8 @@ Namespace Views.Config
         ''' <param name="e">Event data that provides an empty dictionary to be populated with 
         ''' serializable state.</param>
         Private Sub NavigationHelper_SaveState(sender As Object, e As Model.Common.SaveStateEventArgs)
-			Me.DefaultViewModel.Device = Nothing
-		End Sub
+            Me.DefaultViewModel.Lab = Nothing
+        End Sub
 
 #Region "NavigationHelper registration"
 

@@ -51,7 +51,7 @@
 				<RowDefinition Height="Auto"/>
 				<RowDefinition Height="Auto"/>
 			</Grid.RowDefinitions>
-			<ListView Grid.ColumnSpan="2" ItemsSource="{Binding DefaultViewModel.Packets, ElementName=pageRoot}" SelectedItem="{Binding DefaultViewModel.SelectedRoute, ElementName=pageRoot, Mode=TwoWay}">
+			<ListView Grid.ColumnSpan="2" ItemsSource="{Binding DefaultViewModel.Packets, ElementName=pageRoot}" SelectedItem="{Binding DefaultViewModel.SelectedPacket, ElementName=pageRoot, Mode=TwoWay}">
 				<ListView.ItemContainerStyle>
 					<Style TargetType="ListViewItem">
 						<Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -66,9 +66,9 @@
 								<ColumnDefinition />
 							</Grid.ColumnDefinitions>
 							<StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center">
-								<TextBlock Text="{Binding SubnetAddress.Address}" Style="{StaticResource BaseTextBlockStyle}" />
-								<TextBlock Text="{Binding SubnetAddress.Netmask}" Style="{StaticResource BaseTextBlockStyle}" />
-							</StackPanel>
+                                <TextBlock Text="{Binding SourceAddress}" Style="{StaticResource BaseTextBlockStyle}" />
+                                <TextBlock Text="{Binding Protocol}" Style="{StaticResource BaseTextBlockStyle}" />
+                            </StackPanel>
 							<SymbolIcon Grid.Column="1" VerticalAlignment="Center" Symbol="Next" />
 							<StackPanel  Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom">
 								<TextBlock Text="{Binding TargetAddress}" Style="{StaticResource BaseTextBlockStyle}" />
@@ -82,7 +82,7 @@
 			<TextBlock Grid.Row="2" HorizontalAlignment="Left" Margin="8" TextWrapping="Wrap" Text="Adres docelowy" VerticalAlignment="Center" Style="{StaticResource BaseTextBlockStyle}"/>
 			<TextBox Grid.Row="2" Text="{Binding DefaultViewModel.TargetAddress, ElementName=pageRoot, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Margin="8" TextWrapping="Wrap"/>
 			<TextBlock Grid.Row="3" HorizontalAlignment="Left" Margin="8" TextWrapping="Wrap" Text="Protokół" VerticalAlignment="Center" Style="{StaticResource BaseTextBlockStyle}"/>
-			<ComboBox Grid.Row="3" SelectedItem="{Binding DefaultViewModel.Protocol, ElementName=pageRoot, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Margin="8">
+			<ComboBox Grid.Row="3" SelectedValue="{Binding DefaultViewModel.Protocol, ElementName=pageRoot, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Content" Grid.Column="1" Margin="8">
 				<!--<ComboBoxItem>ICMP</ComboBoxItem>-->
 				<!--<ComboBoxItem>TCP</ComboBoxItem>-->
 				<ComboBoxItem>UDP</ComboBoxItem>

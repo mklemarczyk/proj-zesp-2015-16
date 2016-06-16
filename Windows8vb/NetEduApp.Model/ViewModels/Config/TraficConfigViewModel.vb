@@ -2,154 +2,176 @@
 Imports NetEduApp.Simulator
 
 Namespace ViewModels.Config
-	Public Class TraficConfigViewModel
-		Inherits ConfigViewModelBase
+    Public Class TraficConfigViewModel
+        Inherits ViewModelBase
 
-		Private _Routes As ObservableCollection(Of RouteViewModel)
-		Private _SelectedRoute As RouteViewModel
+        Private _Lab As Laboratory
+        Private _NavigationHelper As NavigationHelper
 
-		Private _IpAddress As String = String.Empty
-		Private _IpSubnetMask As String = String.Empty
-		Private _TargetAddress As String = String.Empty
+        Private _Packets As ObservableCollection(Of PacketViewModel)
+        Private _SelectedPacket As PacketViewModel
 
-		Public ReadOnly Property NewCommand As RelayCommand
-		Public ReadOnly Property DeleteCommand As RelayCommand
+        Private _IpAddress As String = String.Empty
+        Private _TargetAddress As String = String.Empty
+        Private _Protocol As String = Nothing
 
-		Public Sub New(navigationHelper As NavigationHelper)
-			MyBase.New(navigationHelper)
+        Public ReadOnly Property SaveCommand As RelayCommand
+        Public ReadOnly Property CancelCommand As RelayCommand
 
-			NewCommand = New RelayCommand(AddressOf NewAction)
-			DeleteCommand = New RelayCommand(AddressOf DeleteAction, AddressOf CanDelete)
-		End Sub
+        Public ReadOnly Property NewCommand As RelayCommand
+        Public ReadOnly Property DeleteCommand As RelayCommand
 
-		Protected Overrides Sub OnDeviceChanged()
-			If Device IsNot Nothing Then
-				Routes = New ObservableCollection(Of RouteViewModel)(Me.Device.Routes)
-			Else
-				Routes = Nothing
-			End If
-			SelectedRoute = Nothing
+        Public Sub New(navigationHelper As NavigationHelper)
+            Me._NavigationHelper = navigationHelper
+            Me.SaveCommand = New RelayCommand(AddressOf SaveAction, AddressOf CanSave)
+            Me.CancelCommand = New RelayCommand(AddressOf CancelAction)
 
-			MyBase.OnDeviceChanged()
-		End Sub
+            NewCommand = New RelayCommand(AddressOf NewAction)
+            DeleteCommand = New RelayCommand(AddressOf DeleteAction, AddressOf CanDelete)
+        End Sub
 
-		Protected Overridable Sub OnSelectedRouteChanged()
-			If SelectedRoute IsNot Nothing Then
-				Me.IpAddress = SelectedRoute.SubnetAddress.Address.ToString()
-				Me.IpSubnetMask = SelectedRoute.SubnetAddress.Netmask.ToString()
-				Me.TargetAddress = SelectedRoute.TargetAddress.ToString()
-			Else
-				Me.IpAddress = String.Empty
-				Me.IpSubnetMask = String.Empty
-				Me.TargetAddress = String.Empty
-			End If
+        Protected Overridable Sub OnLabChanged()
+            If Lab IsNot Nothing Then
+                Packets = New ObservableCollection(Of PacketViewModel)(Lab.TestPackets)
+            Else
+                Packets = Nothing
+            End If
+            SelectedPacket = Nothing
+            Me.SaveCommand.RaiseCanExecuteChanged()
+            Me.RaisePropertyChanged(NameOf(Lab))
+        End Sub
 
-			Me.SaveCommand.RaiseCanExecuteChanged()
-			Me.NewCommand.RaiseCanExecuteChanged()
-			Me.DeleteCommand.RaiseCanExecuteChanged()
-			Me.RaisePropertyChanged(NameOf(SelectedRoute))
-		End Sub
+        Protected Overridable Sub OnSelectedPacketChanged()
+            If SelectedPacket IsNot Nothing Then
+                Me.SourceAddress = SelectedPacket.SourceAddress.ToString()
+                Me.TargetAddress = SelectedPacket.TargetAddress.ToString()
+            Else
+                Me.SourceAddress = String.Empty
+                Me.TargetAddress = String.Empty
+            End If
 
-		Protected Overrides Sub SaveAction()
-			If SelectedRoute IsNot Nothing Then
-				Dim ipAddress, ipSubnetMask, targetAddress As NetIpAddress
-				NetIpAddress.TryParse(Me.IpAddress, ipAddress)
-				NetIpAddress.TryParse(Me.IpSubnetMask, ipSubnetMask)
-				NetIpAddress.TryParse(Me.TargetAddress, targetAddress)
-				Me.SelectedRoute.SubnetAddress = New NetAddress(ipAddress, ipSubnetMask)
-				Me.SelectedRoute.TargetAddress = targetAddress
-				Me.SelectedRoute = Nothing
-			Else
-				Dim newRoute As RouteViewModel = New RouteViewModel
-				Dim ipAddress, ipSubnetMask, targetAddress As NetIpAddress
-				NetIpAddress.TryParse(Me.IpAddress, ipAddress)
-				NetIpAddress.TryParse(Me.IpSubnetMask, ipSubnetMask)
-				NetIpAddress.TryParse(Me.TargetAddress, targetAddress)
-				newRoute.SubnetAddress = New NetAddress(ipAddress, ipSubnetMask)
-				newRoute.TargetAddress = targetAddress
-				Me.Routes.Add(newRoute)
-			End If
-		End Sub
+            Me.SaveCommand.RaiseCanExecuteChanged()
+            Me.NewCommand.RaiseCanExecuteChanged()
+            Me.DeleteCommand.RaiseCanExecuteChanged()
+            Me.RaisePropertyChanged(NameOf(SelectedPacket))
+        End Sub
 
-		Protected Overrides Function CanSave() As Boolean
-			Dim ipAddress, ipSubnetMask, targetAddress As NetIpAddress
-			Return NetIpAddress.TryParse(Me.IpAddress, ipAddress) AndAlso
-				NetIpAddress.TryParse(Me.IpSubnetMask, ipSubnetMask) AndAlso
-				NetIpAddress.TryParse(Me.TargetAddress, targetAddress) AndAlso
-				(New NetAddress(ipAddress, ipSubnetMask)).IsValid() AndAlso
-				(New NetAddress(ipAddress, ipSubnetMask)).IsNetwork() AndAlso
-				Not (New NetAddress(ipAddress, ipSubnetMask)).Contains(New NetAddress(targetAddress, ipSubnetMask))
-		End Function
+        Protected Overridable Sub SaveAction()
+            If SelectedPacket IsNot Nothing Then
+                Dim sourceAddress, targetAddress As NetIpAddress
+                NetIpAddress.TryParse(Me.SourceAddress, sourceAddress)
+                NetIpAddress.TryParse(Me.TargetAddress, targetAddress)
+                Me.SelectedPacket.SourceAddress = sourceAddress
+                Me.SelectedPacket.TargetAddress = targetAddress
+                Me.SelectedPacket = Nothing
+            Else
+                Dim newPacket As PacketViewModel = New PacketViewModel
+                Dim sourceAddress, targetAddress As NetIpAddress
+                NetIpAddress.TryParse(Me.SourceAddress, sourceAddress)
+                NetIpAddress.TryParse(Me.TargetAddress, targetAddress)
+                newPacket.SourceAddress = sourceAddress
+                newPacket.TargetAddress = targetAddress
+                Me.Packets.Add(newPacket)
+            End If
+            NavigationHelper.GoBack()
+        End Sub
 
-		Protected Overrides Sub CancelAction()
-			Me.SelectedRoute = Nothing
-		End Sub
+        Protected Overridable Function CanSave() As Boolean
+            Dim ipAddress, targetAddress As NetIpAddress
+            Return NetIpAddress.TryParse(Me.SourceAddress, ipAddress) AndAlso
+                NetIpAddress.TryParse(Me.TargetAddress, targetAddress) AndAlso
+                Not String.IsNullOrEmpty(Protocol)
+        End Function
 
-		Protected Sub NewAction()
-			Me.SelectedRoute = Nothing
-		End Sub
+        Protected Overridable Sub CancelAction()
+            SelectedPacket = Nothing
+            OnLabChanged()
+            NavigationHelper.GoBack()
+        End Sub
 
-		Protected Sub DeleteAction()
-			Me.Routes.Remove(Me.SelectedRoute)
-		End Sub
+        Protected Sub NewAction()
+            Me.SelectedPacket = Nothing
+        End Sub
 
-		Protected Function CanDelete() As Boolean
-			Return Me.SelectedRoute IsNot Nothing
-		End Function
+        Protected Sub DeleteAction()
+            Me.Packets.Remove(Me.SelectedPacket)
+        End Sub
 
-		Public Property Routes As ObservableCollection(Of RouteViewModel)
-			Get
-				Return Me._Routes
-			End Get
-			Set(value As ObservableCollection(Of RouteViewModel))
-				Me._Routes = value
-				Me.SaveCommand.RaiseCanExecuteChanged()
-				Me.RaisePropertyChanged(NameOf(Routes))
-			End Set
-		End Property
+        Protected Function CanDelete() As Boolean
+            Return Me.SelectedPacket IsNot Nothing
+        End Function
 
-		Public Property SelectedRoute As RouteViewModel
-			Get
-				Return Me._SelectedRoute
-			End Get
-			Set(value As RouteViewModel)
-				Me._SelectedRoute = value
-				Me.OnSelectedRouteChanged()
-			End Set
-		End Property
+        Public Property Lab As Laboratory
+            Get
+                Return _Lab
+            End Get
+            Set(value As Laboratory)
+                If value IsNot Lab Then
+                    _Lab = value
+                    OnLabChanged()
+                End If
+            End Set
+        End Property
 
-		Public Property IpAddress As String
-			Get
-				Return Me._IpAddress
-			End Get
-			Set(value As String)
-				Me._IpAddress = value
-				Me.SaveCommand.RaiseCanExecuteChanged()
-				Me.RaisePropertyChanged(NameOf(IpAddress))
-			End Set
-		End Property
+        Public ReadOnly Property NavigationHelper As NavigationHelper
+            Get
+                Return _NavigationHelper
+            End Get
+        End Property
 
-		Public Property IpSubnetMask As String
-			Get
-				Return Me._IpSubnetMask
-			End Get
-			Set(value As String)
-				Me._IpSubnetMask = value
-				Me.SaveCommand.RaiseCanExecuteChanged()
-				Me.RaisePropertyChanged(NameOf(IpSubnetMask))
-			End Set
-		End Property
+        Public Property Packets As ObservableCollection(Of PacketViewModel)
+            Get
+                Return Me._Packets
+            End Get
+            Set(value As ObservableCollection(Of PacketViewModel))
+                Me._Packets = value
+                Me.SaveCommand.RaiseCanExecuteChanged()
+                Me.RaisePropertyChanged(NameOf(Packets))
+            End Set
+        End Property
 
-		Public Property TargetAddress As String
-			Get
-				Return Me._TargetAddress
-			End Get
-			Set(value As String)
-				Me._TargetAddress = value
-				Me.SaveCommand.RaiseCanExecuteChanged()
-				Me.RaisePropertyChanged(NameOf(TargetAddress))
-			End Set
-		End Property
+        Public Property SelectedPacket As PacketViewModel
+            Get
+                Return Me._SelectedPacket
+            End Get
+            Set(value As PacketViewModel)
+                Me._SelectedPacket = value
+                Me.OnSelectedPacketChanged()
+            End Set
+        End Property
 
-	End Class
+        Public Property SourceAddress As String
+            Get
+                Return Me._IpAddress
+            End Get
+            Set(value As String)
+                Me._IpAddress = value
+                Me.SaveCommand.RaiseCanExecuteChanged()
+                Me.RaisePropertyChanged(NameOf(SourceAddress))
+            End Set
+        End Property
+
+        Public Property TargetAddress As String
+            Get
+                Return Me._TargetAddress
+            End Get
+            Set(value As String)
+                Me._TargetAddress = value
+                Me.SaveCommand.RaiseCanExecuteChanged()
+                Me.RaisePropertyChanged(NameOf(TargetAddress))
+            End Set
+        End Property
+
+        Public Property Protocol As String
+            Get
+                Return Me._Protocol
+            End Get
+            Set(value As String)
+                Me._Protocol = value
+                Me.SaveCommand.RaiseCanExecuteChanged()
+                Me.RaisePropertyChanged(NameOf(Protocol))
+            End Set
+        End Property
+
+    End Class
 End Namespace
