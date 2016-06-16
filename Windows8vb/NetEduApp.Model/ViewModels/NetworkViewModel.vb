@@ -12,7 +12,7 @@ Namespace ViewModels
         Private names As HashSet(Of String)
         Private _SelectedDevice As DeviceViewModel
         Private _EditDevice As DeviceViewModel
-        Private _Trafic As List(Of PacketViewModel)
+        Private _ActiveLab As Laboratory
 
 #Region "New()"
         Public Sub New()
@@ -75,14 +75,14 @@ Namespace ViewModels
             End Set
         End Property
 
-        Public Property Trafic As List(Of PacketViewModel)
+        Public Property ActiveLab As Laboratory
             Get
-                Return _Trafic
+                Return _ActiveLab
             End Get
-            Set(value As List(Of PacketViewModel))
-                If _Trafic IsNot value Then
-                    _Trafic = value
-                    RaisePropertyChanged(NameOf(Trafic))
+            Set(value As Laboratory)
+                If _ActiveLab IsNot value Then
+                    _ActiveLab = value
+                    RaisePropertyChanged(NameOf(ActiveLab))
                 End If
             End Set
         End Property
@@ -196,12 +196,11 @@ Namespace ViewModels
 
 #Region "Send packet action"
         Private Sub SendPacketAction()
-            If Trafic Is Nothing Then
-                Trafic = New List(Of PacketViewModel)
+            If ActiveLab Is Nothing Then
+                ActiveLab = Lab
             Else
-                Trafic = Nothing
+                ActiveLab = Nothing
             End If
-            Services.SimulatorService.Test(Lab)
         End Sub
 #End Region
 

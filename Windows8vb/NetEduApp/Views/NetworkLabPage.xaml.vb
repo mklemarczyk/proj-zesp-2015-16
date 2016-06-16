@@ -122,15 +122,28 @@ Public NotInheritable Class NetworkLabPage
 		DirectCast(sender, CommandBar).IsOpen = True
 	End Sub
 
-	Private Sub prop_DataContextChanged(sender As FrameworkElement, args As DataContextChangedEventArgs)
-		If prop IsNot Nothing Then
-			If args.NewValue IsNot Nothing Then
-				prop.Visibility = Visibility.Visible
-				prop.Navigate(GetType(ConfigMenu))
-				prop.BackStack.Clear()
-			Else
-				prop.Visibility = Visibility.Collapsed
-			End If
-		End If
-	End Sub
+    Private Sub prop_DataContextChanged(sender As FrameworkElement, args As DataContextChangedEventArgs)
+        If prop IsNot Nothing Then
+            If args.NewValue IsNot Nothing Then
+                prop.Visibility = Visibility.Visible
+                prop.Navigate(GetType(ConfigMenu))
+                prop.BackStack.Clear()
+            Else
+                prop.Visibility = Visibility.Collapsed
+            End If
+        End If
+    End Sub
+
+    Private Sub propTest_DataContextChanged(sender As FrameworkElement, args As DataContextChangedEventArgs)
+        If propTest IsNot Nothing Then
+            If args.NewValue IsNot Nothing Then
+                propTest.Visibility = Visibility.Visible
+                propTest.Navigate(GetType(TraficConfig))
+                propTest.BackStack.Clear()
+            Else
+                propTest.Visibility = Visibility.Collapsed
+            End If
+        End If
+    End Sub
+
 End Class

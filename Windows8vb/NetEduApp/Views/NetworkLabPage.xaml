@@ -132,19 +132,11 @@
 							   TopPath="Position.Y" LeftPath="Position.X" />
 		</Grid>
 		<Frame x:Name="prop" DataContext="{Binding EditDevice, Mode=OneWay}" Grid.Column="1" Grid.Row="1" Background="Black" Margin="0,0,0,90" Width="380"
-               DataContextChanged="prop_DataContextChanged" />
-		<Frame DataContext="{Binding Trafic, Mode=OneWay}" Grid.Column="1" Grid.Row="1" Background="Black" Margin="0,0,0,90" Width="380"
-			   SourcePageType="configView:TraficConfig" Visibility="Collapsed">
-			<Interactivity:Interaction.Behaviors>
-				<Core:DataTriggerBehavior Binding="{Binding}" ComparisonCondition="NotEqual" Value="{x:Null}">
-					<Core:ChangePropertyAction PropertyName="Visibility" Value="Visible"/>
-				</Core:DataTriggerBehavior>
-				<Core:DataTriggerBehavior Binding="{Binding}" ComparisonCondition="Equal" Value="{x:Null}">
-					<Core:ChangePropertyAction PropertyName="Visibility" Value="Collapsed"/>
-				</Core:DataTriggerBehavior>
-			</Interactivity:Interaction.Behaviors>
-		</Frame>
-	</Grid>
+               Visibility="Collapsed" DataContextChanged="prop_DataContextChanged" />
+        <Frame x:Name="propTest" DataContext="{Binding ActiveLab, Mode=OneWay}" Grid.Column="1" Grid.Row="1" Background="Black" Margin="0,0,0,90" Width="380"
+			   Visibility="Collapsed" DataContextChanged="propTest_DataContextChanged">
+        </Frame>
+    </Grid>
 
 	<Page.BottomAppBar>
 		<CommandBar IsOpen="True" IsSticky="True" Closed="CommandBar_Closed">

@@ -4,12 +4,14 @@
 
 		Protected Names As HashSet(Of String) = New HashSet(Of String)
 		Public Property Devices As ObservableCollection(Of DeviceViewModel)
-		Public Property Links As ObservableCollection(Of LinkViewModel)
+        Public Property Links As ObservableCollection(Of LinkViewModel)
+        Public Property TestPackets As ObservableCollection(Of PacketViewModel)
 
-		Public Sub New()
+        Public Sub New()
 			Devices = New ObservableCollection(Of DeviceViewModel)
-			Links = New ObservableCollection(Of LinkViewModel)
-		End Sub
+            Links = New ObservableCollection(Of LinkViewModel)
+            TestPackets = New ObservableCollection(Of PacketViewModel)
+        End Sub
 
 		Public Sub NewComputer()
 			Dim device = New ComputerViewModel(Me)
