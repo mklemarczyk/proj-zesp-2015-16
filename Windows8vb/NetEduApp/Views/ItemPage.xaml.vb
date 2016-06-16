@@ -49,7 +49,7 @@ Public NotInheritable Class ItemPage
     ''' session.  The state will be null the first time a page is visited.</param>
     Private Async Sub NavigationHelper_LoadState(sender As Object, e As Model.Common.LoadStateEventArgs)
         ' TODO: Create an appropriate data model for your problem domain to replace the sample data
-        Dim item As Model.Data.SampleDataItem = Await Model.Data.SampleDataSource.GetItemAsync(DirectCast(e.NavigationParameter, String))
+        Dim item As Model.Data.ArticleDataItem = Await Model.Data.ArticleDataSource.GetItemAsync(DirectCast(e.NavigationParameter, String))
         Me.DefaultViewModel("Item") = item
     End Sub
 

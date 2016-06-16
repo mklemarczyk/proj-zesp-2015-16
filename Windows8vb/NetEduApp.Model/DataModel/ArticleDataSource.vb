@@ -14,7 +14,7 @@ Namespace Data
     ''' <summary>
     ''' Generic item data model.
     ''' </summary>
-    Public Class SampleDataItem
+    Public Class ArticleDataItem
         Private Shared _baseUri As New Uri("ms-appx:///")
 
         Public Sub New(uniqueId As String, title As String, subtitle As String, imagePath As String, description As String, content As String)
@@ -92,7 +92,7 @@ Namespace Data
         Public ReadOnly Property Image As ImageSource
             Get
                 If Me._image Is Nothing AndAlso Me._imagePath IsNot Nothing Then
-                    Me._image = New BitmapImage(New Uri(SampleDataItem._baseUri, Me._imagePath))
+                    Me._image = New BitmapImage(New Uri(ArticleDataItem._baseUri, Me._imagePath))
                 End If
                 Return Me._image
             End Get
@@ -106,7 +106,7 @@ Namespace Data
     ''' <summary>
     ''' Generic group data model.
     ''' </summary>
-    Public Class SampleDataGroup
+    Public Class ArticleDataGroup
         Private Shared _baseUri As New Uri("ms-appx:///")
 
         Public Sub New(uniqueId As String, title As String, subtitle As String, imagePath As String, description As String)
@@ -115,7 +115,7 @@ Namespace Data
             Me.Subtitle = subtitle
             Me.Description = description
             Me.ImagePath = imagePath
-            Me.Items = New ObservableCollection(Of SampleDataItem)()
+            Me.Items = New ObservableCollection(Of ArticleDataItem)()
         End Sub
 
         Private _uniqueId As String
@@ -168,12 +168,12 @@ Namespace Data
             End Set
         End Property
 
-        Private _items As ObservableCollection(Of SampleDataItem)
-        Public Property Items As ObservableCollection(Of SampleDataItem)
+        Private _items As ObservableCollection(Of ArticleDataItem)
+        Public Property Items As ObservableCollection(Of ArticleDataItem)
             Get
                 Return _items
             End Get
-            Private Set(value As ObservableCollection(Of SampleDataItem))
+            Private Set(value As ObservableCollection(Of ArticleDataItem))
                 _items = value
             End Set
         End Property
@@ -183,7 +183,7 @@ Namespace Data
         Public ReadOnly Property Image As ImageSource
             Get
                 If Me._image Is Nothing AndAlso Me._imagePath IsNot Nothing Then
-                    Me._image = New BitmapImage(New Uri(SampleDataGroup._baseUri, Me._imagePath))
+                    Me._image = New BitmapImage(New Uri(ArticleDataGroup._baseUri, Me._imagePath))
                 End If
                 Return Me._image
             End Get
@@ -197,47 +197,47 @@ Namespace Data
     ''' <summary>
     ''' Creates a collection of groups and items with content read from a static json file.
     ''' 
-    ''' SampleDataSource initializes with data read from a static json file included in the 
-    ''' project.  This provides sample data at both design-time and run-time.
+    ''' ArticleDataSource initializes with data read from a static json file included in the 
+    ''' project.  This provides article data at both design-time and run-time.
     ''' </summary>
-    Public NotInheritable Class SampleDataSource
-        Private Shared _sampleDataSource As New SampleDataSource()
+    Public NotInheritable Class ArticleDataSource
+        Private Shared _articleDataSource As New ArticleDataSource()
 
-        Private _groups As New ObservableCollection(Of SampleDataGroup)()
-        Public ReadOnly Property Groups As ObservableCollection(Of SampleDataGroup)
+        Private _groups As New ObservableCollection(Of ArticleDataGroup)()
+        Public ReadOnly Property Groups As ObservableCollection(Of ArticleDataGroup)
             Get
                 Return Me._groups
             End Get
         End Property
 
-        Public Shared Async Function GetGroupsAsync() As Task(Of IEnumerable(Of SampleDataGroup))
-            Await _sampleDataSource.GetSampleDataAsync()
-            Return _sampleDataSource.Groups
+        Public Shared Async Function GetGroupsAsync() As Task(Of IEnumerable(Of ArticleDataGroup))
+            Await _articleDataSource.GetArticleDataAsync()
+            Return _articleDataSource.Groups
         End Function
 
-        Public Shared Async Function GetGroupAsync(uniqueId As String) As Task(Of SampleDataGroup)
-            Await _sampleDataSource.GetSampleDataAsync()
+        Public Shared Async Function GetGroupAsync(uniqueId As String) As Task(Of ArticleDataGroup)
+            Await _articleDataSource.GetArticleDataAsync()
             ' Simple linear search is acceptable for small data sets
-            Dim matches As IEnumerable(Of SampleDataGroup) = _sampleDataSource.Groups.Where(Function(group) group.UniqueId.Equals(uniqueId))
+            Dim matches As IEnumerable(Of ArticleDataGroup) = _articleDataSource.Groups.Where(Function(group) group.UniqueId.Equals(uniqueId))
             If matches.Count() = 1 Then Return matches.First()
             Return Nothing
         End Function
 
-        Public Shared Async Function GetItemAsync(uniqueId As String) As Task(Of SampleDataItem)
-            Await _sampleDataSource.GetSampleDataAsync()
+        Public Shared Async Function GetItemAsync(uniqueId As String) As Task(Of ArticleDataItem)
+            Await _articleDataSource.GetArticleDataAsync()
             ' Simple linear search is acceptable for small data sets
-            Dim matches As IEnumerable(Of SampleDataItem) = _sampleDataSource.Groups.SelectMany(Function(group) group.Items).Where(Function(item) item.UniqueId.Equals(uniqueId))
+            Dim matches As IEnumerable(Of ArticleDataItem) = _articleDataSource.Groups.SelectMany(Function(group) group.Items).Where(Function(item) item.UniqueId.Equals(uniqueId))
             If matches.Count() = 1 Then Return matches.First()
             Return Nothing
         End Function
 
-        Private Async Function GetSampleDataAsync() As Task
+        Private Async Function GetArticleDataAsync() As Task
 
             If Me._groups.Count <> 0 Then
                 Return
             End If
 
-            Dim dataUri As New Uri("ms-appx:///Assets/SampleData.json")
+            Dim dataUri As New Uri("ms-appx:///Assets/ArticleData.json")
 
             Dim file As StorageFile = Await StorageFile.GetFileFromApplicationUriAsync(dataUri)
             Dim jsonText As String = Await FileIO.ReadTextAsync(file)
@@ -246,11 +246,11 @@ Namespace Data
 
             For Each groupValue As JsonValue In jsonArray
                 Dim groupObject As JsonObject = groupValue.GetObject()
-                Dim group As New SampleDataGroup(groupObject("UniqueId").GetString(), groupObject("Title").GetString(), groupObject("Subtitle").GetString(), groupObject("ImagePath").GetString(), groupObject("Description").GetString())
+                Dim group As New ArticleDataGroup(groupObject("UniqueId").GetString(), groupObject("Title").GetString(), groupObject("Subtitle").GetString(), groupObject("ImagePath").GetString(), groupObject("Description").GetString())
 
                 For Each itemValue As JsonValue In groupObject("Items").GetArray()
                     Dim itemObject As JsonObject = itemValue.GetObject()
-                    group.Items.Add(New SampleDataItem(itemObject("UniqueId").GetString(), itemObject("Title").GetString(), itemObject("Subtitle").GetString(), itemObject("ImagePath").GetString(), itemObject("Description").GetString(), itemObject("Content").GetString()))
+                    group.Items.Add(New ArticleDataItem(itemObject("UniqueId").GetString(), itemObject("Title").GetString(), itemObject("Subtitle").GetString(), itemObject("ImagePath").GetString(), itemObject("Description").GetString(), itemObject("Content").GetString()))
                 Next
 
                 Me.Groups.Add(group)

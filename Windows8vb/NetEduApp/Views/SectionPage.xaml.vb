@@ -49,7 +49,7 @@ Public NotInheritable Class SectionPage
     ''' session.  The state will be null the first time a page is visited.</param>
     Private Async Sub NavigationHelper_LoadState(sender As Object, e As Model.Common.LoadStateEventArgs)
         ' TODO: Create an appropriate data model for your problem domain to replace the sample data
-        Dim group As Model.Data.SampleDataGroup = Await Model.Data.SampleDataSource.GetGroupAsync(DirectCast(e.NavigationParameter, String))
+        Dim group As Model.Data.ArticleDataGroup = Await Model.Data.ArticleDataSource.GetGroupAsync(DirectCast(e.NavigationParameter, String))
         Me.DefaultViewModel("Group") = group
         Me.DefaultViewModel("Items") = group.Items
     End Sub
@@ -64,7 +64,7 @@ Public NotInheritable Class SectionPage
 
         ' Navigate to the appropriate destination page, configuring the new page
         ' by passing required information as a navigation parameter
-        Dim itemId As String = DirectCast(e.ClickedItem, Model.Data.SampleDataItem).UniqueId
+        Dim itemId As String = DirectCast(e.ClickedItem, Model.Data.ArticleDataItem).UniqueId
         Me.Frame.Navigate(GetType(ItemPage), itemId)
     End Sub
 

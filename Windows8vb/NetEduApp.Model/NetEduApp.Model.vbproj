@@ -121,7 +121,7 @@
     <Compile Include="Common\RelayCommand.vb" />
     <Compile Include="Common\SuspensionManager.vb" />
     <Compile Include="Common\ViewModelBase.vb" />
-    <Compile Include="DataModel\SampleDataSource.vb" />
+    <Compile Include="DataModel\ArticleDataSource.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="Services\ExportService.vb" />
     <Compile Include="Services\NotificationService.vb" />

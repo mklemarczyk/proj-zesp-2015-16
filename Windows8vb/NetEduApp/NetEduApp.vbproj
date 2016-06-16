@@ -165,7 +165,7 @@
     <Content Include="Assets\Devices\switch.jpg" />
     <Content Include="Assets\FileIcon.png" />
     <Content Include="Assets\HubBackground.png" />
-    <Content Include="Assets\SampleData.json" />
+    <Content Include="Assets\ArticleData.json" />
     <None Include="NetEduApp_TemporaryKey.pfx" />
     <None Include="Package.StoreAssociation.xml" />
     <PRIResource Include="Strings\pl-PL\Resources.resw">
