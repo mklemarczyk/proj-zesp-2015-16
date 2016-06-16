@@ -72,7 +72,8 @@
 							<SymbolIcon Grid.Column="1" VerticalAlignment="Center" Symbol="Next" />
 							<StackPanel  Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom">
 								<TextBlock Text="{Binding TargetAddress}" Style="{StaticResource BaseTextBlockStyle}" />
-							</StackPanel>
+                                <TextBlock Text="{Binding Status}" Style="{StaticResource BaseTextBlockStyle}" />
+                            </StackPanel>
 						</Grid>
 					</DataTemplate>
 				</ListView.ItemTemplate>
