@@ -84,24 +84,26 @@ NotInheritable Class App
             ' Create a Frame to act as the navigation context and associate it with
             ' a SuspensionManager key
             rootFrame = New Frame()
-			Model.Common.SuspensionManager.RegisterFrame(rootFrame, "AppFrame")
+            Model.Common.SuspensionManager.RegisterFrame(rootFrame, "AppFrame")
             ' Set the default language
             rootFrame.Language = Windows.Globalization.ApplicationLanguages.Languages(0)
 
-			AddHandler rootFrame.NavigationFailed, AddressOf OnNavigationFailed
+            AddHandler rootFrame.NavigationFailed, AddressOf OnNavigationFailed
 
             ' Place the frame in the current Window
             Window.Current.Content = rootFrame
-		End If
-		If rootFrame.Content Is Nothing Then
-			' When the navigation stack isn't restored navigate to the first page,
-			' configuring the new page by passing required information as a navigation
-			' parameter
-			Dim isLoaded = Await ExportService.PrepareLabFromFileActivated(args)
+        End If
 
-			rootFrame.Navigate(GetType(HubPage))
-			rootFrame.Navigate(GetType(NetworkLabPage), isLoaded)
-		End If
+        If rootFrame.Content IsNot Nothing Then
+            rootFrame.BackStack.Clear()
+            rootFrame.ForwardStack.Clear()
+        End If
+
+        Dim isLoaded = Await ExportService.PrepareLabFromFileActivated(args)
+
+        rootFrame.Navigate(GetType(HubPage))
+        rootFrame.Navigate(GetType(NetworkLabPage), isLoaded)
+
         ' Ensure the current window is active
         Window.Current.Activate()
 	End Sub
