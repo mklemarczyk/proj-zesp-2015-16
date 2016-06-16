@@ -71,9 +71,10 @@ Namespace ViewModels.Config
                 NetIpAddress.TryParse(Me.TargetAddress, targetAddress)
                 newPacket.SourceAddress = sourceAddress
                 newPacket.TargetAddress = targetAddress
+                newPacket.Protocol = Protocol
                 Me.Packets.Add(newPacket)
             End If
-            NavigationHelper.GoBack()
+            Me.Lab.TestPackets = Packets
         End Sub
 
         Protected Overridable Function CanSave() As Boolean
@@ -85,8 +86,6 @@ Namespace ViewModels.Config
 
         Protected Overridable Sub CancelAction()
             SelectedPacket = Nothing
-            OnLabChanged()
-            NavigationHelper.GoBack()
         End Sub
 
         Protected Sub NewAction()
@@ -95,6 +94,7 @@ Namespace ViewModels.Config
 
         Protected Sub DeleteAction()
             Me.Packets.Remove(Me.SelectedPacket)
+            Me.Lab.TestPackets = Packets
         End Sub
 
         Protected Function CanDelete() As Boolean
@@ -106,10 +106,8 @@ Namespace ViewModels.Config
                 Return _Lab
             End Get
             Set(value As Laboratory)
-                If value IsNot Lab Then
-                    _Lab = value
-                    OnLabChanged()
-                End If
+                _Lab = value
+                OnLabChanged()
             End Set
         End Property
 
