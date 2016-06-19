@@ -105,7 +105,7 @@
                         AutomationProperties.Name="Back"
                         AutomationProperties.AutomationId="BackButton"
                         AutomationProperties.ItemType="Navigation Button"/>
-			<TextBlock x:Name="pageTitle" Text="{StaticResource AppName}" Style="{StaticResource HeaderTextBlockStyle}" Grid.Column="1" 
+            <TextBlock x:Uid="PageTitle" x:Name="pageTitle" Text="{StaticResource AppName}" Style="{StaticResource HeaderTextBlockStyle}" Grid.Column="1" 
                         IsHitTestVisible="false" TextWrapping="NoWrap" VerticalAlignment="Bottom" Margin="0,0,30,40"/>
 		</Grid>
 		<Grid Grid.Row="1" Background="#FFCBE5F3" AllowDrop="True" Margin="0,0,0,92"
@@ -141,28 +141,28 @@
 	<Page.BottomAppBar>
 		<CommandBar IsOpen="True" IsSticky="True" Closed="CommandBar_Closed">
 			<CommandBar.SecondaryCommands>
-				<AppBarButton Icon="OpenFile" Label="Wczytaj" Command="{Binding LoadCommand}"/>
-				<AppBarButton Icon="Save" Label="Zapisz" Command="{Binding SaveCommand}"/>
+				<AppBarButton x:Uid="LoadFile" Icon="OpenFile" Label="Wczytaj" Command="{Binding LoadCommand}"/>
+                <AppBarButton x:Uid="SaveFile" Icon="Save" Label="Zapisz" Command="{Binding SaveCommand}"/>
 			</CommandBar.SecondaryCommands>
-			<AppBarButton Icon="Add" Label="Dodaj">
+            <AppBarButton x:Uid="AddDevice" Icon="Add" Label="Dodaj">
 				<AppBarButton.Flyout>
 					<MenuFlyout>
-						<MenuFlyoutItem Text="Komputer" Command="{Binding CreateComputerCommand}"/>
-						<MenuFlyoutItem Text="Hub" Command="{Binding CreateHubCommand}"/>
-						<MenuFlyoutItem Text="Router" Command="{Binding CreateRouterCommand}"/>
+                        <MenuFlyoutItem x:Uid="AddPc" Text="Komputer" Command="{Binding CreateComputerCommand}"/>
+                        <MenuFlyoutItem x:Uid="AddHub" Text="Hub" Command="{Binding CreateHubCommand}"/>
+                        <MenuFlyoutItem x:Uid="AddRouter" Text="Router" Command="{Binding CreateRouterCommand}"/>
 					</MenuFlyout>
 				</AppBarButton.Flyout>
 			</AppBarButton>
-			<AppBarButton Icon="Link" Label="Połącz">
+            <AppBarButton x:Uid="AddLink" Icon="Link" Label="Połącz">
 				<AppBarButton.Flyout>
 					<MenuFlyout>
-						<MenuFlyoutItem Text="Przewód Ethernet" Command="{Binding CreateEthernetLinkCommand}"/>
+                        <MenuFlyoutItem x:Uid="AddEthernetLink" Text="Przewód Ethernet" Command="{Binding CreateEthernetLinkCommand}"/>
 					</MenuFlyout>
 				</AppBarButton.Flyout>
 			</AppBarButton>
-			<AppBarButton Icon="Edit" Label="Ustawienia" Command="{Binding EditCommand}" CommandParameter="{Binding SelectedDevice}" />
-			<AppBarButton Icon="Remove" Label="Usuń" Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedDevice}" />
-			<AppBarButton Icon="Send" Label="Wyślij pakiet" Command="{Binding SendPacketCommand}" />
+            <AppBarButton x:Uid="EditDevie" Icon="Edit" Label="Ustawienia" Command="{Binding EditCommand}" CommandParameter="{Binding SelectedDevice}" />
+            <AppBarButton x:Uid="RemoveDevice" Icon="Remove" Label="Usuń" Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedDevice}" />
+            <AppBarButton x:Uid="TestPackets" Icon="Send" Label="Wyślij pakiet" Command="{Binding SendPacketCommand}" />
 		</CommandBar>
 	</Page.BottomAppBar>
 </Page>

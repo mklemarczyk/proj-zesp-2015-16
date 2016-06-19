@@ -118,11 +118,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddDevice.Label" xml:space="preserve">
-    <value>Dodaj</value>
+    <value>New device</value>
     <comment>AppBarButton</comment>
   </data>
   <data name="AddEthernetLink.Text" xml:space="preserve">
-    <value>Przewód Ethernet</value>
+    <value>Ethernet cable</value>
     <comment>MenuFlyoutItem</comment>
   </data>
   <data name="AddHub.Text" xml:space="preserve">
@@ -130,11 +130,11 @@
     <comment>MenuFlyoutItem</comment>
   </data>
   <data name="AddLink.Label" xml:space="preserve">
-    <value>Połącz</value>
+    <value>Link devices</value>
     <comment>AppBarButton</comment>
   </data>
   <data name="AddPc.Text" xml:space="preserve">
-    <value>Komputer</value>
+    <value>Computer PC</value>
     <comment>MenuFlyoutItem</comment>
   </data>
   <data name="AddRouter.Text" xml:space="preserve">
@@ -142,31 +142,31 @@
     <comment>MenuFlyoutItem</comment>
   </data>
   <data name="EditDevie.Label" xml:space="preserve">
-    <value>Ustawienia</value>
+    <value>Configure</value>
     <comment>AppBarButton</comment>
   </data>
   <data name="LaunchSimulator.Content" xml:space="preserve">
-    <value>Przejdź do symulatora</value>
+    <value>Launch simulator</value>
     <comment>Button</comment>
   </data>
   <data name="LoadFile.Label" xml:space="preserve">
-    <value>Wczytaj</value>
+    <value>Load</value>
     <comment>AppBarButton</comment>
   </data>
   <data name="PageTitle.Text" xml:space="preserve">
-    <value>Symulator sieci komputerowej</value>
+    <value>Computer network simulator</value>
     <comment>TextBlock</comment>
   </data>
   <data name="RemoveDevice.Label" xml:space="preserve">
-    <value>Usuń</value>
+    <value>Remove</value>
     <comment>AppBarButton</comment>
   </data>
   <data name="SaveFile.Label" xml:space="preserve">
-    <value>Zapisz</value>
+    <value>Save</value>
     <comment>AppBarButton</comment>
   </data>
   <data name="TestPackets.Label" xml:space="preserve">
-    <value>Wyślij pakiet</value>
+    <value>Test packets</value>
     <comment>AppBarButton</comment>
   </data>
 </root>

@@ -168,6 +168,9 @@
     <Content Include="Assets\ArticleData.json" />
     <None Include="NetEduApp_TemporaryKey.pfx" />
     <None Include="Package.StoreAssociation.xml" />
+    <PRIResource Include="Strings\en-US\Resources.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
     <PRIResource Include="Strings\pl-PL\Resources.resw">
       <SubType>Designer</SubType>
     </PRIResource>
