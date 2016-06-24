@@ -1,4 +1,5 @@
-﻿Imports NetEduApp.Model.Common
+﻿Imports System.Threading
+Imports NetEduApp.Model.Common
 Imports NetEduApp.Simulator
 
 Namespace ViewModels.Config
@@ -19,8 +20,8 @@ Namespace ViewModels.Config
         Public ReadOnly Property CancelCommand As RelayCommand
         Public ReadOnly Property NewCommand As RelayCommand
         Public ReadOnly Property DeleteCommand As RelayCommand
-        Public ReadOnly Property StartSymCommand As RelayCommand
-        Public ReadOnly Property StopSymCommand As RelayCommand
+        Public ReadOnly Property StartSimCommand As RelayCommand
+        Public ReadOnly Property StopSimCommand As RelayCommand
 
         Public Sub New(navigationHelper As NavigationHelper)
             Me._NavigationHelper = navigationHelper
@@ -29,13 +30,13 @@ Namespace ViewModels.Config
             Me.CancelCommand = New RelayCommand(AddressOf CancelAction, AddressOf CanManagePackets)
             Me.NewCommand = New RelayCommand(AddressOf NewAction, AddressOf CanManagePackets)
             Me.DeleteCommand = New RelayCommand(AddressOf DeleteAction, AddressOf CanDelete)
-            Me.StartSymCommand = New RelayCommand(AddressOf StartSymAction, AddressOf CanStartSym)
-            Me.StopSymCommand = New RelayCommand(AddressOf StopSymAction, AddressOf CanStopSym)
+            Me.StartSimCommand = New RelayCommand(AddressOf StartSimAction, AddressOf CanStartSim)
+            Me.StopSimCommand = New RelayCommand(AddressOf StopSimAction, AddressOf CanStopSim)
         End Sub
 
         Private Sub RaiseAllCanExecuteChanged()
-            StartSymCommand.RaiseCanExecuteChanged()
-            StopSymCommand.RaiseCanExecuteChanged()
+            StartSimCommand.RaiseCanExecuteChanged()
+            StopSimCommand.RaiseCanExecuteChanged()
             SaveCommand.RaiseCanExecuteChanged()
             CancelCommand.RaiseCanExecuteChanged()
             NewCommand.RaiseCanExecuteChanged()
@@ -93,30 +94,40 @@ Namespace ViewModels.Config
                 Me.SelectedPacket IsNot Nothing
         End Function
 
-        Dim SimulationRunning As Boolean
+        Dim SimulationWorker As Task
+        Dim SimulationCancelation As CancellationTokenSource
 
-        Protected Sub StartSymAction()
-            SimulationRunning = True
-            Me.OnSymStarted()
+        Protected Sub StartSimAction()
+            Me.SimulationCancelation = New CancellationTokenSource()
+            Me.SimulationWorker = New Task(AddressOf Me.SimulationBackgroundAction, Me.SimulationCancelation.Token)
+            Me.SimulationWorker.ContinueWith(AddressOf Me.OnSimStopped)
+            Me.SimulationWorker.Start()
+            Me.OnSimStarted()
         End Sub
 
-        Protected Function CanStartSym() As Boolean
+        Private Sub SimulationBackgroundAction(token As CancellationToken)
+            Services.SimulatorService.Test(Lab, token)
+        End Sub
+
+        Protected Function CanStartSim() As Boolean
             Return Packets IsNot Nothing AndAlso
                 Packets.Count > 0 AndAlso
-                Not CanStopSym()
+                Not CanStopSim()
         End Function
 
-        Protected Sub StopSymAction()
-            SimulationRunning = False
-            Me.OnSymStopped()
+        Protected Sub StopSimAction()
+            If Not Me.SimulationCancelation.IsCancellationRequested Then
+                Me.SimulationCancelation.Cancel()
+            End If
         End Sub
 
-        Protected Function CanStopSym() As Boolean
-            Return SimulationRunning
+        Protected Function CanStopSim() As Boolean
+            Return Me.SimulationWorker IsNot Nothing AndAlso
+                Me.SimulationWorker.Status < TaskStatus.RanToCompletion
         End Function
 
         Protected Function CanManagePackets() As Boolean
-            Return Not CanStopSym()
+            Return Not CanStopSim()
         End Function
 
 #End Region
@@ -233,11 +244,11 @@ Namespace ViewModels.Config
             Me.SaveCommand.RaiseCanExecuteChanged()
         End Sub
 
-        Protected Overridable Sub OnSymStarted()
+        Protected Overridable Sub OnSimStarted()
             RaiseAllCanExecuteChanged()
         End Sub
 
-        Protected Overridable Sub OnSymStopped()
+        Protected Overridable Sub OnSimStopped()
             RaiseAllCanExecuteChanged()
         End Sub
 #End Region

@@ -95,8 +95,8 @@
 				<Button Margin="4" Content="Usuń" Command="{Binding DefaultViewModel.DeleteCommand, ElementName=pageRoot}"/>
 			</StackPanel>
 			<StackPanel Grid.ColumnSpan="2" Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-				<Button Margin="4" Content="Rozpocznij symulacji" Command="{Binding DefaultViewModel.StartSymCommand, ElementName=pageRoot}"/>
-				<Button Margin="4" Content="Zatrzymaj symulacje" Command="{Binding DefaultViewModel.StopSymCommand, ElementName=pageRoot}"/>
+				<Button Margin="4" Content="Rozpocznij symulacji" Command="{Binding DefaultViewModel.StartSimCommand, ElementName=pageRoot}"/>
+				<Button Margin="4" Content="Zatrzymaj symulacje" Command="{Binding DefaultViewModel.StopSimCommand, ElementName=pageRoot}"/>
 			</StackPanel>
 		</Grid>
 	</Grid>
