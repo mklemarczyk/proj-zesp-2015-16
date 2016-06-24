@@ -5,9 +5,9 @@ VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetEduApp.Console", "NetEduApp.Console\NetEduApp.Console.csproj", "{65E97C6A-550E-4D36-8593-70E615F0901B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetEduApp.Emulators", "NetEduApp.Emulators\NetEduApp.Emulators.csproj", "{B9D2B18F-1A38-42F8-8608-42AC6C0FA3F6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetEduApp.Simulator", "NetEduApp.Simulator\NetEduApp.Simulator.csproj", "{B9D2B18F-1A38-42F8-8608-42AC6C0FA3F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetEduApp.Emulators.Tests", "NetEduApp.Emulators.Tests\NetEduApp.Emulators.Tests.csproj", "{96033631-BD55-41EB-8262-C8464AE8CA3C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetEduApp.Simulator.Tests", "NetEduApp.Simulator.Tests\NetEduApp.Simulator.Tests.csproj", "{96033631-BD55-41EB-8262-C8464AE8CA3C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

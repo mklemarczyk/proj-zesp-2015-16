@@ -54,7 +54,7 @@
                         AutomationProperties.Name="Back"
                         AutomationProperties.AutomationId="BackButton"
                         AutomationProperties.ItemType="Navigation Button"/>
-					<TextBlock x:Name="pageTitle" Text="{StaticResource AppName}" Style="{StaticResource HeaderTextBlockStyle}" Grid.Column="1" 
+                    <TextBlock x:Uid="PageTitle" x:Name="pageTitle" Text="{StaticResource AppName}" Style="{StaticResource HeaderTextBlockStyle}" Grid.Column="1" 
                         VerticalAlignment="Top" IsHitTestVisible="false" TextWrapping="NoWrap" />
 				</Grid>
 			</Hub.Header>
@@ -64,7 +64,7 @@
                 </HubSection.Background>
 				<DataTemplate>
 					<StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" HorizontalAlignment="Center" VerticalAlignment="Center">
-						<Button Content="Przejdź do symulatora" Command="{Binding GoToSimulator}" FontSize="{ThemeResource HubSectionHeaderThemeFontSize}"/>
+						<Button x:Name="LaunchSimulator" Content="Przejdź do symulatora" Command="{Binding GoToSimulator}" FontSize="{ThemeResource HubSectionHeaderThemeFontSize}"/>
 					</StackPanel>
 				</DataTemplate>
             </HubSection>

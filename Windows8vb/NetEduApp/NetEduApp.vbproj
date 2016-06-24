@@ -131,6 +131,9 @@
     <Compile Include="Views\Config\InterfacesConfig.xaml.vb">
       <DependentUpon>InterfacesConfig.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Config\TraficConfig.xaml.vb">
+      <DependentUpon>TraficConfig.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Config\RoutingConfig.xaml.vb">
       <DependentUpon>RoutingConfig.xaml</DependentUpon>
     </Compile>
@@ -160,10 +163,14 @@
     <Content Include="Assets\Devices\router.jpg" />
     <Content Include="Assets\Devices\skretka.jpg" />
     <Content Include="Assets\Devices\switch.jpg" />
+    <Content Include="Assets\FileIcon.png" />
     <Content Include="Assets\HubBackground.png" />
-    <Content Include="Assets\SampleData.json" />
+    <Content Include="Assets\ArticleData.json" />
     <None Include="NetEduApp_TemporaryKey.pfx" />
     <None Include="Package.StoreAssociation.xml" />
+    <PRIResource Include="Strings\en-US\Resources.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
     <PRIResource Include="Strings\pl-PL\Resources.resw">
       <SubType>Designer</SubType>
     </PRIResource>
@@ -198,6 +205,10 @@
     <Page Include="Views\Config\InterfacesConfig.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Config\TraficConfig.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Config\RoutingConfig.xaml">
       <SubType>Designer</SubType>
@@ -253,9 +264,9 @@
     <Import Include="Windows.UI.Xaml.Navigation" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Shared\NetEduApp.Emulators\NetEduApp.Emulators.csproj">
+    <ProjectReference Include="..\..\Shared\NetEduApp.Simulator\NetEduApp.Simulator.csproj">
       <Project>{b9d2b18f-1a38-42f8-8608-42ac6c0fa3f6}</Project>
-      <Name>NetEduApp.Emulators</Name>
+      <Name>NetEduApp.Simulator</Name>
     </ProjectReference>
     <ProjectReference Include="..\NetEduApp.Model\NetEduApp.Model.vbproj">
       <Project>{f697072b-4aa2-4bc2-acf6-c339fac22091}</Project>

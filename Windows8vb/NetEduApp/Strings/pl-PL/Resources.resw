@@ -117,7 +117,56 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DescriptionHeader.Text" xml:space="preserve">
-    <value>Treść:</value>
+  <data name="AddDevice.Label" xml:space="preserve">
+    <value>Dodaj</value>
+    <comment>AppBarButton</comment>
+  </data>
+  <data name="AddEthernetLink.Text" xml:space="preserve">
+    <value>Przewód Ethernet</value>
+    <comment>MenuFlyoutItem</comment>
+  </data>
+  <data name="AddHub.Text" xml:space="preserve">
+    <value>Hub</value>
+    <comment>MenuFlyoutItem</comment>
+  </data>
+  <data name="AddLink.Label" xml:space="preserve">
+    <value>Połącz</value>
+    <comment>AppBarButton</comment>
+  </data>
+  <data name="AddPc.Text" xml:space="preserve">
+    <value>Komputer</value>
+    <comment>MenuFlyoutItem</comment>
+  </data>
+  <data name="AddRouter.Text" xml:space="preserve">
+    <value>Router</value>
+    <comment>MenuFlyoutItem</comment>
+  </data>
+  <data name="EditDevie.Label" xml:space="preserve">
+    <value>Ustawienia</value>
+    <comment>AppBarButton</comment>
+  </data>
+  <data name="LaunchSimulator.Content" xml:space="preserve">
+    <value>Przejdź do symulatora</value>
+    <comment>Button</comment>
+  </data>
+  <data name="LoadFile.Label" xml:space="preserve">
+    <value>Wczytaj</value>
+    <comment>AppBarButton</comment>
+  </data>
+  <data name="PageTitle.Text" xml:space="preserve">
+    <value>Symulator sieci komputerowej</value>
+    <comment>TextBlock</comment>
+  </data>
+  <data name="RemoveDevice.Label" xml:space="preserve">
+    <value>Usuń</value>
+    <comment>AppBarButton</comment>
+  </data>
+  <data name="SaveFile.Label" xml:space="preserve">
+    <value>Zapisz</value>
+    <comment>AppBarButton</comment>
+  </data>
+  <data name="TestPackets.Label" xml:space="preserve">
+    <value>Wyślij pakiet</value>
+    <comment>AppBarButton</comment>
   </data>
 </root>

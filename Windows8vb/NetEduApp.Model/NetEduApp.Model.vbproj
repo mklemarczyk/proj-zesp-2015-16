@@ -121,13 +121,16 @@
     <Compile Include="Common\RelayCommand.vb" />
     <Compile Include="Common\SuspensionManager.vb" />
     <Compile Include="Common\ViewModelBase.vb" />
-    <Compile Include="DataModel\SampleDataSource.vb" />
+    <Compile Include="DataModel\ArticleDataSource.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="Services\ExportService.vb" />
+    <Compile Include="Services\NotificationService.vb" />
+    <Compile Include="Services\SimulatorService.vb" />
     <Compile Include="ViewModels\Config\ConfigMenuViewModel.vb" />
     <Compile Include="ViewModels\Config\ConfigViewModelBase.vb" />
     <Compile Include="ViewModels\Config\GeneralConfigViewModel.vb" />
     <Compile Include="ViewModels\Config\InterfacesConfigViewModel.vb" />
+    <Compile Include="ViewModels\Config\TraficConfigViewModel.vb" />
     <Compile Include="ViewModels\Config\RoutingConfigViewModel.vb" />
     <Compile Include="ViewModels\Devices\ComputerViewModel.vb" />
     <Compile Include="ViewModels\Devices\DeviceViewModel.vb" />
@@ -139,6 +142,7 @@
     <Compile Include="ViewModels\Laboratory.vb" />
     <Compile Include="ViewModels\LinkViewModel.vb" />
     <Compile Include="ViewModels\NetworkViewModel.vb" />
+    <Compile Include="ViewModels\PacketViewModel.vb" />
     <Compile Include="ViewModels\RouteViewModel.vb" />
   </ItemGroup>
   <ItemGroup>
@@ -172,9 +176,9 @@
     <Import Include="Windows.UI.Xaml.Navigation" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Shared\NetEduApp.Emulators\NetEduApp.Emulators.csproj">
+    <ProjectReference Include="..\..\Shared\NetEduApp.Simulator\NetEduApp.Simulator.csproj">
       <Project>{b9d2b18f-1a38-42f8-8608-42ac6c0fa3f6}</Project>
-      <Name>NetEduApp.Emulators</Name>
+      <Name>NetEduApp.Simulator</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">

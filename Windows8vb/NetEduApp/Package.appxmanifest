@@ -18,6 +18,18 @@
       <m2:VisualElements DisplayName="Symulator sieci komputerowej" Square150x150Logo="Assets\Logo.png" Square30x30Logo="Assets\SmallLogo.png" Description="Symulator sieci komputerowej" ForegroundText="light" BackgroundColor="#464646">
         <m2:SplashScreen Image="Assets\SplashScreen.png" />
       </m2:VisualElements>
+      <Extensions>
+        <Extension Category="windows.fileTypeAssociation" EntryPoint="NetEduApp.App">
+          <FileTypeAssociation Name="netproj" m2:DesiredView="default">
+            <DisplayName>Projekt sieci</DisplayName>
+            <Logo>Assets\FileIcon.png</Logo>
+            <EditFlags OpenIsSafe="true" />
+            <SupportedFileTypes>
+              <FileType ContentType="application/json">.netproj</FileType>
+            </SupportedFileTypes>
+          </FileTypeAssociation>
+        </Extension>
+      </Extensions>
     </Application>
   </Applications>
   <Capabilities>

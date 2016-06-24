@@ -1,4 +1,4 @@
-﻿Imports NetEduApp.Emulators.Network
+﻿Imports NetEduApp.Simulator
 Imports NetEduApp.Model.Common
 Imports Windows.UI
 

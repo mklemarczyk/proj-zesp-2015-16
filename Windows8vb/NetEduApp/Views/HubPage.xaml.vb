@@ -49,7 +49,7 @@ Public NotInheritable Class HubPage
     ''' session.  The state will be null the first time a page is visited.</param>
     Private Async Sub NavigationHelper_LoadState(sender As Object, e As Model.Common.LoadStateEventArgs)
         ' TODO: Assign a collection of bindable groups to Me.DefaultViewModel("Groups")
-        Dim groups As IEnumerable(Of Model.Data.SampleDataGroup) = Await Model.Data.SampleDataSource.GetGroupsAsync()
+        Dim groups As IEnumerable(Of Model.Data.ArticleDataGroup) = Await Model.Data.ArticleDataSource.GetGroupsAsync()
         Me.DefaultViewModel("Groups") = groups
 
         Me.DefaultViewModel("GoToSimulator") = New Model.Common.RelayCommand(Sub()
@@ -67,7 +67,7 @@ Public NotInheritable Class HubPage
 
         ' Navigate to the appropriate destination page, configuring the new page
         ' by passing required information as a navigation parameter
-        Dim itemId As String = DirectCast(e.ClickedItem, Model.Data.SampleDataItem).UniqueId
+        Dim itemId As String = DirectCast(e.ClickedItem, Model.Data.ArticleDataItem).UniqueId
         Me.Frame.Navigate(GetType(ItemPage), itemId)
     End Sub
 
@@ -79,7 +79,7 @@ Public NotInheritable Class HubPage
     Private Sub Hub_SectionHeaderClick(sender As Object, e As HubSectionHeaderClickEventArgs)
         Dim section As HubSection = e.Section
         Dim group As Object = section.DataContext
-        Me.Frame.Navigate(GetType(SectionPage), DirectCast(group, Model.Data.SampleDataGroup).UniqueId)
+        Me.Frame.Navigate(GetType(SectionPage), DirectCast(group, Model.Data.ArticleDataGroup).UniqueId)
     End Sub
 
 #Region "NavigationHelper registration"

@@ -1,6 +1,8 @@
 ﻿Imports NetEduApp.Views.Config
 Imports Windows.UI.Input
 Imports NetEduApp.Common
+Imports NetEduApp.Model
+Imports NetEduApp.Model.Services
 ' The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234237
 
 ''' <summary>
@@ -10,33 +12,33 @@ Public NotInheritable Class NetworkLabPage
 	Inherits Page
 
 #Region "Navigation"
-    ''' <summary>
-    ''' NavigationHelper is used on each page to aid in navigation and 
-    ''' process lifetime management
-    ''' </summary>
-    Public ReadOnly Property NavigationHelper As Model.Common.NavigationHelper
-        Get
-            Return Me._navigationHelper
-        End Get
-    End Property
-    Private _navigationHelper As Model.Common.NavigationHelper
+	''' <summary>
+	''' NavigationHelper is used on each page to aid in navigation and 
+	''' process lifetime management
+	''' </summary>
+	Public ReadOnly Property NavigationHelper As Model.Common.NavigationHelper
+		Get
+			Return Me._navigationHelper
+		End Get
+	End Property
+	Private _navigationHelper As Model.Common.NavigationHelper
 
     ''' <summary>
     ''' This can be changed to a strongly typed view model.
     ''' </summary>
     Public ReadOnly Property DefaultViewModel As Model.ViewModels.NetworkViewModel
-        Get
-            Return Me._defaultViewModel
-        End Get
-    End Property
-    Private _defaultViewModel As New Model.ViewModels.NetworkViewModel()
+		Get
+			Return Me._defaultViewModel
+		End Get
+	End Property
+	Private _defaultViewModel As New Model.ViewModels.NetworkViewModel()
 
-    Public Sub New()
+	Public Sub New()
 		InitializeComponent()
-        Me._navigationHelper = New Model.Common.NavigationHelper(Me)
-        AddHandler Me._navigationHelper.LoadState, AddressOf NavigationHelper_LoadState
-        AddHandler Me._navigationHelper.SaveState, AddressOf NavigationHelper_SaveState
-    End Sub
+		Me._navigationHelper = New Model.Common.NavigationHelper(Me)
+		AddHandler Me._navigationHelper.LoadState, AddressOf NavigationHelper_LoadState
+		AddHandler Me._navigationHelper.SaveState, AddressOf NavigationHelper_SaveState
+	End Sub
 
     ''' <summary>
     ''' Populates the page with content passed during navigation.  Any saved state is also
@@ -50,8 +52,13 @@ Public NotInheritable Class NetworkLabPage
     ''' a dictionary of state preserved by this page during an earlier
     ''' session.  The state will be null the first time a page is visited.</param>
     Private Sub NavigationHelper_LoadState(sender As Object, e As Model.Common.LoadStateEventArgs)
-
-    End Sub
+		If e.NavigationParameter IsNot Nothing Then
+			If ExportService.File IsNot Nothing Then
+				DefaultViewModel.Lab = ExportService.File
+				ExportService.File = Nothing
+			End If
+		End If
+	End Sub
 
     ''' <summary>
     ''' Preserves state associated with this page in case the application is suspended or the
@@ -65,7 +72,7 @@ Public NotInheritable Class NetworkLabPage
     ''' serializable state.</param>
     Private Sub NavigationHelper_SaveState(sender As Object, e As Model.Common.SaveStateEventArgs)
 
-    End Sub
+	End Sub
 
 #Region "NavigationHelper registration"
 
@@ -89,11 +96,11 @@ Public NotInheritable Class NetworkLabPage
 #End Region
 #End Region
 
-    Private Sub TextBlock_DoubleTapped(sender As Object, e As DoubleTappedRoutedEventArgs)
+	Private Sub TextBlock_DoubleTapped(sender As Object, e As DoubleTappedRoutedEventArgs)
 
-    End Sub
+	End Sub
 
-    Private Sub Page_Drop(sender As Object, e As DragEventArgs)
+	Private Sub Page_Drop(sender As Object, e As DragEventArgs)
         'Dim items = Await e.DataView.GetStorageItemsAsync()
         'If items.Count > 0 Then
         '    Dim storageFile = CType(items(0), StorageFile)
@@ -119,11 +126,24 @@ Public NotInheritable Class NetworkLabPage
         If prop IsNot Nothing Then
             If args.NewValue IsNot Nothing Then
                 prop.Visibility = Visibility.Visible
-				prop.Navigate(GetType(ConfigMenu))
-				prop.BackStack.Clear()
-			Else
+                prop.Navigate(GetType(ConfigMenu))
+                prop.BackStack.Clear()
+            Else
                 prop.Visibility = Visibility.Collapsed
             End If
         End If
     End Sub
+
+    Private Sub propTest_DataContextChanged(sender As FrameworkElement, args As DataContextChangedEventArgs)
+        If propTest IsNot Nothing Then
+            If args.NewValue IsNot Nothing Then
+                propTest.Visibility = Visibility.Visible
+                propTest.Navigate(GetType(TraficConfig))
+                propTest.BackStack.Clear()
+            Else
+                propTest.Visibility = Visibility.Collapsed
+            End If
+        End If
+    End Sub
+
 End Class
